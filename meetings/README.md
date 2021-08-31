@@ -17,4 +17,6 @@ What this meeting is about:
 
 ## Meeting Minutes
 
+* [2021-08-27](2021-08-27.md)
 * [2021-08-13](2021-08-13.md)
+
