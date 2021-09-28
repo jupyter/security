@@ -155,6 +155,13 @@ Token-based auth versus password auth
 
 **Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
 
+.. note::
+   By default, a notebook server runs locally at 127.0.0.1:8888
+   and is accessible only from `localhost`. You may access the
+   notebook server from the browser using `http://127.0.0.1:8888`.
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
 .. important::
 
     **This is not the multi-user server you are looking for**. This document
@@ -171,10 +178,114 @@ Token-based auth versus password auth
     the public internet, but doing so introduces additional
     `security concerns <https://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html>`_.
 
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
+Securing a notebook server
+--------------------------
+
+You can protect your notebook server with a simple single password. As of notebook
+5.0 this can be done automatically. To set up a password manually you can configure the
+:attr:`NotebookApp.password` setting in :file:`jupyter_notebook_config.py`.
+
+
+Prerequisite: A notebook configuration file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Check to see if you have a notebook configuration file,
+:file:`jupyter_notebook_config.py`. The default location for this file
+is your Jupyter folder located in your home directory:
+
+    - Windows: :file:`C:\\Users\\USERNAME\\.jupyter\\jupyter_notebook_config.py`
+    - OS X: :file:`/Users/USERNAME/.jupyter/jupyter_notebook_config.py`
+    - Linux: :file:`/home/USERNAME/.jupyter/jupyter_notebook_config.py`
+
+If you don't already have a Jupyter folder, or if your Jupyter folder doesn't contain
+a notebook configuration file, run the following command::
+
+  $ jupyter notebook --generate-config
+
+This command will create the Jupyter folder if necessary, and create notebook
+configuration file, :file:`jupyter_notebook_config.py`, in this folder.
+
+
+Automatic Password setup
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+As of notebook 5.3, the first time you log-in using a token, the notebook server
+should give you the opportunity to setup a password from the user interface.
+
+You will be presented with a form asking for the current _token_, as well as
+your _new_ _password_ ; enter both and click on ``Login and setup new password``.
+
+Next time you need to log in you'll be able to use the new password instead of
+the login token, otherwise follow the procedure to set a password from the
+command line.
+
+The ability to change the password at first login time may be disabled by
+integrations by setting the ``--NotebookApp.allow_password_change=False``
+
+
+Starting at notebook version 5.0, you can enter and store a password for your
+notebook server with a single command. :command:`jupyter notebook password` will
+prompt you for your password and record the hashed password in your
+:file:`jupyter_notebook_config.json`.
+
+.. code-block:: bash
+
+    $ jupyter notebook password
+    Enter password:  ****
+    Verify password: ****
+    [NotebookPasswordApp] Wrote hashed password to /Users/you/.jupyter/jupyter_notebook_config.json
+
+This can be used to reset a lost password; or if you believe your credentials
+have been leaked and desire to change your password. Changing your password will
+invalidate all logged-in sessions after a server restart.
+
+.. _hashed-pw:
+
+Preparing a hashed password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can prepare a hashed password manually, using the function
+:func:`notebook.auth.security.passwd`:
+
+.. code-block:: ipython
+
+    In [1]: from notebook.auth import passwd
+    In [2]: passwd()
+    Enter password:
+    Verify password:
+    Out[2]: 'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'
+
+.. caution::
+
+  :func:`~notebook.auth.security.passwd` when called with no arguments
+  will prompt you to enter and verify your password such as
+  in the above code snippet. Although the function can also
+  be passed a string as an argument such as ``passwd('mypassword')``, please
+  **do not** pass a string as an argument inside an IPython session, as it
+  will be saved in your input history.
+
+Adding hashed password to your notebook configuration file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can then add the hashed password to your
+:file:`jupyter_notebook_config.py`. The default location for this file
+:file:`jupyter_notebook_config.py` is in your Jupyter folder in your home
+directory, ``~/.jupyter``, e.g.::
+
+    c.NotebookApp.password = u'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'
+
+Automatic password setup will store the hash in ``jupyter_notebook_config.json``
+while this method stores the hash in ``jupyter_notebook_config.py``. The ``.json``
+configuration options take precedence over the ``.py`` one, thus the manual
+password may not take effect if the Json file has a password set.
+
+
 **Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
 
 Using SSL for encrypted communication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 When using a password, it is a good idea to also use SSL with a web
 certificate, so that your hashed password is not sent unencrypted by your
 browser.
@@ -210,6 +321,100 @@ public server.
 
 .. _OWASP: https://www.owasp.org
 .. _tutorial: https://arstechnica.com/information-technology/2009/12/how-to-get-set-with-a-secure-sertificate-for-free/
+
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
+If you want to access your notebook server remotely via a web browser,
+you can do so by running a public notebook server. For optimal security
+when running a public notebook server, you should first secure the
+server with a password and SSL/HTTPS as described in
+:ref:`notebook_server_security`.
+
+Start by creating a certificate file and a hashed password, as explained in
+:ref:`notebook_server_security`.
+
+If you don't already have one, create a
+config file for the notebook using the following command line::
+
+  $ jupyter notebook --generate-config
+
+In the ``~/.jupyter`` directory, edit the notebook config file,
+``jupyter_notebook_config.py``.  By default, the notebook config file has
+all fields commented out. The minimum set of configuration options that
+you should uncomment and edit in :file:`jupyter_notebook_config.py` is the
+following::
+
+     # Set options for certfile, ip, password, and toggle off
+     # browser auto-opening
+     c.NotebookApp.certfile = u'/absolute/path/to/your/certificate/mycert.pem'
+     c.NotebookApp.keyfile = u'/absolute/path/to/your/certificate/mykey.key'
+     # Set ip to '*' to bind on all interfaces (ips) for the public server
+     c.NotebookApp.ip = '*'
+     c.NotebookApp.password = u'sha1:bcd259ccf...<your hashed password here>'
+     c.NotebookApp.open_browser = False
+
+     # It is a good idea to set a known, fixed port for server access
+     c.NotebookApp.port = 9999
+
+You can then start the notebook using the ``jupyter notebook`` command.
+
+.. _using-lets-encrypt:
+
+Using Let's Encrypt
+~~~~~~~~~~~~~~~~~~~
+`Let's Encrypt`_ provides free SSL/TLS certificates. You can also set up a
+public server using a `Let's Encrypt`_ certificate.
+
+:ref:`notebook_public_server` will be similar when using a Let's Encrypt
+certificate with a few configuration changes. Here are the steps:
+
+1. Create a `Let's Encrypt certificate <https://letsencrypt.org/getting-started/>`_.
+2. Use :ref:`hashed-pw` to create one.
+3. If you don't already have config file for the notebook, create one
+   using the following command:
+
+   .. code-block:: bash
+
+       $ jupyter notebook --generate-config
+
+4. In the ``~/.jupyter`` directory, edit the notebook config file,
+``jupyter_notebook_config.py``.  By default, the notebook config file has
+all fields commented out. The minimum set of configuration options that
+you should to uncomment and edit in :file:`jupyter_notebook_config.py` is the
+following::
+
+     # Set options for certfile, ip, password, and toggle off
+     # browser auto-opening
+     c.NotebookApp.certfile = u'/absolute/path/to/your/certificate/fullchain.pem'
+     c.NotebookApp.keyfile = u'/absolute/path/to/your/certificate/privkey.pem'
+     # Set ip to '*' to bind on all interfaces (ips) for the public server
+     c.NotebookApp.ip = '*'
+     c.NotebookApp.password = u'sha1:bcd259ccf...<your hashed password here>'
+     c.NotebookApp.open_browser = False
+
+     # It is a good idea to set a known, fixed port for server access
+     c.NotebookApp.port = 9999
+
+You can then start the notebook using the ``jupyter notebook`` command.
+
+.. important::
+
+    **Use 'https'.**
+    Keep in mind that when you enable SSL support, you must access the
+    notebook server over ``https://``, not over plain ``http://``.  The startup
+    message from the server prints a reminder in the console, but *it is easy
+    to overlook this detail and think the server is for some reason
+    non-responsive*.
+
+    **When using SSL, always access the notebook server with 'https://'.**
+
+You may now access the public server by pointing your browser to
+``https://your.host.com:9999`` where ``your.host.com`` is your public server's
+domain.
+
+.. _`Let's Encrypt`: https://letsencrypt.org
+
 
 Running on a Multi-User Machine
 ================================
