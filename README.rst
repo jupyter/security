@@ -1,5 +1,6 @@
 Notebook File Security Model
 =============================
+
 **Section below from *Security in notebook documents*** (nested under Security in the Jupyter notebook server, but separate on the navigation) - https://jupyter-notebook.readthedocs.io/en/stable/security.html#security-in-notebook-documents
 
 Security in notebook documents
@@ -89,15 +90,6 @@ long time. Users can explicitly trust a notebook in two ways:
 These two methods simply load the notebook, compute a new signature, and add
 that signature to the user's database.
 
-Reporting security issues
--------------------------
-
-If you find a security vulnerability in Jupyter, either a failure of the
-code to properly implement the model described here, or a failure of the
-model itself, please report it to security@ipython.org.
-
-If you prefer to encrypt your security reports,
-you can use :download:`this PGP public key <ipython_security.asc>`.
 
 Affected use cases
 ------------------
@@ -156,3 +148,15 @@ Running on a Multi-User Machine
 
 Reporting Vulnerabilities
 ==========================
+
+**Section below from *Security in notebook documents*** (nested under Security in the Jupyter notebook server, but separate on the navigation) - https://jupyter-notebook.readthedocs.io/en/stable/security.html#security-in-notebook-documents
+
+Reporting security issues
+-------------------------
+
+If you find a security vulnerability in Jupyter, either a failure of the
+code to properly implement the model described here, or a failure of the
+model itself, please report it to security@ipython.org.
+
+If you prefer to encrypt your security reports,
+you can use :download:`this PGP public key <ipython_security.asc>`.
