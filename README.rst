@@ -140,11 +140,114 @@ essentially). We are aware that SQLite doesn't work well on NFS and we are
 Personal Machine, Accessed Locally
 ===================================
 
+- TODO - Installing as root as opposed to user
+
 Personal Machine, Accessed Remotely
 ====================================
 
+- TODO - Statement about securing machine in general
+- TODO - Statement about not using default settings
+
+Communication between the web browser and the notebook server
+Unencrypted by default
+Once enabling SSL, uses self-signed cert
+Token-based auth versus password auth
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
+.. important::
+
+    **This is not the multi-user server you are looking for**. This document
+    describes how you can run a public server with a single user. This should
+    only be done by someone who wants remote access to their personal machine.
+    Even so, doing this requires a thorough understanding of the set-ups
+    limitations and security implications. If you allow multiple users to
+    access a notebook server as it is described in this document, their
+    commands may collide, clobber and overwrite each other.
+
+    If you want a multi-user server, the official solution is  JupyterHub_.
+    To use JupyterHub, you need a Unix server (typically Linux) running
+    somewhere that is accessible to your users on a network. This may run over
+    the public internet, but doing so introduces additional
+    `security concerns <https://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html>`_.
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
+Using SSL for encrypted communication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When using a password, it is a good idea to also use SSL with a web
+certificate, so that your hashed password is not sent unencrypted by your
+browser.
+
+.. important::
+   Web security is rapidly changing and evolving. We provide this document
+   as a convenience to the user, and recommend that the user keep current on
+   changes that may impact security, such as new releases of OpenSSL.
+   The Open Web Application Security Project (`OWASP`_) website is a good resource
+   on general security issues and web practices.
+
+You can start the notebook to communicate via a secure protocol mode by setting
+the ``certfile`` option to your self-signed certificate, i.e. ``mycert.pem``,
+with the command::
+
+    $ jupyter notebook --certfile=mycert.pem --keyfile mykey.key
+
+.. tip::
+
+    A self-signed certificate can be generated with ``openssl``.  For example,
+    the following command will create a certificate valid for 365 days with
+    both the key and certificate data written to the same file::
+
+        $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.pem
+
+When starting the notebook server, your browser may warn that your self-signed
+certificate is insecure or unrecognized.  If you wish to have a fully
+compliant self-signed certificate that will not raise warnings, it is possible
+(but rather involved) to create one, as explained in detail in this
+`tutorial`_. Alternatively, you may use `Let's Encrypt`_ to acquire a free SSL
+certificate and follow the steps in :ref:`using-lets-encrypt` to set up a
+public server.
+
+.. _OWASP: https://www.owasp.org
+.. _tutorial: https://arstechnica.com/information-technology/2009/12/how-to-get-set-with-a-secure-sertificate-for-free/
+
 Running on a Multi-User Machine
 ================================
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
+.. important::
+
+    **This is not the multi-user server you are looking for**. This document
+    describes how you can run a public server with a single user. This should
+    only be done by someone who wants remote access to their personal machine.
+    Even so, doing this requires a thorough understanding of the set-ups
+    limitations and security implications. If you allow multiple users to
+    access a notebook server as it is described in this document, their
+    commands may collide, clobber and overwrite each other.
+
+    If you want a multi-user server, the official solution is  JupyterHub_.
+    To use JupyterHub, you need a Unix server (typically Linux) running
+    somewhere that is accessible to your users on a network. This may run over
+    the public internet, but doing so introduces additional
+    `security concerns <https://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html>`_.
+
+**Section below from *[JupyterHub] Security Overview: Encrypt internal communications with SSL/TLS*** - https://jupyterhub.readthedocs.io/en/stable/reference/websecurity.html#encrypt-internal-connections-with-ssl-tls
+
+By default, all communication on the server, between the proxy, hub, and single
+-user notebooks is performed unencrypted. Setting the `internal_ssl` flag in
+`jupyterhub_config.py` secures the aforementioned routes. Turning this
+feature on does require that the enabled `Spawner` can use the certificates
+generated by the `Hub` (the default `LocalProcessSpawner` can, for instance).
+
+It is also important to note that this encryption **does not** (yet) cover the
+`zmq tcp` sockets between the Notebook client and kernel. While users cannot
+submit arbitrary commands to another user's kernel, they can bind to these
+sockets and listen. When serving untrusted users, this eavesdropping can be
+mitigated by setting `KernelManager.transport` to `ipc`. This applies standard
+Unix permissions to the communication sockets thereby restricting
+communication to the socket owner. The `internal_ssl` option will eventually
+extend to securing the `tcp` sockets as well.
 
 Reporting Vulnerabilities
 ==========================
