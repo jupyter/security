@@ -323,6 +323,12 @@ public server.
 .. _tutorial: https://arstechnica.com/information-technology/2009/12/how-to-get-set-with-a-secure-sertificate-for-free/
 
 
+**Section below from *The Jupyter Notebook*** -  https://jupyter-notebook.readthedocs.io/en/stable/notebook.html
+
+Using Safari with HTTPS and an untrusted certificate is known to not work
+(websockets will fail).
+
+
 **Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
 
 If you want to access your notebook server remotely via a web browser,
