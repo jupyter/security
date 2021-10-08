@@ -98,7 +98,7 @@ A few project s use custom mailing lists
 
 For the following I was not able to find how to contact.
 
-- Nteract ??
+- Nteract https://github.com/nteract/nteract/security/policy
 - Stan ??
 - Jump ??
 - Pytables ??
