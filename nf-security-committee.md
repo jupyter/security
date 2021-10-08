@@ -1,6 +1,6 @@
 # Security Subcommittee for Numfocus
 
-While NumFOCUS and all it's affiliated and sponsored project are focused on
+Typically, NumFOCUS and all its affiliated and sponsored projects are focused on
 community and strive to communicate in public.
 
 Security in contrast often requires private communication, and timely responses,
