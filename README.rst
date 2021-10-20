@@ -1,6 +1,3 @@
-Notebook File Security Model
-=============================
-
 **Section below from *Security in notebook documents*** (nested under Security in the Jupyter notebook server, but separate on the navigation) - https://jupyter-notebook.readthedocs.io/en/stable/security.html#security-in-notebook-documents
 
 Security in notebook documents
@@ -103,7 +100,7 @@ Javascript and CSS in Markdown cells
 
 While never officially supported, it had become common practice to put
 hidden Javascript or CSS styling in Markdown cells, so that they would
-not be visible on the page. Since Markdown cells are now sanitized (by
+not be visible on the page but would change the page behavior or rendering. Since Markdown cells are now sanitized (by
 `Google Caja <https://developers.google.com/caja>`__), all Javascript
 (including click event handlers, etc.) and CSS will be stripped.
 
@@ -138,29 +135,38 @@ essentially). We are aware that SQLite doesn't work well on NFS and we are
 `working out better ways to do this <https://github.com/jupyter/notebook/issues/1782>`_.
 
 Personal Machine, Accessed Locally
-===================================
+==================================
 
 - TODO - Installing as root as opposed to user
+
+
 
 Personal Machine, Accessed Remotely
 ====================================
 
-- TODO - Statement about securing machine in general
-- TODO - Statement about not using default settings
-
-Communication between the web browser and the notebook server
-Unencrypted by default
-Once enabling SSL, uses self-signed cert
-Token-based auth versus password auth
-
-**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
 
 .. note::
    By default, a notebook server runs locally at 127.0.0.1:8888
    and is accessible only from `localhost`. You may access the
    notebook server from the browser using `http://127.0.0.1:8888`.
 
-**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+General Computer Security
+*************************
+
+Remote Access and Firewall Settings
+***********************************
+
+
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
+
+.. note::
+   By default, a notebook server runs locally at 127.0.0.1:8888
+   and is accessible only from `localhost`. You may access the
+   notebook server from the browser using `http://127.0.0.1:8888`.
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
 
 .. important::
 
@@ -178,8 +184,32 @@ Token-based auth versus password auth
     the public internet, but doing so introduces additional
     `security concerns <https://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html>`_.
 
+Trade-offs with Remote Access
+=============================
 
-**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
+Configuration for Secure Remote Access
+======================================
+
+
+.. important::
+   Web security is rapidly changing and evolving. We provide this document
+   as a convenience to the user, and recommend that the user keep current on
+   changes that may impact security, such as new releases of OpenSSL.
+   The Open Web Application Security Project (`OWASP`_) website is a good resource
+   on general security issues and web practices.
+
+.. _OWASP: https://www.owasp.org
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
+
+Setting a Notebook Password
+---------------------------
+
+Automatic Password Setup in Browser
+***********************************
+
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
 
 Securing a notebook server
 --------------------------
@@ -225,6 +255,8 @@ command line.
 The ability to change the password at first login time may be disabled by
 integrations by setting the ``--NotebookApp.allow_password_change=False``
 
+Automatic Password Setup on Command Line
+****************************************
 
 Starting at notebook version 5.0, you can enter and store a password for your
 notebook server with a single command. :command:`jupyter notebook password` will
@@ -242,6 +274,8 @@ This can be used to reset a lost password; or if you believe your credentials
 have been leaked and desire to change your password. Changing your password will
 invalidate all logged-in sessions after a server restart.
 
+Manual Password Setup
+*********************
 .. _hashed-pw:
 
 Preparing a hashed password
@@ -282,26 +316,35 @@ configuration options take precedence over the ``.py`` one, thus the manual
 password may not take effect if the Json file has a password set.
 
 
-**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
-
 Using SSL for encrypted communication
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 When using a password, it is a good idea to also use SSL with a web
 certificate, so that your hashed password is not sent unencrypted by your
 browser.
 
-.. important::
-   Web security is rapidly changing and evolving. We provide this document
-   as a convenience to the user, and recommend that the user keep current on
-   changes that may impact security, such as new releases of OpenSSL.
-   The Open Web Application Security Project (`OWASP`_) website is a good resource
-   on general security issues and web practices.
-
 You can start the notebook to communicate via a secure protocol mode by setting
 the ``certfile`` option to your self-signed certificate, i.e. ``mycert.pem``,
 with the command::
 
     $ jupyter notebook --certfile=mycert.pem --keyfile mykey.key
+
+
+**Section below from *Running a Notebook Server, Let’s Encrypt section*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
+
+.. important::
+
+    **Use 'https'.**
+    Keep in mind that when you enable SSL support, you must access the
+    notebook server over ``https://``, not over plain ``http://``.  The startup
+    message from the server prints a reminder in the console, but *it is easy
+    to overlook this detail and think the server is for some reason
+    non-responsive*.
+
+    **When using SSL, always access the notebook server with 'https://'.**
+
+.. _tutorial: https://arstechnica.com/information-technology/2009/12/how-to-get-set-with-a-secure-sertificate-for-free/
+Using Self-Signed Certificates
+******************************
 
 .. tip::
 
@@ -319,9 +362,6 @@ compliant self-signed certificate that will not raise warnings, it is possible
 certificate and follow the steps in :ref:`using-lets-encrypt` to set up a
 public server.
 
-.. _OWASP: https://www.owasp.org
-.. _tutorial: https://arstechnica.com/information-technology/2009/12/how-to-get-set-with-a-secure-sertificate-for-free/
-
 
 **Section below from *The Jupyter Notebook*** -  https://jupyter-notebook.readthedocs.io/en/stable/notebook.html
 
@@ -329,46 +369,10 @@ Using Safari with HTTPS and an untrusted certificate is known to not work
 (websockets will fail).
 
 
-**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
-
-If you want to access your notebook server remotely via a web browser,
-you can do so by running a public notebook server. For optimal security
-when running a public notebook server, you should first secure the
-server with a password and SSL/HTTPS as described in
-:ref:`notebook_server_security`.
-
-Start by creating a certificate file and a hashed password, as explained in
-:ref:`notebook_server_security`.
-
-If you don't already have one, create a
-config file for the notebook using the following command line::
-
-  $ jupyter notebook --generate-config
-
-In the ``~/.jupyter`` directory, edit the notebook config file,
-``jupyter_notebook_config.py``.  By default, the notebook config file has
-all fields commented out. The minimum set of configuration options that
-you should uncomment and edit in :file:`jupyter_notebook_config.py` is the
-following::
-
-     # Set options for certfile, ip, password, and toggle off
-     # browser auto-opening
-     c.NotebookApp.certfile = u'/absolute/path/to/your/certificate/mycert.pem'
-     c.NotebookApp.keyfile = u'/absolute/path/to/your/certificate/mykey.key'
-     # Set ip to '*' to bind on all interfaces (ips) for the public server
-     c.NotebookApp.ip = '*'
-     c.NotebookApp.password = u'sha1:bcd259ccf...<your hashed password here>'
-     c.NotebookApp.open_browser = False
-
-     # It is a good idea to set a known, fixed port for server access
-     c.NotebookApp.port = 9999
-
-You can then start the notebook using the ``jupyter notebook`` command.
-
-.. _using-lets-encrypt:
+**Section below from *Running a Notebook Server, Let’s Encrypt section*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
 
 Using Let's Encrypt
-~~~~~~~~~~~~~~~~~~~
+*******************
 `Let's Encrypt`_ provides free SSL/TLS certificates. You can also set up a
 public server using a `Let's Encrypt`_ certificate.
 
@@ -421,11 +425,49 @@ domain.
 
 .. _`Let's Encrypt`: https://letsencrypt.org
 
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
+
+If you want to access your notebook server remotely via a web browser,
+you can do so by running a public notebook server. For optimal security
+when running a public notebook server, you should first secure the
+server with a password and SSL/HTTPS as described in
+:ref:`notebook_server_security`.
+
+Start by creating a certificate file and a hashed password, as explained in
+:ref:`notebook_server_security`.
+
+If you don't already have one, create a
+config file for the notebook using the following command line::
+
+  $ jupyter notebook --generate-config
+
+In the ``~/.jupyter`` directory, edit the notebook config file,
+``jupyter_notebook_config.py``.  By default, the notebook config file has
+all fields commented out. The minimum set of configuration options that
+you should uncomment and edit in :file:`jupyter_notebook_config.py` is the
+following::
+
+     # Set options for certfile, ip, password, and toggle off
+     # browser auto-opening
+     c.NotebookApp.certfile = u'/absolute/path/to/your/certificate/mycert.pem'
+     c.NotebookApp.keyfile = u'/absolute/path/to/your/certificate/mykey.key'
+     # Set ip to '*' to bind on all interfaces (ips) for the public server
+     c.NotebookApp.ip = '*'
+     c.NotebookApp.password = u'sha1:bcd259ccf...<your hashed password here>'
+     c.NotebookApp.open_browser = False
+
+     # It is a good idea to set a known, fixed port for server access
+     c.NotebookApp.port = 9999
+
+You can then start the notebook using the ``jupyter notebook`` command.
+
+.. _using-lets-encrypt:
+
 
 Running on a Multi-User Machine
 ================================
 
-**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+**Section below from *Running a Notebook Server*** - https://jupyter-notebook.readthedocs.io/en/stable/public_server.html 
 
 .. important::
 
@@ -443,7 +485,7 @@ Running on a Multi-User Machine
     the public internet, but doing so introduces additional
     `security concerns <https://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html>`_.
 
-**Section below from *[JupyterHub] Security Overview: Encrypt internal communications with SSL/TLS*** - https://jupyterhub.readthedocs.io/en/stable/reference/websecurity.html#encrypt-internal-connections-with-ssl-tls
+**Section below from *[JupyterHub] Security Overview: Encrypt internal communications with SSL/TLS*** - https://jupyterhub.readthedocs.io/en/stable/reference/websecurity.html#encrypt-internal-connections-with-ssl-tls 
 
 By default, all communication on the server, between the proxy, hub, and single
 -user notebooks is performed unencrypted. Setting the `internal_ssl` flag in
