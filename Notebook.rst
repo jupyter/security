@@ -426,7 +426,7 @@ This port can be identified by looking at the ``iopub`` value in the
 ``.local/share/jupyter/runtime/kernel-*.json`` file.
 
 While users cannot submit arbitrary commands to another user's kernel,
-they can easily bind to thesesockets and listen by using a tool like tcpdump.
+they can easily bind to these sockets and listen by using a tool like tcpdump.
 On a multi-user machine, this eavesdropping can be mitigated by setting
 ``KernelManager.transport`` to ``ipc`` or using ``--transport ipc`` on the
 command line. This switches ZeroMQ to use UNIX domain sockets, which leverages
