@@ -30,11 +30,9 @@ defining security best practices.
 
 We suggest the following 5 members for the initial subcommittee:
 
- - Volunteer 1 (affiliation, subproject if relevant), <email1@mail.com>
- - Volunteer 2 (affiliation, subproject if relevant), <email2@mail.com>
- - Volunteer 3 (affiliation, subproject if relevant), <email3@mail.com>
- - Volunteer 4 (affiliation, subproject if relevant), <email4@mail.com>
- - Volunteer 5 (affiliation, subproject if relevant), <email5@mail.com>
+ - Rick Wagner (UCSD, Jupyter), `rpwagner@ucsd.edu`
+ - Tania Allard (Quansight) `tallard@quansight.com`
+ - Matthias Bussonnier (Quansight Jupyter) `bussonniermatthias@gmail.com`
 
 
 # Current project security process:
@@ -117,20 +115,20 @@ together.
 
 ### Mission
 
-- This subcommittee should have at least 5 members selected by the NF board.
+
+The mission of the committee is to be responsive to security inquiries, and
+coordinate security response with the appropriate projects. 
+
 - This subcommittee should be reachable via `security@numfocus.org`.
-
-The following is expected from the member of this subgroup:
-
-- to acknowledge security questions, concern or vulnerability in a short
-  timeframe (maximum 1 week), and contact the relevant(s) subprojects, or
-  subproject(s) maintainers.
+- The security committee must acknowledge security questions,
+  concern or vulnerability in a short time frame (maximum 1 week),
+  and contact the relevant(s) subprojects, or subproject(s) maintainers.
 
 - for a security vulnerability report: ensuring the reporter get a proper
   response. The response can be directly from the concerned subproject. The
   security subcommittee can directly provide a response if:
 
-    - The subcommittee members have sufficient expertise to provide a response
+    - The subcommittee members have sufficient expertise to provide a response.
     - The subprojects maintainers do not reply to inquiries – in which the
       matter should also be discussed with numfocus board.
 
@@ -139,11 +137,12 @@ The following is expected from the member of this subgroup:
 - Maintain a https://numfocus.org/security.txt text document following standard
   security practices (see https://securitytxt.org/)
 - Maintain a more generic security webpage on https://numfocus.org with relevant
-  information with respect to how to contact the
-  subcommittee.
+  information with respect to how to contact the subcommittee or various
+  projects.
 - Report regularly and privately to the NumFOCUS board to ensure objectives are
   reached.
-
+- Engage in larger effort to promote security best practices for NumFOCUS
+  affiliated and sponsored projects. 
 
 ### Committee Composition
 
@@ -155,7 +154,7 @@ The following is expected from the member of this subgroup:
    NumFOCUS affiliated and sponsored projects.  
 
 2. The security committee should consist of at least 3 members with a 2 years
-   term renewable at maximum once, unless approved by the NumFOCUS board.
+   term renewable at maximum once, more than two terms can be approved by the NumFOCUS board.
 
 3. General Members
     1. Responsibilities:
@@ -188,12 +187,10 @@ The following is expected from the member of this subgroup:
             2. Submits quarterly reports to the board of directors
 ### Meetings
 
-1. The committee should have written communication about the state of security at
-   minimum bi-weekly.
-2. W
-
-
-1. The security committee meets at least monthly.
+1. The security committee meets at least monthly in a non-publicly to discuss
+   current security issues at hand.
+2. The security committee should make efforts to also regularly meet publicly to
+   discuss best practices and
 2. A majority of the committee members shall constitute a quorum.
 
 ### Committee Reports
