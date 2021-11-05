@@ -1,71 +1,11 @@
 # Security Subcommittee for Numfocus
 
-Typically, NumFOCUS and all its affiliated and sponsored projects are focused on
-community and strive to communicate in public.
 
-Security in contrast often requires private communication, and timely responses,
-which is at odds with the typical open-source communication channels. Setting up
-specific communication channels for each subproject can be costly for projects
-in term of time invested for documentation and monitoring, especially for
-subprojects.
-
-The multiple projects and different ways of inquiring about security can make it
-hard for stakeholder to find how to contact the relevant projects; especially
-when a question or vulnerability is related to multiple project interacting
-together.
-
-
-- Discussions about best practices for security in general and at a project
-  level are good to have as a community and in public. People need to be
-  educated and informed about security in a general sense and should be able to
-  find resources they need deploy and run software securely.
-
-- At the same time, developers need to coordinate activity in anticipation of
-  and in response to software issues to do with security, in a time-sensitive
-  fashion, and with discretion (it is just the reality). Each project can do
-  this on its own but the structures needed are basically the same from project
-  to project. In addition, I thought (restating but also expanding a bit maybe):
-
-- Sharing structures (both infrastructure and human resources) for managing
-  security across multiple projects can make it more manageable but also enable
-  better propagation and awareness of issues across a set of projects that are
-  often linked together or may encounter similar issues.
-
-- A common structure may also promote a coherent approach to certain common
-  security issues across projects, and forming strategies around those common
-  issues actually can make running and deploying software securely easier
-  ("these are NumFocus projects and they tend to do things this way...").
 
 
 
 We ask NumFOCUS board for the creation of a security subcommittee.
 
-- This subcommittee should have at least 5 members selected by the NF board.
-- This subcommittee should be reachable via security@numfocus.org.
-
-The following is expected from the member of this subgroup:
-
-- to acknowledge security questions, concern or vulnerability in a short
-  timeframe (maximum 1 week), and contact the relevant(s) subprojects, or
-  subproject(s) maintainers.
-
-- for a security vulnerability report: ensuring the reporter get a proper
-  response. The response can be directly from the concerned subproject. The
-  security subcommittee can directly provide a response if:
-
-    - The subcommittee members have sufficient expertise to provide a response
-    - The subprojects maintainers do not reply to inquiries – in which the
-      matter should also be discussed with numfocus board.
-
-- Ignore any non-security enquiries, warn and ban repeated offender from
-  contacting security@numfocus.org as their discretion.
-- Maintain a https://numfocus.org/security.txt text document following standard
-  security practices (see https://securitytxt.org/)
-- Maintain a more generic security webpage on https://numfocus.org with relevant
-  information with respect to how to contact the
-  subcommittee.
-- Report regularly and privately to the NumFOCUS board to ensure objectives are
-  reached.
 
 
 
@@ -135,32 +75,87 @@ For the following I was not able to find how to contact.
 
 ### NumFOCUS Committee Charter - Template
 
-The ________ Committee is established under Article 5, Sections 1-2 of the NumFOCUS Bylaws.
+The Security Committee is established under Article 5, Sections 1-2 of the NumFOCUS Bylaws.
 
 ### Purpose
 
-Outline why the committee is being created, its objectives/responsibilities, and how it contributes to the mission of NumFOCUS
+Typically, NumFOCUS and all its affiliated and sponsored projects are focused on
+community and strive to communicate in public.
+
+Security in contrast often requires private communication, and timely responses,
+which is at odds with the typical open-source communication channels. Setting up
+specific communication channels for each subproject can be costly for projects
+in term of time invested for documentation and monitoring, especially for
+sub projects.
+
+The multiple projects and different ways of inquiring about security can make it
+hard for stakeholder to find how to contact the relevant projects; especially
+when a question or vulnerability is related to multiple project interacting
+together.
+
+
+- Discussions about best practices for security in general and at a project
+  level are good to have as a community and in public. People need to be
+  educated and informed about security in a general sense and should be able to
+  find resources they need deploy and run software securely.
+
+- At the same time, developers need to coordinate activity in anticipation of
+  and in response to software issues to do with security, in a time-sensitive
+  fashion, and with discretion (it is just the reality). Each project can do
+  this on its own but the structures needed are basically the same from project
+  to project. In addition, I thought (restating but also expanding a bit maybe):
+
+- Sharing structures (both infrastructure and human resources) for managing
+  security across multiple projects can make it more manageable but also enable
+  better propagation and awareness of issues across a set of projects that are
+  often linked together or may encounter similar issues.
+
+- A common structure may also promote a coherent approach to certain common
+  security issues across projects, and forming strategies around those common
+  issues actually can make running and deploying software securely easier
+  ("these are NumFOCUS projects and they tend to do things this way...").
 
 ### Mission
 
-How the purpose will be accomplished - this can be a bulleted list
-Duration/Type of Committee
-    1. Standing committee for ongoing needs
-    2. Working group with a specific duration
-    3. Interest group: a larger group with an interest in discussing a topic or theme
+- This subcommittee should have at least 5 members selected by the NF board.
+- This subcommittee should be reachable via `security@numfocus.org`.
+
+The following is expected from the member of this subgroup:
+
+- to acknowledge security questions, concern or vulnerability in a short
+  timeframe (maximum 1 week), and contact the relevant(s) subprojects, or
+  subproject(s) maintainers.
+
+- for a security vulnerability report: ensuring the reporter get a proper
+  response. The response can be directly from the concerned subproject. The
+  security subcommittee can directly provide a response if:
+
+    - The subcommittee members have sufficient expertise to provide a response
+    - The subprojects maintainers do not reply to inquiries – in which the
+      matter should also be discussed with numfocus board.
+
+- Ignore any non-security enquiries, warn and ban repeated offender from
+  contacting security@numfocus.org as their discretion.
+- Maintain a https://numfocus.org/security.txt text document following standard
+  security practices (see https://securitytxt.org/)
+- Maintain a more generic security webpage on https://numfocus.org with relevant
+  information with respect to how to contact the
+  subcommittee.
+- Report regularly and privately to the NumFOCUS board to ensure objectives are
+  reached.
+
 
 ### Committee Composition
 
 
 
-1. Membership should reflect the NumFOCUS Diversity Statement and our global
-   community - NumFOCUS welcomes and encourages participation in our community
-   by people of all backgrounds and identities. We are committed to promoting
-   and sustaining a culture that values mutual respect, tolerance, and learning,
-   and we work together as a community to help each other live out these values.
+1. The security committee will strive to be open to a wide range of
+   contributors. In particular as it may need to coordinate communication across
+   many projects, it should have representing members for many parts of the
+   NumFOCUS affiliated and sponsored projects.  
 
-2. Committees should consist of at least 2 members serving a 1-2 year term with
-   an option for unlimited renewal
+2. The security committee should consist of at least 3 members with a 2 years
+   term renewable at maximum once, unless approved by the NumFOCUS board.
 
 3. General Members
     1. Responsibilities:
@@ -193,7 +188,12 @@ Duration/Type of Committee
             2. Submits quarterly reports to the board of directors
 ### Meetings
 
-1. Frequency - Established by the committee but it is suggested that committees meet at least weekly or bi-monthly.
+1. The committee should have written communication about the state of security at
+   minimum bi-weekly.
+2. W
+
+
+1. The security committee meets at least monthly.
 2. A majority of the committee members shall constitute a quorum.
 
 ### Committee Reports
