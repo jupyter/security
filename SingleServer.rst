@@ -1,3 +1,13 @@
+About This Document
+===================
+
+This document was created November 2021 as part of a `Trusted CI engagement <https://blog.trustedci.org/2021/08/engagement-with-jupyter.html>`_.
+The intent was to review existing documentation for single-server JupyterHub
+deployments with a focus on security-related instructions, and suggest modifications
+and additions to help users secure their Jupyter deployment on a single-server system.
+These instructions should not be confused with documentation for `The Littlest
+JupyterHub <https://tljh.jupyter.org>`_ . 
+
 Applicable Jupyter Notebook Security Settings
 =============================================
 
