@@ -6,13 +6,15 @@ Authentication and Users
 
 This section was originally copied from https://jupyterhub.readthedocs.io/en/latest/getting-started/authenticators-users-basics.html
 
-# Authentication and User Basics
+Authentication and User Basics
+------------------------------
 
 The default Authenticator uses [PAM][] to authenticate system users with
 their username and password. With the default Authenticator, any user
 with an account and password on the system will be allowed to login.
 
-## Create a set of allowed users
+Create a set of allowed users
+*****************************
 
 You can restrict which users are allowed to login with a set,
 `Authenticator.allowed_users`:
@@ -24,7 +26,8 @@ c.Authenticator.allowed_users = {'mal', 'zoe', 'inara', 'kaylee'}
 Users in the `allowed_users` set are added to the Hub database when the Hub is
 started.
 
-## Configure admins (`admin_users`)
+Configure admins (`admin_users`)
+********************************
 
 ```{note}
 As of JupyterHub 2.0, the full permissions of `admin_users`
@@ -32,7 +35,6 @@ should not be required.
 Instead, you can assign [roles][] to users or groups
 with only the scopes they require.
 ```
-
 Admin users of JupyterHub, `admin_users`, can add and remove users from
 the user `allowed_users` set. `admin_users` can take actions on other users'
 behalf, such as stopping and restarting their servers.
@@ -51,20 +53,24 @@ administrator. By default JupyterHub uses the PAMAuthenticator which provides th
 `admin_groups` option and can set administrator status based on a user
 group. For example we can let any user in the `wheel` group be admin:
 
+
+
 ```python
 c.PAMAuthenticator.admin_groups = {'wheel'}
 ```
 
-## Give admin access to other users' notebook servers (`admin_access`)
+Give admin access to other users' notebook servers (`admin_access`)
+*******************************************************************
 
 Since the default `JupyterHub.admin_access` setting is `False`, the admins
 do not have permission to log in to the single user notebook servers
-owned by _other users_. If `JupyterHub.admin_access` is set to `True`,
-then admins have permission to log in _as other users_ on their
+owned by *other users*. If `JupyterHub.admin_access` is set to `True`,
+then admins have permission to log in *as other users* on their
 respective machines, for debugging. **As a courtesy, you should make
 sure your users know if admin_access is enabled.**
 
-## Add or remove users from the Hub
+Add or remove users from the Hub
+********************************
 
 Users can be added to and removed from the Hub via either the admin
 panel or the REST API. When a user is **added**, the user will be
@@ -78,7 +84,8 @@ from the Hub's database, either by deleting the user from JupyterHub's
 admin page, or you can clear the `jupyterhub.sqlite` database and start
 fresh.
 
-## Use LocalAuthenticator to create system users
+Use LocalAuthenticator to create system users
+*********************************************
 
 The `LocalAuthenticator` is a special kind of authenticator that has
 the ability to manage users on the local system. When you try to add a
@@ -98,9 +105,10 @@ line tool. This option is typically used on hosted deployments of
 JupyterHub, to avoid the need to manually create all your users before
 launching the service. This approach is not recommended when running
 JupyterHub in situations where JupyterHub users map directly onto the
-system's UNIX users.
+system's UNIX users
 
-## Use OAuthenticator to support OAuth with popular service providers
+Use OAuthenticator to support OAuth with popular service providers
+******************************************************************
 
 JupyterHub's [OAuthenticator][] currently supports the following
 popular services:
@@ -120,7 +128,8 @@ popular services:
 A generic implementation, which you can use for OAuth authentication
 with any provider, is also available.
 
-## Use DummyAuthenticator for testing
+Use DummyAuthenticator for testing
+**********************************
 
 The `DummyAuthenticator` is a simple authenticator that
 allows for any username/password unless a global password has been set. If
@@ -133,6 +142,7 @@ c.DummyAuthenticator.password = "some_password"
 
 [pam]: https://en.wikipedia.org/wiki/Pluggable_authentication_module
 [oauthenticator]: https://github.com/jupyterhub/oauthenticator
+
 
 Enabling Encryption
 ===================
@@ -172,7 +182,7 @@ such as `/etc/jupyterhub` for all configuration files and `/srv/jupyterhub` for
 all security and runtime files.
 
 Direct Jupyter Proxy Encryption
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*******************************
 
 The section below was originally copied from https://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html
 
@@ -180,7 +190,7 @@ Since JupyterHub includes authentication and allows arbitrary code execution,
 you should not run it without SSL (HTTPS).
 
 Using an SSL certificate
-~~~~~~~~~~~~~~~~~~~~~~~~
+************************
 
 This will require you to obtain an official, trusted SSL certificate or create a
 self-signed certificate. Once you have obtained and installed a key and
@@ -201,7 +211,7 @@ If you are using a **chain certificate**, see also chained certificate for SSL
 in the JupyterHub `Troubleshooting FAQ <../troubleshooting.html>`_.
 
 Using letsencrypt
-~~~~~~~~~~~~~~~~~
+*****************
 
 It is also possible to use `letsencrypt <https://letsencrypt.org/>`_ to obtain
 a free, trusted SSL certificate. If you run letsencrypt using the default
@@ -221,15 +231,17 @@ would be the needed configuration:
     c.JupyterHub.ssl_key = '/etc/letsencrypt/live/example.com/privkey.pem'
     c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/example.com/fullchain.pem'
 
-Web Server Encryption
-~~~~~~~~~~~~~~~~~~~~~
 
-Other Internal Encryption [Kay]
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Web Server Encryption
+*********************
+
+Other Internal Encryption
+*************************
 
 The section below was originally copied from https://jupyterhub.readthedocs.io/en/stable/reference/websecurity.html
 
-### Encrypt internal connections with SSL/TLS
+Encrypt internal connections with SSL/TLS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 By default, all communication on the server, between the proxy, hub, and single
 -user notebooks is performed unencrypted. Setting the `internal_ssl` flag in
@@ -273,8 +285,6 @@ the `.move_certs` method can be overridden to move the certs appropriately.
 Again, using `DockerSpawner` as an example, this would entail moving certs
 to a directory that will get mounted into the container this spawner starts.
 
-
-
 Other Jupyter Encryption Settings
 ===========================
 
@@ -293,7 +303,7 @@ The value of this token should be a random string (for example, generated by
 environment variable
 
 Generating and storing token in the configuration file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+******************************************************
 
 You can set the value in the configuration file, ``jupyterhub_config.py``:
 
@@ -302,7 +312,7 @@ You can set the value in the configuration file, ``jupyterhub_config.py``:
     c.ConfigurableHTTPProxy.api_token = 'abc123...' # any random string
 
 Generating and storing as an environment variable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*************************************************
 
 You can pass this value of the proxy authentication token to the Hub and Proxy
 using the ``CONFIGPROXY_AUTH_TOKEN`` environment variable:
@@ -314,7 +324,7 @@ using the ``CONFIGPROXY_AUTH_TOKEN`` environment variable:
 This environment variable needs to be visible to the Hub and Proxy.
 
 Default if token is not set
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************
 
 If you don't set the Proxy authentication token, the Hub will generate a random
 key itself, which means that any time you restart the Hub you **must also
@@ -333,7 +343,7 @@ which are used for authentication. Three common methods are described for
 generating and configuring the cookie secret.
 
 Generating and storing as a cookie secret file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**********************************************
 
 The cookie secret should be 32 random bytes, encoded as hex, and is typically
 stored in a ``jupyterhub_cookie_secret`` file. An example command to generate the
@@ -359,7 +369,7 @@ secret is generated and stored in the file. The file must not be readable by
 for the cookie secret file are ``600`` (owner-only rw).
 
 Generating and storing as an environment variable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*************************************************
 
 If you would like to avoid the need for files, the value can be loaded in the
 Hub process from the ``JPY_COOKIE_SECRET`` environment variable, which is a
@@ -374,7 +384,7 @@ Hub. If you set it dynamically as above, all users will be logged out each time
 the Hub starts.
 
 Generating and storing as a binary string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+******************************************
 
 You can also set the cookie secret in the configuration file
 itself, ``jupyterhub_config.py``, as a binary string:
@@ -389,31 +399,32 @@ itself, ``jupyterhub_config.py``, as a binary string:
    If the cookie secret value changes for the Hub, all single-user notebook
    servers must also be restarted.
 
-
-Protecting Users [Kay]
+Protecting Users
 ================
 
 The section below was copied originally from https://jupyterhub.readthedocs.io/en/stable/reference/websecurity.html
 
-## Semi-trusted and untrusted users
+Semi-trusted and untrusted users
+--------------------------------
 
-JupyterHub is designed to be a _simple multi-user server for modestly sized
-groups_ of **semi-trusted** users. While the design reflects serving semi-trusted
+JupyterHub is designed to be a *simple multi-user server for modestly sized
+groups* of **semi-trusted** users. While the design reflects serving semi-trusted
 users, JupyterHub is not necessarily unsuitable for serving **untrusted** users.
 
 Using JupyterHub with **untrusted** users does mean more work by the
 administrator. Much care is required to secure a Hub, with extra caution on
 protecting users from each other as the Hub is serving untrusted users.
 
-One aspect of JupyterHub's _design simplicity_ for **semi-trusted** users is that
-the Hub and single-user servers are placed in a _single domain_, behind a
+One aspect of JupyterHub's *design simplicity* for **semi-trusted** users is that
+the Hub and single-user servers are placed in a *single domain*, behind a
 [_proxy_][configurable-http-proxy]. If the Hub is serving untrusted
 users, many of the web's cross-site protections are not applied between
 single-user servers and the Hub, or between single-user servers and each
 other, since browsers see the whole thing (proxy, Hub, and single user
 servers) as a single website (i.e. single domain).
 
-## Protect users from each other
+Protect users from each other
+-----------------------------
 
 To protect users from each other, a user must **never** be able to write arbitrary
 HTML and serve it to another user on the Hub's domain. JupyterHub's
@@ -421,7 +432,6 @@ authentication setup prevents a user writing arbitrary HTML and serving it to
 another user because only the owner of a given single-user notebook server is
 allowed to view user-authored pages served by the given single-user notebook
 server.
-
 
 To protect all users from each other, JupyterHub administrators must
 ensure that:
@@ -442,15 +452,17 @@ If any additional services are run on the same domain as the Hub, the services
 **must never** display user-authored HTML that is neither _sanitized_ nor _sandboxed_
 (e.g. IFramed) to any user that lacks authentication as the author of a file.
 
-## Mitigate security issues
+Mitigate security issues
+------------------------
 
 Several approaches to mitigating these issues with configuration
 options provided by JupyterHub include:
 
-### Enable subdomains
+Enable subdomains
+*****************
 
-One aspect of JupyterHub's _design simplicity_ for **semi-trusted** users is that
-the Hub and single-user servers are placed in a _single domain_, behind a
+One aspect of JupyterHub's *design simplicity* for **semi-trusted** users is that
+the Hub and single-user servers are placed in a *single domain*, behind a
 [_proxy_][configurable-http-proxy]. If the Hub is serving untrusted
 users, many of the web's cross-site protections are not applied between
 single-user servers and the Hub, or between single-user servers and each
@@ -466,7 +478,8 @@ institutional domains, wildcard DNS and SSL are not available. **If you do plan
 to serve untrusted users, enabling subdomains is highly encouraged**, as it
 resolves the cross-site issues.
 
-### Disable user config
+Disable user config
+-------------------
 
 If subdomains are not available or not desirable, JupyterHub provides a
 configuration option `Spawner.disable_user_config`, which can be set to prevent
@@ -474,13 +487,15 @@ the user-owned configuration files from being loaded. After implementing this
 option, PATHs and package installation and PATHs are the other things that the
 admin must enforce.
 
-### Prevent spawners from evaluating shell configuration files
+Prevent spawners from evaluating shell configuration files
+----------------------------------------------------------
 
 For most Spawners, `PATH` is not something users can influence, but care should
-be taken to ensure that the Spawner does _not_ evaluate shell configuration
+be taken to ensure that the Spawner does *not* evaluate shell configuration
 files prior to launching the server.
 
-### Isolate packages using virtualenv
+Isolate packages using virtualenv
+---------------------------------
 
 Package isolation is most easily handled by running the single-user server in
 a virtualenv with disabled system-site-packages. The user should not have
@@ -490,7 +505,6 @@ It is important to note that the control over the environment only affects the
 single-user server, and not the environment(s) in which the user's kernel(s)
 may run. Installing additional packages in the kernel environment does not
 pose additional risk to the web application's security.
-
 
 Vulnerability Reporting
 ================
@@ -508,7 +522,8 @@ General Security Practices
 
 The section below was originally copied from https://jupyterhub.readthedocs.io/en/stable/reference/websecurity.html
 
-## Security audits
+Security audits
+---------------
 
 We recommend that you do periodic reviews of your deployment's security. It's
 good practice to keep JupyterHub, configurable-http-proxy, and nodejs
@@ -524,13 +539,12 @@ Running JupyterHub without Root Privileges
 
 The section below was originally copied from https://jupyterhub.readthedocs.io/en/stable/reference/config-sudo.html
 
-# Run JupyterHub without root privileges using `sudo`
-
 **Note:** Setting up `sudo` permissions involves many pieces of system
 configuration. It is quite easy to get wrong and very difficult to debug.
 Only do this if you are very sure you must.
 
-## Overview
+Overview
+--------
 
 There are many Authenticators and Spawners available for JupyterHub. Some, such
 as DockerSpawner or OAuthenticator, do not need any elevated permissions. This
@@ -547,30 +561,35 @@ A **more prudent way** to run the server while preserving functionality is to
 create a dedicated user with `sudo` access restricted to launching and
 monitoring single-user servers.
 
-## Create a user
+Create a user
+-------------
 
 To do this, first create a user that will run the Hub:
 
-```bash
-sudo useradd rhea
-```
+.. code-block:: bash
+
+    sudo useradd rhea
+
 
 This user shouldn't have a login shell or password (possible with -r).
 
-## Set up sudospawner
+Set up sudospawner
+------------------
 
 Next, you will need [sudospawner](https://github.com/jupyter/sudospawner)
 to enable monitoring the single-user servers with sudo:
 
-```bash
-sudo python3 -m pip install sudospawner
-```
+.. code-block:: bash
+
+    sudo python3 -m pip install sudospawner
+
 
 Now we have to configure sudo to allow the Hub user (`rhea`) to launch
 the sudospawner script on behalf of our hub users (here `zoe` and `wash`).
 We want to confine these permissions to only what we really need.
 
-## Edit `/etc/sudoers`
+Edit `/etc/sudoers`
+-------------------
 
 To do this we add to `/etc/sudoers` (use `visudo` for safe editing of sudoers):
 
@@ -581,37 +600,40 @@ To do this we add to `/etc/sudoers` (use `visudo` for safe editing of sudoers):
 
 For example:
 
-```bash
-# comma-separated list of users that can spawn single-user servers
-# this should include all of your Hub users
-Runas_Alias JUPYTER_USERS = rhea, zoe, wash
+.. code-block:: bash
 
-# the command(s) the Hub can run on behalf of the above users without needing a password
-# the exact path may differ, depending on how sudospawner was installed
-Cmnd_Alias JUPYTER_CMD = /usr/local/bin/sudospawner
+    # comma-separated list of users that can spawn single-user servers
+    # this should include all of your Hub users
+    Runas_Alias JUPYTER_USERS = rhea, zoe, wash
+    # the command(s) the Hub can run on behalf of the above users without needing a password
+    # the exact path may differ, depending on how sudospawner was installed
+    Cmnd_Alias JUPYTER_CMD = /usr/local/bin/sudospawner
 
-# actually give the Hub user permission to run the above command on behalf
-# of the above users without prompting for a password
-rhea ALL=(JUPYTER_USERS) NOPASSWD:JUPYTER_CMD
-```
+    # actually give the Hub user permission to run the above command on behalf
+    # of the above users without prompting for a password
+    rhea ALL=(JUPYTER_USERS) NOPASSWD:JUPYTER_CMD
+
 
 It might be useful to modify `secure_path` to add commands in path.
 
 As an alternative to adding every user to the `/etc/sudoers` file, you can
 use a group in the last line above, instead of `JUPYTER_USERS`:
 
-```bash
-rhea ALL=(%jupyterhub) NOPASSWD:JUPYTER_CMD
-```
+.. code-block:: bash
+
+    rhea ALL=(%jupyterhub) NOPASSWD:JUPYTER_CMD
+
 
 If the `jupyterhub` group exists, there will be no need to edit `/etc/sudoers`
 again. A new user will gain access to the application when added to the group:
 
-```bash
-$ adduser -G jupyterhub newuser
-```
+.. code-block:: bash
 
-## Test `sudo` setup
+    $ adduser -G jupyterhub newuser
+
+
+Test `sudo` setup
+-----------------
 
 Test that the new user doesn't need to enter a password to run the sudospawner
 command.
@@ -620,68 +642,76 @@ This should prompt for your password to switch to rhea, but _not_ prompt for
 any password for the second switch. It should show some help output about
 logging options:
 
-```bash
-$ sudo -u rhea sudo -n -u $USER /usr/local/bin/sudospawner --help
-Usage: /usr/local/bin/sudospawner [OPTIONS]
+.. code-block:: bash
 
-Options:
+    $ sudo -u rhea sudo -n -u $USER /usr/local/bin/sudospawner --help
+    Usage: /usr/local/bin/sudospawner [OPTIONS]
 
---help          show this help information
-...
-```
+    Options:
+
+    --help          show this help information
+    ...
+
 
 And this should fail:
 
-```bash
-$ sudo -u rhea sudo -n -u $USER echo 'fail'
-sudo: a password is required
-```
+.. code-block:: bash
 
-## Enable PAM for non-root
+    $ sudo -u rhea sudo -n -u $USER echo 'fail'
+    sudo: a password is required
+
+Enable PAM for non-root
+-----------------------
 
 By default, [PAM authentication](http://en.wikipedia.org/wiki/Pluggable_authentication_module)
 is used by JupyterHub. To use PAM, the process may need to be able to read
 the shadow password database.
 
-### Shadow group (Linux)
+Shadow group (Linux)
+********************
 
 **Note:** On Fedora based distributions there is no clear way to configure
 the PAM database to allow sufficient access for authenticating with the target user's password
 from JupyterHub. As a workaround we recommend use an
 [alternative authentication method](https://github.com/jupyterhub/jupyterhub/wiki/Authenticators).
 
-```bash
-$ ls -l /etc/shadow
--rw-r-----  1 root shadow   2197 Jul 21 13:41 shadow
-```
+.. code-block:: bash
+
+    $ ls -l /etc/shadow
+    -rw-r-----  1 root shadow   2197 Jul 21 13:41 shadow
+
 
 If there's already a shadow group, you are set. If its permissions are more like:
 
-```bash
+.. code-block:: bash
+
     $ ls -l /etc/shadow
     -rw-------  1 root wheel   2197 Jul 21 13:41 shadow
-```
+
 
 Then you may want to add a shadow group, and make the shadow file group-readable:
 
-```bash
-$ sudo groupadd shadow
-$ sudo chgrp shadow /etc/shadow
-$ sudo chmod g+r /etc/shadow
-```
+.. code-block:: bash
+
+    $ sudo groupadd shadow
+    $ sudo chgrp shadow /etc/shadow
+    $ sudo chmod g+r /etc/shadow
+
 
 We want our new user to be able to read the shadow passwords, so add it to the shadow group:
 
-```bash
+.. code-block:: bash
+
     $ sudo usermod -a -G shadow rhea
-```
+
 
 If you want jupyterhub to serve pages on a restricted port (such as port 80 for http),
 then you will need to give `node` permission to do so:
 
-```bash
-sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node
-```
+.. code-block:: bash
+
+    sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node
+
 
 However, you may want to further understand the consequences of this.
 
@@ -691,92 +721,105 @@ distributions' packaging system. This can be used to keep any user's process
 from using too much CPU cycles. You can configure it accoring to [these
 instructions](http://ubuntuforums.org/showthread.php?t=992706).
 
-### Shadow group (FreeBSD)
+Shadow group (FreeBSD)
+**********************
 
 **NOTE:** This has not been tested and may not work as expected.
 
-```bash
-$ ls -l /etc/spwd.db /etc/master.passwd
--rw-------  1 root  wheel   2516 Aug 22 13:35 /etc/master.passwd
--rw-------  1 root  wheel  40960 Aug 22 13:35 /etc/spwd.db
-```
+.. code-block:: bash
+
+    ls -l /etc/spwd.db /etc/master.passwd
+    -rw-------  1 root  wheel   2516 Aug 22 13:35 /etc/master.passwd
+    -rw-------  1 root  wheel  40960 Aug 22 13:35 /etc/spwd.db
+
 
 Add a shadow group if there isn't one, and make the shadow file group-readable:
 
-```bash
-$ sudo pw group add shadow
-$ sudo chgrp shadow /etc/spwd.db
-$ sudo chmod g+r /etc/spwd.db
-$ sudo chgrp shadow /etc/master.passwd
-$ sudo chmod g+r /etc/master.passwd
-```
+.. code-block:: bash
+
+    $ sudo pw group add shadow
+    $ sudo chgrp shadow /etc/spwd.db
+    $ sudo chmod g+r /etc/spwd.db
+    $ sudo chgrp shadow /etc/master.passwd
+    $ sudo chmod g+r /etc/master.passwd
+
 
 We want our new user to be able to read the shadow passwords, so add it to the
 shadow group:
 
-```bash
-$ sudo pw user mod rhea -G shadow
-```
+.. code-block:: bash
 
-## Test that PAM works
+    $ sudo pw user mod rhea -G shadow
+
+Test that PAM works
+-------------------
 
 We can verify that PAM is working, with:
 
-```bash
-$ sudo -u rhea python3 -c "import pamela, getpass; print(pamela.authenticate('$USER', getpass.getpass()))"
-Password: [enter your unix password]
-```
+.. code-block:: bash
 
-## Make a directory for JupyterHub
+    $ sudo -u rhea python3 -c "import pamela, getpass; print(pamela.authenticate('$USER', getpass.getpass()))"
+    Password: [enter your unix password]
+
+
+Make a directory for JupyterHub
+-------------------------------
 
 JupyterHub stores its state in a database, so it needs write access to a directory.
 The simplest way to deal with this is to make a directory owned by your Hub user,
 and use that as the CWD when launching the server.
 
-```bash
-$ sudo mkdir /etc/jupyterhub
-$ sudo chown rhea /etc/jupyterhub
-```
+.. code-block:: bash
 
-## Start jupyterhub
+    $ sudo mkdir /etc/jupyterhub
+    $ sudo chown rhea /etc/jupyterhub
+
+
+Start jupyterhub
+----------------
 
 Finally, start the server as our newly configured user, `rhea`:
 
-```bash
-$ cd /etc/jupyterhub
-$ sudo -u rhea jupyterhub --JupyterHub.spawner_class=sudospawner.SudoSpawner
-```
+.. code-block:: bash
+
+    $ cd /etc/jupyterhub
+    $ sudo -u rhea jupyterhub --JupyterHub.spawner_class=sudospawner.SudoSpawner
+
 
 And try logging in.
 
-## Troubleshooting: SELinux
+Troubleshooting: SELinux
+------------------------
 
 If you still get a generic `Permission denied` `PermissionError`, it's possible SELinux is blocking you.
 Here's how you can make a module to allow this.
 First, put this in a file named `sudo_exec_selinux.te`:
 
-```bash
-module sudo_exec_selinux 1.1;
+.. code-block:: bash
 
-require {
-        type unconfined_t;
-        type sudo_exec_t;
-        class file { read entrypoint };
-}
+    module sudo_exec_selinux 1.1;
 
-#============= unconfined_t ==============
-allow unconfined_t sudo_exec_t:file entrypoint;
-```
+    require {
+            type unconfined_t;
+            type sudo_exec_t;
+            class file { read entrypoint };
+    }
+
+    #============= unconfined_t ==============
+    allow unconfined_t sudo_exec_t:file entrypoint;
+
 
 Then run all of these commands as root:
 
-```bash
-$ checkmodule -M -m -o sudo_exec_selinux.mod sudo_exec_selinux.te
-$ semodule_package -o sudo_exec_selinux.pp -m sudo_exec_selinux.mod
-$ semodule -i sudo_exec_selinux.pp
-```
+.. code-block:: bash
 
-## Troubleshooting: PAM session errors
+    $ checkmodule -M -m -o sudo_exec_selinux.mod sudo_exec_selinux.te
+    $ semodule_package -o sudo_exec_selinux.pp -m sudo_exec_selinux.mod
+    $ semodule -i sudo_exec_selinux.pp
+
+
+Troubleshooting: PAM session errors
+-----------------------------------
 
 If the PAM authentication doesn't work and you see errors for
 `login:session-auth`, or similar, considering updating to a more recent version
