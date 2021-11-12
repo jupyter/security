@@ -8,6 +8,7 @@ and additions to help users secure their Jupyter deployment on a single-server s
 These instructions should not be confused with documentation for `The Littlest
 JupyterHub <https://tljh.jupyter.org>`_ . 
 
+=============================================
 Applicable Jupyter Notebook Security Settings
 =============================================
 
@@ -28,13 +29,13 @@ Create a set of allowed users
 *****************************
 
 You can restrict which users are allowed to login with a set,
-`Authenticator.allowed_users`:
+``Authenticator.allowed_users``:
 
 .. code-block:: python
 
     c.Authenticator.allowed_users = {'mal', 'zoe', 'inara', 'kaylee'}
 
-Users in the `allowed_users` set are added to the Hub database when the Hub is
+Users in the ``allowed_users`` set are added to the Hub database when the Hub is
 started.
 
 Configure admins (``admin_users``)
