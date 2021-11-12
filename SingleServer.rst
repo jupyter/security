@@ -1,7 +1,7 @@
 About This Document
 ===================
 
-This document was created November 2021 as part of a `Trusted CI engagement <https://blog.trustedci.org/2021/08/engagement-with-jupyter.html>`_.
+This document was created November 2021 as part of a `Trusted CI engagement <https://blog.trustedci.org/2021/08/engagement-with-jupyter.html>`_ .
 The intent was to review existing documentation for single-server JupyterHub
 deployments with a focus on security-related instructions, and suggest modifications
 and additions to help users secure their Jupyter deployment on a single-server system.
@@ -19,7 +19,8 @@ This section was originally copied from https://jupyterhub.readthedocs.io/en/lat
 Authentication and User Basics
 ------------------------------
 
-The default Authenticator uses [PAM][] to authenticate system users with
+The default Authenticator uses `PAM`
+<https://en.wikipedia.org/wiki/Pluggable_authentication_module>`_ to authenticate system users with
 their username and password. With the default Authenticator, any user
 with an account and password on the system will be allowed to login.
 
@@ -42,7 +43,8 @@ Configure admins (`admin_users`)
 ```{note}
 As of JupyterHub 2.0, the full permissions of `admin_users`
 should not be required.
-Instead, you can assign [roles][] to users or groups
+Instead, you can assign `roles
+<https://jupyterhub.readthedocs.io/en/latest/rbac/roles.html>`_ to users or groups
 with only the scopes they require.
 ```
 Admin users of JupyterHub, `admin_users`, can add and remove users from
@@ -120,8 +122,9 @@ system's UNIX users
 Use OAuthenticator to support OAuth with popular service providers
 ******************************************************************
 
-JupyterHub's [OAuthenticator][] currently supports the following
-popular services:
+JupyterHub's `OAuthenticator
+<https://github.com/jupyterhub/oauthenticator>`_ currently supports the
+following popular services:
 
 - Auth0
 - Azure AD
@@ -149,10 +152,6 @@ To set a global password, add this to the config file:
 ```python
 c.DummyAuthenticator.password = "some_password"
 ```
-
-[pam]: https://en.wikipedia.org/wiki/Pluggable_authentication_module
-[oauthenticator]: https://github.com/jupyterhub/oauthenticator
-
 
 Enabling Encryption
 ===================
@@ -184,7 +183,7 @@ working directory:
   This file needs to persist so that a **Hub** server restart will avoid
   invalidating cookies. Conversely, deleting this file and restarting the server
   effectively invalidates all login cookies. The cookie secret file is discussed
-  in the [Cookie Secret section of the Security Settings document](../getting-started/security-basics.md).
+  in the `Cookie Secret section of the Security Settings document <../getting-started/security-basics.md>`_ .
 
 The location of these files can be specified via configuration settings. It is
 recommended that these files be stored in standard UNIX filesystem locations,
@@ -427,7 +426,7 @@ protecting users from each other as the Hub is serving untrusted users.
 
 One aspect of JupyterHub's *design simplicity* for **semi-trusted** users is that
 the Hub and single-user servers are placed in a *single domain*, behind a
-[_proxy_][configurable-http-proxy]. If the Hub is serving untrusted
+*`proxy <https://github.com/jupyterhub/configurable-http-proxy>`_* . If the Hub is serving untrusted
 users, many of the web's cross-site protections are not applied between
 single-user servers and the Hub, or between single-user servers and each
 other, since browsers see the whole thing (proxy, Hub, and single user
@@ -473,7 +472,8 @@ Enable subdomains
 
 One aspect of JupyterHub's *design simplicity* for **semi-trusted** users is that
 the Hub and single-user servers are placed in a *single domain*, behind a
-[_proxy_][configurable-http-proxy]. If the Hub is serving untrusted
+*`proxy <https://github.com/jupyterhub/configurable-http-proxy>`_* .
+If the Hub is serving untrusted
 users, many of the web's cross-site protections are not applied between
 single-user servers and the Hub, or between single-user servers and each
 other, since browsers see the whole thing (proxy, Hub, and single user
@@ -523,9 +523,9 @@ This section was originally copied from https://jupyterhub.readthedocs.io/en/sta
 
 If you believe you’ve found a security vulnerability in JupyterHub, or any
 Jupyter project, please report it to
-[security@ipython.org](mailto:security@iypthon.org). If you prefer to encrypt
-your security reports, you can use [this PGP public
-key](https://jupyter-notebook.readthedocs.io/en/stable/_downloads/ipython_security.asc).
+`security@ipython.org <mailto:security@iypthon.org>`_ . If you prefer to encrypt
+your security reports, you can use `this PGP public
+key <https://jupyter-notebook.readthedocs.io/en/stable/_downloads/ipython_security.asc>`_ .
 
 General Security Practices
 =============================
@@ -540,9 +540,8 @@ good practice to keep JupyterHub, configurable-http-proxy, and nodejs
 versions up to date.
 
 A handy website for testing your deployment is
-[Qualsys' SSL analyzer tool](https://www.ssllabs.com/ssltest/analyze.html).
+`Qualsys' SSL analyzer tool <https://www.ssllabs.com/ssltest/analyze.html>`_ .
 
-[configurable-http-proxy]: https://github.com/jupyterhub/configurable-http-proxy
 
 Running JupyterHub without Root Privileges
 ==============================================
@@ -563,7 +562,7 @@ running notebook servers as real system users on a shared system without
 running the Hub itself as root.
 
 Since JupyterHub needs to spawn processes as other users, the simplest way
-is to run it as root, spawning user servers with [setuid](http://linux.die.net/man/2/setuid).
+is to run it as root, spawning user servers with `setuid <http://linux.die.net/man/2/setuid>`_ .
 But this isn't especially safe, because you have a process running on the
 public web as root.
 
@@ -586,7 +585,7 @@ This user shouldn't have a login shell or password (possible with -r).
 Set up sudospawner
 ------------------
 
-Next, you will need [sudospawner](https://github.com/jupyter/sudospawner)
+Next, you will need `sudospawner <https://github.com/jupyter/sudospawner>`_ 
 to enable monitoring the single-user servers with sudo:
 
 .. code-block:: bash
@@ -673,7 +672,7 @@ And this should fail:
 Enable PAM for non-root
 -----------------------
 
-By default, [PAM authentication](http://en.wikipedia.org/wiki/Pluggable_authentication_module)
+By default, `PAM authentication <http://en.wikipedia.org/wiki/Pluggable_authentication_module>`_ 
 is used by JupyterHub. To use PAM, the process may need to be able to read
 the shadow password database.
 
@@ -683,7 +682,7 @@ Shadow group (Linux)
 **Note:** On Fedora based distributions there is no clear way to configure
 the PAM database to allow sufficient access for authenticating with the target user's password
 from JupyterHub. As a workaround we recommend use an
-[alternative authentication method](https://github.com/jupyterhub/jupyterhub/wiki/Authenticators).
+`alternative authentication method <https://github.com/jupyterhub/jupyterhub/wiki/Authenticators>`_ .
 
 .. code-block:: bash
 
@@ -728,8 +727,8 @@ However, you may want to further understand the consequences of this.
 You may also be interested in limiting the amount of CPU any process can use
 on your server. `cpulimit` is a useful tool that is available for many Linux
 distributions' packaging system. This can be used to keep any user's process
-from using too much CPU cycles. You can configure it accoring to [these
-instructions](http://ubuntuforums.org/showthread.php?t=992706).
+from using too much CPU cycles. You can configure it accoring to `these
+instructions <http://ubuntuforums.org/showthread.php?t=992706>`_ .
 
 Shadow group (FreeBSD)
 **********************
