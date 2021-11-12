@@ -19,7 +19,7 @@ This section was originally copied from https://jupyterhub.readthedocs.io/en/lat
 Authentication and User Basics
 ------------------------------
 
-The default Authenticator uses `PAM`
+The default Authenticator uses `PAM
 <https://en.wikipedia.org/wiki/Pluggable_authentication_module>`_ to authenticate system users with
 their username and password. With the default Authenticator, any user
 with an account and password on the system will be allowed to login.
@@ -30,9 +30,8 @@ Create a set of allowed users
 You can restrict which users are allowed to login with a set,
 `Authenticator.allowed_users`:
 
-```python
+.. code-block:: python
 c.Authenticator.allowed_users = {'mal', 'zoe', 'inara', 'kaylee'}
-```
 
 Users in the `allowed_users` set are added to the Hub database when the Hub is
 started.
@@ -40,22 +39,21 @@ started.
 Configure admins (`admin_users`)
 ********************************
 
-```{note}
+.. note::
 As of JupyterHub 2.0, the full permissions of `admin_users`
 should not be required.
 Instead, you can assign `roles
 <https://jupyterhub.readthedocs.io/en/latest/rbac/roles.html>`_ to users or groups
 with only the scopes they require.
-```
+
 Admin users of JupyterHub, `admin_users`, can add and remove users from
 the user `allowed_users` set. `admin_users` can take actions on other users'
 behalf, such as stopping and restarting their servers.
 
 A set of initial admin users, `admin_users` can be configured as follows:
 
-```python
+.. code-block:: python
 c.Authenticator.admin_users = {'mal', 'zoe'}
-```
 
 Users in the admin set are automatically added to the user `allowed_users` set,
 if they are not already present.
@@ -67,9 +65,9 @@ group. For example we can let any user in the `wheel` group be admin:
 
 
 
-```python
+.. code-block:: python
 c.PAMAuthenticator.admin_groups = {'wheel'}
-```
+
 
 Give admin access to other users' notebook servers (`admin_access`)
 *******************************************************************
@@ -107,9 +105,8 @@ to `True` in the configuration file, the `LocalAuthenticator` has
 the privileges to add users to the system. The setting in the config
 file is:
 
-```python
+.. code-block:: python
 c.LocalAuthenticator.create_system_users = True
-```
 
 Adding a user to the Hub that doesn't already exist on the system will
 result in the Hub creating that user via the system `adduser` command
@@ -149,9 +146,8 @@ allows for any username/password unless a global password has been set. If
 set, it will allow for any username as long as the correct password is provided.
 To set a global password, add this to the config file:
 
-```python
+.. code-block:: python
 c.DummyAuthenticator.password = "some_password"
-```
 
 Enabling Encryption
 ===================
