@@ -8,6 +8,8 @@ Jupyter Notebook / Server with a focus on security-related instructions,
 and suggest modifications and additions to help users secure their
 Jupyter deployment on a single-user system. 
 
+----
+
 Security in notebook documents
 ==============================
 
