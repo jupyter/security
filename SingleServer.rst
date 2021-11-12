@@ -8,7 +8,6 @@ and additions to help users secure their Jupyter deployment on a single-server s
 These instructions should not be confused with documentation for `The Littlest
 JupyterHub <https://tljh.jupyter.org>`_ . 
 
-=============================================
 Applicable Jupyter Notebook Security Settings
 =============================================
 
