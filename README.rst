@@ -18,6 +18,9 @@ There are 3 target use-cases:
 Files
 -----
 
-- `Notebook.rst
+* `Notebook.rst
   <https://github.com/trustedci/jupyter-security-docs/blob/main/Notebook.rst>`_
   - Jupyter Notebook/Server single-user installation
+* `SingleServer.rst
+  <https://github.com/trustedci/jupyter-security-docs/blob/main/SingleServer.rst>`_
+  - JupyterHub single-server, multi-user installation
