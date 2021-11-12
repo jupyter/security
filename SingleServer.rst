@@ -37,33 +37,33 @@ You can restrict which users are allowed to login with a set,
 Users in the `allowed_users` set are added to the Hub database when the Hub is
 started.
 
-Configure admins (`admin_users`)
+Configure admins (``admin_users``)
 ********************************
 
 .. note::
 
-    As of JupyterHub 2.0, the full permissions of `admin_users` should not
+    As of JupyterHub 2.0, the full permissions of ``admin_users`` should not
     be required.  Instead, you can assign `roles
     <https://jupyterhub.readthedocs.io/en/latest/rbac/roles.html>`_ to users
     or groups with only the scopes they require.
 
-Admin users of JupyterHub, `admin_users`, can add and remove users from
-the user `allowed_users` set. `admin_users` can take actions on other users'
+Admin users of JupyterHub, ``admin_users``, can add and remove users from
+the user ``allowed_users`` set. ``admin_users`` can take actions on other users'
 behalf, such as stopping and restarting their servers.
 
-A set of initial admin users, `admin_users` can be configured as follows:
+A set of initial admin users, ``admin_users`` can be configured as follows:
 
 .. code-block:: python
 
     c.Authenticator.admin_users = {'mal', 'zoe'}
 
-Users in the admin set are automatically added to the user `allowed_users` set,
+Users in the admin set are automatically added to the user ``allowed_users`` set,
 if they are not already present.
 
 Each authenticator may have different ways of determining whether a user is an
 administrator. By default JupyterHub uses the PAMAuthenticator which provides the
-`admin_groups` option and can set administrator status based on a user
-group. For example we can let any user in the `wheel` group be admin:
+``admin_groups`` option and can set administrator status based on a user
+group. For example we can let any user in the ``wheel`` group be admin:
 
 
 
@@ -72,12 +72,12 @@ group. For example we can let any user in the `wheel` group be admin:
     c.PAMAuthenticator.admin_groups = {'wheel'}
 
 
-Give admin access to other users' notebook servers (`admin_access`)
+Give admin access to other users' notebook servers (``admin_access``)
 *******************************************************************
 
-Since the default `JupyterHub.admin_access` setting is `False`, the admins
+Since the default ``JupyterHub.admin_access`` setting is ``False``, the admins
 do not have permission to log in to the single user notebook servers
-owned by *other users*. If `JupyterHub.admin_access` is set to `True`,
+owned by *other users*. If ``JupyterHub.admin_access`` is set to ``True``,
 then admins have permission to log in *as other users* on their
 respective machines, for debugging. **As a courtesy, you should make
 sure your users know if admin_access is enabled.**
@@ -87,24 +87,24 @@ Add or remove users from the Hub
 
 Users can be added to and removed from the Hub via either the admin
 panel or the REST API. When a user is **added**, the user will be
-automatically added to the `allowed_users` set and database. Restarting the Hub
-will not require manually updating the `allowed_users` set in your config file,
+automatically added to the ``allowed_users`` set and database. Restarting the Hub
+will not require manually updating the ``allowed_users`` set in your config file,
 as the users will be loaded from the database.
 
 After starting the Hub once, it is not sufficient to **remove** a user
 from the allowed users set in your config file. You must also remove the user
 from the Hub's database, either by deleting the user from JupyterHub's
-admin page, or you can clear the `jupyterhub.sqlite` database and start
+admin page, or you can clear the ``jupyterhub.sqlite`` database and start
 fresh.
 
 Use LocalAuthenticator to create system users
 *********************************************
 
-The `LocalAuthenticator` is a special kind of authenticator that has
+The ``LocalAuthenticator`` is a special kind of authenticator that has
 the ability to manage users on the local system. When you try to add a
-new user to the Hub, a `LocalAuthenticator` will check if the user
-already exists. If you set the configuration value, `create_system_users`,
-to `True` in the configuration file, the `LocalAuthenticator` has
+new user to the Hub, a ``LocalAuthenticator`` will check if the user
+already exists. If you set the configuration value, ``create_system_users``,
+to ``True`` in the configuration file, the ``LocalAuthenticator`` has
 the privileges to add users to the system. The setting in the config
 file is:
 
@@ -113,7 +113,7 @@ file is:
     c.LocalAuthenticator.create_system_users = True
 
 Adding a user to the Hub that doesn't already exist on the system will
-result in the Hub creating that user via the system `adduser` command
+result in the Hub creating that user via the system ``adduser`` command
 line tool. This option is typically used on hosted deployments of
 JupyterHub, to avoid the need to manually create all your users before
 launching the service. This approach is not recommended when running
@@ -145,7 +145,7 @@ with any provider, is also available.
 Use DummyAuthenticator for testing
 **********************************
 
-The `DummyAuthenticator` is a simple authenticator that
+The ``DummyAuthenticator`` is a simple authenticator that
 allows for any username/password unless a global password has been set. If
 set, it will allow for any username as long as the correct password is provided.
 To set a global password, add this to the config file:
@@ -165,7 +165,7 @@ The section below was originally copied from https://jupyterhub.readthedocs.io/e
 By default, the **Proxy** listens on all public interfaces on port 8000.
 Thus you can reach JupyterHub through either:
 
-- `http://localhost:8000`
+- ``http://localhost:8000``
 - or any other public IP or domain pointing to your system.
 
 In their default configuration, the other services, the **Hub** and
@@ -175,12 +175,12 @@ only.
 By default, starting JupyterHub will write two files to disk in the current
 working directory:
 
-- `jupyterhub.sqlite` is the SQLite database containing all of the state of the
+- ``jupyterhub.sqlite`` is the SQLite database containing all of the state of the
   **Hub**. This file allows the **Hub** to remember which users are running and
   where, as well as storing other information enabling you to restart parts of
   JupyterHub separately. It is important to note that this database contains
   **no** sensitive information other than **Hub** usernames.
-- `jupyterhub_cookie_secret` is the encryption key used for securing cookies.
+- ``jupyterhub_cookie_secret`` is the encryption key used for securing cookies.
   This file needs to persist so that a **Hub** server restart will avoid
   invalidating cookies. Conversely, deleting this file and restarting the server
   effectively invalidates all login cookies. The cookie secret file is discussed
@@ -188,7 +188,7 @@ working directory:
 
 The location of these files can be specified via configuration settings. It is
 recommended that these files be stored in standard UNIX filesystem locations,
-such as `/etc/jupyterhub` for all configuration files and `/srv/jupyterhub` for
+such as ``/etc/jupyterhub`` for all configuration files and ``/srv/jupyterhub`` for
 all security and runtime files.
 
 Direct Jupyter Proxy Encryption
