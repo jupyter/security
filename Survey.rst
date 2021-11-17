@@ -51,7 +51,7 @@ Survey of Existing Jupyter Security Documentation
                notebook-only experience in JupyterLab for users who
                prefer the UI of the classic Jupyter Notebook.
 
-            -  â€¦ We cannot support or maintain new features at this
+            -  ... We cannot support or maintain new features at this
                time, but we welcome security and other sustainability
                fixes."
 
