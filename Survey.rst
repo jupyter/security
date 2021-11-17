@@ -7,7 +7,7 @@ Survey of Existing Jupyter Security Documentation
     documentation with a focus on security-related instructions. This survey
     was originally compiled in August 2021 by Kay Avila with input and
     review from Terry Fleury and Jeannette Dopheide as part of a 
-    `Trusted CI engagement <https://blog.trustedci.org/2021/08/engagement-with-jupyter.html>_ .
+    `Trusted CI engagement <https://blog.trustedci.org/2021/08/engagement-with-jupyter.html>`_ .
 
 -  Jupyter-owned domains with documentation:
 
