@@ -22,18 +22,18 @@ Files
 -----
 
 - `Survey.rst
-  <https://github.com/trustedci/jupyter-security-docs/blob/main/Survey.rst>`_ - Survey
+  <https://github.com/trustedci/jupyter-security-docs/blob/main/Survey.rst>`_ : Survey
   of Existing Jupyter Security Documentation
   
 - `Notebook.rst
-  <https://github.com/trustedci/jupyter-security-docs/blob/main/Notebook.rst>`_ - Jupyter
+  <https://github.com/trustedci/jupyter-security-docs/blob/main/Notebook.rst>`_ : Jupyter
   Notebook/Server single-user installation
   
    - `Snapshot of original documentation
      <https://github.com/trustedci/jupyter-security-docs/blob/cada629ca5e7c19f936e6ce611455bbf30bc7bc6/README.rst>`_
       
 - `SingleServer.rst
-  <https://github.com/trustedci/jupyter-security-docs/blob/main/SingleServer.rst>`_ - JupyterHub
+  <https://github.com/trustedci/jupyter-security-docs/blob/main/SingleServer.rst>`_ : JupyterHub
   single-server, multi-user installation
   
    - `Snapshot of original documentation
