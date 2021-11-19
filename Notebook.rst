@@ -434,3 +434,14 @@ On a multi-user machine, this eavesdropping can be mitigated by setting
 command line. This switches ZeroMQ to use UNIX domain sockets, which leverages
 standard Unix permissions to the communication sockets, thereby restricting
 communication to the socket owner.
+
+Reporting Vulnerabilities
+==========================
+
+.. note:: The section below originates from `Security in the Jupyter notebook <https://jupyter-notebook.readthedocs.io/en/stable/security.html#security-in-notebook-documents>`_.
+
+Reporting security issues
+-------------------------
+If you find a security vulnerability in Jupyter, including a failure of the
+code to properly implement the trust model as described or a failure of the
+model itself, please see https://jupyter.org/security for information on how to report it.
