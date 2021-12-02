@@ -27,9 +27,9 @@ Files
 - `Notebook.rst <Notebook.rst>`_ : Jupyter
   Notebook/Server single-user installation
 
-   - `Snapshot of original documentation <releases/tag/Single_user_source>`_
+   - `Snapshot of original documentation <../../releases/tag/Single_user_source>`_
       
 - `SingleServer.rst <SingleServer.rst>`_ : JupyterHub
   single-server, multi-user installation
 
-   - `Snapshot of original documentation <releases/tag/Single_server_source>`_
+   - `Snapshot of original documentation <../../releases/tag/Single_server_source>`_
