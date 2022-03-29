@@ -33,3 +33,5 @@ Files
   single-server, multi-user installation
 
    - `Snapshot of original documentation <https://github.com/jupyter/security/blob/045b5282c972cf6306814b941b22613715ecfcef/SingleServer.rst>`_
+
+- `vulnerability-handling.md <vulnerability-handling.md>`_ : Vulnerability handling process
