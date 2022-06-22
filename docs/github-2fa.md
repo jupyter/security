@@ -5,7 +5,7 @@ all GitHub organizations hosting repositories for [official Jupyter Subprojects]
 
 [Enabling 2FA](https://github.blog/2021-08-16-securing-your-github-account-two-factor-authentication/) is the single most important step Jupyter contributors can take to protect their GitHub accounts from bad actors. This benefits the entire Jupyter Community by reducing the chance for malicious code to be slipped into a repository.
 
-Fortunately, most Jupyter GitHub organization member and external collaborators have 2FA enabled, at this time. This process to get us to 100% so we can enable the requirement as a GitHub org setting.
+Fortunately, most Jupyter GitHub organization member and external collaborators have 2FA enabled, at this time. This process will get us to 100% so we can enable the requirement as a GitHub org setting.
 
 ## What's the process?
 
@@ -18,6 +18,8 @@ Over the next month (by August 1, 2022) contributors to the Jupyter Security Sub
 From there, the org owners can decide how they want to work within their area of the Community. They may choose to contact the users or ask the Security Subproject to reach out to the users. Or, the users without 2FA may no longer need the access or role they were granted. 
 
 At end of August, 2022, we'll review the list of the remaining accounts without 2FA. (Hopefully none!) If possible, we'll begin enabling the requirement on our GitHub orgs. The Security Subproject will work with org owners on plans for contacting any remaining users.
+
+At the end of September, 2022, users without 2FA enabled may lose explicit permisssions or roles within Jupyter GitHub orgs. This will only impact access to private repositories, commit privileges, or having a role such as owner or admin. Read access to public repositories will remain the same, along with opening issues or pull requests. And once users enable 2FA on their account, any previous permissions or roles can be restored.
 
 ## What GitHub orgs does this apply to?
 
