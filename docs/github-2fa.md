@@ -19,7 +19,7 @@ From there, the org owners can decide how they want to work within their area of
 
 At end of August, 2022, we'll review the list of the remaining accounts without 2FA. (Hopefully none!) If possible, we'll begin enabling the requirement on our GitHub orgs. The Security Subproject will work with org owners on plans for contacting any remaining users.
 
-At the end of September, 2022, users without 2FA enabled may lose explicit permisssions or roles within Jupyter GitHub orgs. This will only impact access to private repositories, commit privileges, or having a role such as owner or admin. Read access to public repositories will remain the same, along with opening issues or pull requests. And once users enable 2FA on their account, any previous permissions or roles can be restored.
+At the end of September, 2022, users without 2FA enabled may lose explicit permissions or roles within Jupyter GitHub orgs. This will only impact access to private repositories, commit privileges, or having a role such as owner or admin. Read access to public repositories will remain the same, along with opening issues or pull requests. And once users enable 2FA on their account, any previous permissions or roles can be restored.
 
 ## What GitHub orgs does this apply to?
 
