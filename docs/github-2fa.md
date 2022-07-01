@@ -1,3 +1,5 @@
+*This requirement and the outlined plan was discussed and agreed upon at the Jupyter Governance meeting on Friday, July 1, 2022.*
+
 # Requiring 2FA for Jupyter GitHub Organizations
 
 By October 1, 2022, Project Jupyter aims to [require two-factor authentication (2FA)](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-two-factor-authentication-for-your-organization/requiring-two-factor-authentication-in-your-organization) for
