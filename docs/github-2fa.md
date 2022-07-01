@@ -7,7 +7,7 @@ all GitHub organizations hosting repositories for [official Jupyter Subprojects]
 
 [Enabling 2FA](https://github.blog/2021-08-16-securing-your-github-account-two-factor-authentication/) is the single most important step Jupyter contributors can take to protect their GitHub accounts from bad actors. This benefits the entire Jupyter Community by reducing the chance for malicious code to be slipped into a repository.
 
-Fortunately, most Jupyter GitHub organization member and external collaborators have 2FA enabled, at this time. This process will get us to 100% so we can enable the requirement as a GitHub org setting.
+Fortunately, most Jupyter GitHub organization members and external collaborators have 2FA enabled, at this time. This process will get us to 100% so we can enable the requirement as a GitHub org setting.
 
 ## What's the process?
 
