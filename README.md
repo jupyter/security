@@ -7,7 +7,7 @@ If you need to privately disclose security issues please see https://jupyter.org
 ## Jupyter Security Subproject Council
 
 Members
-- Matthias Bussonier [@Carreau](https://github.com/Carreau)
+- Matthias Bussonnier [@Carreau](https://github.com/Carreau)
 - Jason Grout [@jasongrout](https://github.com/jasongrout)
 - Rollin Thomas [@rcthomas](https://github.com/rcthomas)
 - Rick Wagner [@rpwagner](https://github.com/rpwagner)
