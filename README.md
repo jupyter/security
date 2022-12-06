@@ -11,7 +11,7 @@ Members
 - Jason Grout [@jasongrout](https://github.com/jasongrout)
 - Rollin Thomas [@rcthomas](https://github.com/rcthomas)
 - Rick Wagner [@rpwagner](https://github.com/rpwagner)
-- Jason Weil [@jweill-aws](https://github.com/jweill-aws)
+- Jason Weill [@jweill-aws](https://github.com/jweill-aws)
 
 The Jupyter Security Subproject representative to the [Jupyter Software Steering Council](https://jupyter.org/governance/software_steering_council.html) for 2023 is Rick Wagner ([@rpwagner](https://github.com/rpwagner)).
 
