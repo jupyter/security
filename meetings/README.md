@@ -1,7 +1,7 @@
 
 # Jupyter Security Meetings
 
-* Biweekly on Tuesdays at 8 AM PDT/PST, starting December 7, 2021.
+* First and Third Tuesdays at 8 AM PDT/PST
 * Connection info through the events on [Jupyter Community Calendar](https://jupyter.readthedocs.io/en/latest/community/content-community.html)
 
 ## Scope
