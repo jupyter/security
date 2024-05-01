@@ -16,7 +16,7 @@
 	- Trusted members of the security-council team who may be required to audit security across various Jupyter subprojects.
 
 - What does the Security Manager role accomplish? 
-	- The security manager role will give trusted members of the Jupyter Security council the permissions necessary so that they may collaborate with Jupyter sub-project maintainers in evaluating, processing and handling security across Jupyter.
+	- The security manager role will give [members of the Jupyter Security council](https://github.com/jupyter/security/blob/main/README.md#jupyter-security-subproject-council) the permissions necessary so that they may collaborate with Jupyter sub-project maintainers in evaluating, processing and handling security across Jupyter.
 	- This role may also promote a more uniform and united handling of security across the Jupyter ecosystem.  
 
 - Who is the role accountable to and what authority does the role have over the project?
