@@ -8,6 +8,10 @@ import humanize
 
 orgs = ["jupyter", 'ipython', 'jupyterhub', 'jupyterlab']
 token = os.getenv("GH_TOKEN")
+if not token:
+    print("[red]Error: GH_TOKEN environment variable not set[/red]")
+    exit(1)
+
 headers = {
     'Authorization': f'token {token}',
     'Accept': 'application/vnd.github.v3+json'
