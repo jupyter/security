@@ -48,15 +48,39 @@ async def get_org_repos(session, org):
 
 async def main():
     async with aiohttp.ClientSession() as session:
+        # Check rate limit before making requests
+        headers = {
+            'Authorization': f'token {token}',
+            'Accept': 'application/vnd.github.v3+json'
+        }
+        async with session.get('https://api.github.com/rate_limit', headers=headers) as response:
+            if response.status == 200:
+                rate_data = await response.json()
+                remaining = rate_data['resources']['core']['remaining']
+                reset_time = datetime.fromtimestamp(rate_data['resources']['core']['reset'])
+                reset_in = humanize.naturaltime(reset_time)
+                print(f"Rate limit remaining: {remaining}")
+                print(f"Rate limit resets {reset_in}")
+                if remaining < 100:
+                    print("[red]Warning: Rate limit is low![/red]")
+                    if remaining < 10:
+                        print("[red]Aborting due to very low rate limit[/red]")
+                        return
+            else:
+                print(f"[red]Error checking rate limit: {response.status}[/red]")
         tasks = []
-        for org in orgs:
-            repos = await get_org_repos(session, org)
+        org_tasks = [(org, get_org_repos(session, org)) for org in orgs]
+        org_results = await asyncio.gather(*(task for _, task in org_tasks))
+        repos = []
+        for (org, _), org_repos in zip(org_tasks, org_results):
+            for repo in org_repos:
+                repos.append((org, repo))
             
-            for repo in sorted(repos, key=lambda x: x['name']):
-                repo_name = repo['name']
+        for org, repo in sorted(repos, key=lambda x: x[1]['name']):
+            repo_name = repo['name']
                 
-                task = check_private_vulnerability_reporting(session, org, repo_name)
-                tasks.append((repo, org, repo_name, task))
+            task = check_private_vulnerability_reporting(session, org, repo_name)
+            tasks.append((repo, org, repo_name, task))
         
         results = await asyncio.gather(*[task for _,_,_, task in tasks])
         
