@@ -3,11 +3,13 @@ import json
 import asyncio
 import aiohttp
 from rich import print
+from datetime import datetime
+import humanize
 
-org = "jupyter"
+orgs = ["jupyter", 'ipython', 'jupyterhub', 'jupyterlab']
 token = os.getenv("GH_TOKEN")
 
-async def check_private_vulnerability_reporting(session, repo_name):
+async def check_private_vulnerability_reporting(session, org, repo_name):
     headers = {
         'Authorization': f'token {token}',
         'Accept': 'application/vnd.github.v3+json'
@@ -20,7 +22,7 @@ async def check_private_vulnerability_reporting(session, repo_name):
             return data.get('enabled', False)
     return False
 
-async def get_org_repos(session):
+async def get_org_repos(session, org):
     headers = {
         'Authorization': f'token {token}',
         'Accept': 'application/vnd.github.v3+json'
@@ -46,22 +48,30 @@ async def get_org_repos(session):
 
 async def main():
     async with aiohttp.ClientSession() as session:
-        repos = await get_org_repos(session)
         tasks = []
-        
-        for repo in repos:
-            repo_name = repo['name']
+        for org in orgs:
+            repos = await get_org_repos(session, org)
             
-            task = check_private_vulnerability_reporting(session, repo_name)
-            tasks.append((repo_name, task))
+            for repo in sorted(repos, key=lambda x: x['name']):
+                repo_name = repo['name']
+                
+                task = check_private_vulnerability_reporting(session, org, repo_name)
+                tasks.append((repo, org, repo_name, task))
         
-        results = await asyncio.gather(*[task for _, task in tasks])
+        results = await asyncio.gather(*[task for _,_,_, task in tasks])
         
-        for repo, (repo_name, _), has_vuln_reporting in zip(repos,tasks, results):
-            if repo['private']:
-                print(f"{repo_name:>25}: [yellow]Private[/yellow] {'[green]Enabled[/green]' if has_vuln_reporting else '[red]Disabled[/red]'}")
+        for (repo, org, repo_name, _), has_vuln_reporting in zip(tasks, results):
+            last_activity = repo['pushed_at']
+            last_activity_date = datetime.fromisoformat(last_activity).strftime("%Y-%m-%d")
+            last_activity_ago_human = humanize.naturaltime(datetime.now(datetime.fromisoformat(last_activity).tzinfo) - datetime.fromisoformat(last_activity))
+            
+            if repo['archived']:
+                print(f"{org+'/'+repo_name:<55}: [yellow]Archived {'Enabled' if has_vuln_reporting else 'Disabled[/yellow]'}")
+            elif repo['private']:
+                print(f"{org+'/'+repo_name:<55}: [yellow]Private {'Enabled' if has_vuln_reporting else 'Disabled[/yellow]'} –– last activity: {last_activity_date} ({last_activity_ago_human})")
+
             else:
-                print(f"{repo_name:>25}: {'[green]Enabled[/green]' if has_vuln_reporting else '[red]Disabled[/red]'}")
+                print(f"{org+'/'+repo_name:<55}: {'[green]Enabled[/green]' if has_vuln_reporting else '[red]Disabled[/red]'} –– last activity: {last_activity_date} ({last_activity_ago_human})")
 
 if __name__ == "__main__":
     asyncio.run(main())
