@@ -11,7 +11,6 @@ Members
 - Jason Grout [@jasongrout](https://github.com/jasongrout)
 - Rollin Thomas [@rcthomas](https://github.com/rcthomas)
 - Rick Wagner [@rpwagner](https://github.com/rpwagner)
-- Jason Weill [@jweill-aws](https://github.com/jweill-aws)
 - David L. Qiu [@dlqqq](https://github.com/dlqqq)
 - Joe Lucas [@josephtlucas](https://github.com/josephtlucas)
 
