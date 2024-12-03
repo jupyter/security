@@ -17,7 +17,22 @@ headers = {
     'Accept': 'application/vnd.github.v3+json'
 }
 
-async def check_private_vulnerability_reporting(session, org, repo_name):
+async def check_private_vulnerability_reporting(session: aiohttp.ClientSession, org: str, repo_name: str) -> bool:
+    """Check if private vulnerability reporting is enabled for a repository
+    
+    Parameters
+    ----------
+    session: aiohttp.ClientSession
+        The aiohttp client session
+    org: str
+        The organization name
+    repo_name: str
+        The repository name
+
+    Returns
+    -------
+    bool: True if enabled, False otherwise
+    """
     url = f'https://api.github.com/repos/{org}/{repo_name}/private-vulnerability-reporting'
     
     async with session.get(url, headers=headers) as response:
@@ -26,7 +41,20 @@ async def check_private_vulnerability_reporting(session, org, repo_name):
             return data.get('enabled', False)
     return False
 
-async def get_org_repos(session, org):
+async def get_org_repos(session: aiohttp.ClientSession, org: str) -> list[dict]:
+    """Get all repositories for an organization
+    
+    Parameters
+    ----------
+    session: aiohttp.ClientSession
+        The aiohttp client session
+    org: str
+        The organization name
+
+    Returns
+    -------
+    list[dict]: The list of repositories
+    """
     repos = []
     page = 1
     while True:
