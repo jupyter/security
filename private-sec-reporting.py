@@ -5,6 +5,7 @@ import aiohttp
 from rich import print
 from datetime import datetime
 import humanize
+from itertools import count
 
 orgs = ["jupyter", 'ipython', 'jupyterhub', 'jupyterlab']
 token = os.getenv("GH_TOKEN")
@@ -56,20 +57,19 @@ async def get_org_repos(session: aiohttp.ClientSession, org: str) -> list[dict]:
     list[dict]: The list of repositories
     """
     repos = []
-    page = 1
-    while True:
+    
+    for page in count(1):  # starts at 1 and counts up infinitely
         url = f'https://api.github.com/orgs/{org}/repos?page={page}&per_page=100'
         async with session.get(url, headers=headers) as response:
             if response.status != 200:
-                print(f"Error fetching repos: {response.status}")
+                print(f"[red]Error fetching repos: {response.status}[/red]")
                 break
                 
             page_repos = await response.json()
-            if not page_repos:
+            if not page_repos:  # empty page means we've reached the end
                 break
              
             repos.extend(page_repos)
-            page += 1
     
     return repos
 
