@@ -61,6 +61,8 @@ async def main():
                     if remaining < 10:
                         print("[red]Aborting due to very low rate limit[/red]")
                         return
+                else:
+                    print(f"[green]Rate limit is sufficient ({remaining} remaining, full in {reset_in})[/green]")
             else:
                 print(f"[red]Error checking rate limit: {response.status}[/red]")
         tasks = []
