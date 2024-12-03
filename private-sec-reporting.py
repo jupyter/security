@@ -8,12 +8,12 @@ import humanize
 
 orgs = ["jupyter", 'ipython', 'jupyterhub', 'jupyterlab']
 token = os.getenv("GH_TOKEN")
+headers = {
+    'Authorization': f'token {token}',
+    'Accept': 'application/vnd.github.v3+json'
+}
 
 async def check_private_vulnerability_reporting(session, org, repo_name):
-    headers = {
-        'Authorization': f'token {token}',
-        'Accept': 'application/vnd.github.v3+json'
-    }
     url = f'https://api.github.com/repos/{org}/{repo_name}/private-vulnerability-reporting'
     
     async with session.get(url, headers=headers) as response:
@@ -23,11 +23,6 @@ async def check_private_vulnerability_reporting(session, org, repo_name):
     return False
 
 async def get_org_repos(session, org):
-    headers = {
-        'Authorization': f'token {token}',
-        'Accept': 'application/vnd.github.v3+json'
-    }
-    
     repos = []
     page = 1
     while True:
@@ -49,10 +44,6 @@ async def get_org_repos(session, org):
 async def main():
     async with aiohttp.ClientSession() as session:
         # Check rate limit before making requests
-        headers = {
-            'Authorization': f'token {token}',
-            'Accept': 'application/vnd.github.v3+json'
-        }
         async with session.get('https://api.github.com/rate_limit', headers=headers) as response:
             if response.status == 200:
                 rate_data = await response.json()
