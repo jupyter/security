@@ -60,7 +60,7 @@ async def main():
         
         results = await asyncio.gather(*[task for _,_,_, task in tasks])
         
-        for (repo, org, repo_name, _), has_vuln_reporting in zip(tasks, results):
+        for (repo, org, repo_name, _), has_vuln_reporting in sorted(zip(tasks, results), key=lambda x: x[0][0]['pushed_at'], reverse=True):
             last_activity = repo['pushed_at']
             last_activity_date = datetime.fromisoformat(last_activity).strftime("%Y-%m-%d")
             last_activity_ago_human = humanize.naturaltime(datetime.now(datetime.fromisoformat(last_activity).tzinfo) - datetime.fromisoformat(last_activity))
