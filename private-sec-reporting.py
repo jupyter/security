@@ -51,17 +51,17 @@ async def main():
         
         for repo in repos:
             repo_name = repo['name']
-            if repo['private']:
-                print(f"{repo_name:>25}: [yellow]Private[/yellow]")
-                continue
             
             task = check_private_vulnerability_reporting(session, repo_name)
             tasks.append((repo_name, task))
         
         results = await asyncio.gather(*[task for _, task in tasks])
         
-        for (repo_name, _), has_vuln_reporting in zip(tasks, results):
-            print(f"{repo_name:>25}: {'[green]Enabled[/green]' if has_vuln_reporting else '[red]Disabled[/red]'}")
+        for repo, (repo_name, _), has_vuln_reporting in zip(repos,tasks, results):
+            if repo['private']:
+                print(f"{repo_name:>25}: [yellow]Private[/yellow] {'[green]Enabled[/green]' if has_vuln_reporting else '[red]Disabled[/red]'}")
+            else:
+                print(f"{repo_name:>25}: {'[green]Enabled[/green]' if has_vuln_reporting else '[red]Disabled[/red]'}")
 
 if __name__ == "__main__":
     asyncio.run(main())
