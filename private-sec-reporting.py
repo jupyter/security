@@ -54,15 +54,14 @@ async def main():
                 remaining = rate_data['resources']['core']['remaining']
                 reset_time = datetime.fromtimestamp(rate_data['resources']['core']['reset'])
                 reset_in = humanize.naturaltime(reset_time)
-                print(f"Rate limit remaining: {remaining}")
-                print(f"Rate limit resets {reset_in}")
                 if remaining < 100:
-                    print("[red]Warning: Rate limit is low![/red]")
+                    print(f"[yellow]Warning: Rate limit is low! ({remaining} remaining, full in {reset_in})[/yellow]")
                     if remaining < 10:
                         print("[red]Aborting due to very low rate limit[/red]")
                         return
                 else:
-                    print(f"[green]Rate limit is sufficient ({remaining} remaining, full in {reset_in})[/green]")
+                    print(f"Rate limit remaining: {remaining}")
+                    print(f"Rate limit resets {reset_in}")
             else:
                 print(f"[red]Error checking rate limit: {response.status}[/red]")
         tasks = []
