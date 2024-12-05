@@ -1,0 +1,2 @@
+# list of non private/archive {org}/{repo} it is ok to not have private security reporting.
+jupyter/governance
