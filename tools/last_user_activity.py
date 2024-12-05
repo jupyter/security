@@ -9,6 +9,11 @@ from rich import print
 from datetime import datetime
 import humanize
 from itertools import count
+import aiosqlite
+import diskcache
+import json
+import pathlib
+from typing import Optional
 
 orgs = [
     "binder-examples",
@@ -39,22 +44,17 @@ headers = {
     "Accept": "application/vnd.github.v3+json",
 }
 
+# Configure DiskCache in the current directory
+CACHE_DIR = "github_cache"
+cache = diskcache.Cache(CACHE_DIR)
+
 async def get_org_members(session: aiohttp.ClientSession, org: str) -> list[dict]:
-    """Get all members for an organization
-    
-    Parameters
-    ----------
-    session: aiohttp.ClientSession
-        The aiohttp client session
-    org: str
-        The organization name
-        
-    Returns
-    -------
-    list[dict]: The list of members
-    """
+    """Get all members for an organization with persistent caching"""
+    cache_key = f"org_members_{org}"
+    if cache_key in cache:
+        return cache[cache_key]
+
     members = []
-    
     for page in count(1):
         url = f"https://api.github.com/orgs/{org}/members?page={page}&per_page=100"
         async with session.get(url, headers=headers) as response:
@@ -67,32 +67,33 @@ async def get_org_members(session: aiohttp.ClientSession, org: str) -> list[dict
                 break
                 
             members.extend(page_members)
-            
+    
+    cache.set(cache_key, members, expire=3600 * 24)  # Cache for 24 hours
     return members
 
-async def get_user_activity(session: aiohttp.ClientSession, username: str) -> datetime:
-    """Get the last activity date for a user
-    
-    Parameters
-    ----------
-    session: aiohttp.ClientSession
-        The aiohttp client session
-    username: str
-        The GitHub username
-        
-    Returns
-    -------
-    datetime: The last activity date
-    """
+async def get_user_activity(session: aiohttp.ClientSession, username: str) -> Optional[datetime]:
+    """Get the last activity date for a user with persistent caching"""
+    cache_key = f"user_activity_{username}"
+    if cache_key in cache:
+        return cache[cache_key]
+
     url = f"https://api.github.com/users/{username}/events/public"
     async with session.get(url, headers=headers) as response:
         if response.status == 200:
             events = await response.json()
             if events:
-                return datetime.fromisoformat(events[0]["created_at"].replace('Z', '+00:00'))
+                last_activity = datetime.fromisoformat(events[0]["created_at"].replace('Z', '+00:00'))
+                cache.set(cache_key, last_activity, expire=3600 * 24)  # Cache for 24 hours
+                return last_activity
     return None
 
 async def main():
+    # Add cache info at start
+    if pathlib.Path(CACHE_DIR).exists():
+        print(f"[blue]Using cache directory: {CACHE_DIR}[/blue]")
+    else:
+        print("[yellow]Creating new cache directory[/yellow]")
+
     async with aiohttp.ClientSession() as session:
         # Check rate limit
         async with session.get("https://api.github.com/rate_limit", headers=headers) as response:
