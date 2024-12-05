@@ -17,7 +17,7 @@ from typing import Optional
 
 orgs = [
     "binder-examples",
-    "binderhub-ci-repos", 
+    "binderhub-ci-repos",
     "ipython",
     "jupyter",
     "jupyter-book",
