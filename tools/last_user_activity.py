@@ -19,22 +19,22 @@ from typing import Optional, List, Dict
 import argparse
 
 orgs = [
-    # "binder-examples",
-    # "binderhub-ci-repos",
+    "binder-examples",
+    "binderhub-ci-repos",
     "ipython",
-    # "jupyter",
-    # "jupyter-book",
-    # "jupyter-governance",
-    # "jupyter-incubator",
-    # "jupyter-server",
-    # "jupyter-standards",
-    # "jupyter-widgets",
-    # "jupyterhub",
-    # "jupyterlab",
-    # "jupyter-xeus",
-    # "jupytercon",
-    # "voila-dashboards",
-    # "voila-gallery",
+    "jupyter",
+    "jupyter-book",
+    "jupyter-governance",
+    "jupyter-incubator",
+    "jupyter-server",
+    "jupyter-standards",
+    "jupyter-widgets",
+    "jupyterhub",
+    "jupyterlab",
+    "jupyter-xeus",
+    "jupytercon",
+    "voila-dashboards",
+    "voila-gallery",
 ]
 
 token = os.getenv("GH_TOKEN")
@@ -47,9 +47,32 @@ headers = {
     "Accept": "application/vnd.github.v3+json",
 }
 
+class DateTimeCache(diskcache.Cache):
+    """Custom cache class that handles datetime serialization."""
+    
+    def __setitem__(self, key, value):
+        """Override to serialize datetime objects."""
+        if isinstance(value, datetime):
+            value = {'__datetime__': value.isoformat()}
+        super().__setitem__(key, value)
+    
+    def __getitem__(self, key):
+        """Override to deserialize datetime objects."""
+        value = super().__getitem__(key)
+        if isinstance(value, dict) and '__datetime__' in value:
+            return datetime.fromisoformat(value['__datetime__'])
+        return value
+    
+    def get(self, key, default=None, retry=False):
+        """Override to handle datetime deserialization in get method with retry."""
+        try:
+            return super().get(key, default=default, retry=retry)
+        except KeyError:
+            return default
+
 # Configure DiskCache in the current directory
 CACHE_DIR = "github_cache"
-cache = diskcache.Cache(CACHE_DIR)
+cache = DateTimeCache(CACHE_DIR)
 
 async def get_org_members(session: aiohttp.ClientSession, org: str) -> List[Dict]:
     """Fetch all members of a GitHub organization with caching.
@@ -77,8 +100,8 @@ async def get_org_members(session: aiohttp.ClientSession, org: str) -> List[Dict
     """
     cache_key = f"org_members_{org}"
     
-    # Try to get from cache
-    cached_data = cache.get(cache_key)
+    # Try to get from cache with retry
+    cached_data = cache.get(cache_key, retry=True)
     if cached_data is not None:
         print(f"[cyan]Cache hit for {org} members[/cyan]")
         return cached_data
@@ -101,7 +124,7 @@ async def get_org_members(session: aiohttp.ClientSession, org: str) -> List[Dict
                 members.extend(page_members)
         
         # Cache the results
-        cache.set(cache_key, members, expire=3600 * 24)  # 24 hours
+        cache[cache_key] = members  # Using __setitem__ instead of set()
         print(f"[green]Cached {len(members)} members for {org}[/green]")
         return members
         
@@ -131,12 +154,12 @@ async def get_user_activity(session: aiohttp.ClientSession, username: str) -> Op
                 if events:
                     last_activity = datetime.fromisoformat(events[0]["created_at"].replace('Z', '+00:00'))
                     # Cache the results
-                    cache.set(cache_key, last_activity, expire=3600 * 24)  # 24 hours
+                    cache[cache_key] = last_activity  # Using __setitem__ instead of set()
                     print(f"[green]Cached activity for {username}[/green]")
                     return last_activity
                 else:
                     print(f"[yellow]No activity found for {username}[/yellow]")
-                    cache.set(cache_key, None, expire=3600 * 24)
+                    cache[cache_key] = None  # Using __setitem__ instead of set()
             else:
                 print(f"[red]Error fetching activity for {username}: {response.status}[/red]")
     except Exception as e:
@@ -205,11 +228,10 @@ async def main():
         # Print results sorted by last activity
         user_activities = []
         for (username, _), last_activity in zip(tasks, results):
-            if last_activity:
-                user_activities.append((username, last_activity, all_members[username]))
+            user_activities.append((username, last_activity, all_members[username]))
 
-        for username, last_activity, user_orgs in sorted(user_activities, key=lambda x: x[1], reverse=True):
-            last_activity_ago = humanize.naturaltime(datetime.now(last_activity.tzinfo) - last_activity)
+        for username, last_activity, user_orgs in sorted(user_activities, key=lambda x: x[1] if x[1] is not None else datetime.fromtimestamp(0).astimezone(datetime.now().tzinfo), reverse=True):
+            last_activity_ago = humanize.naturaltime(datetime.now(last_activity.tzinfo) - last_activity) if last_activity else "[red]never[/red]"
             orgs_str = ", ".join(user_orgs)
             print(f"{username:<20}: Last activity {last_activity_ago} in orgs: {orgs_str}")
 
