@@ -230,7 +230,7 @@ async def main():
         for (username, _), last_activity in zip(tasks, results):
             user_activities.append((username, last_activity, all_members[username]))
 
-        for username, last_activity, user_orgs in sorted(user_activities, key=lambda x: x[1] if x[1] is not None else datetime.fromtimestamp(0).astimezone(datetime.now().tzinfo), reverse=True):
+        for username, last_activity, user_orgs in sorted(user_activities, key=lambda x: x[1] if x[1] is not None else datetime.fromtimestamp(0), reverse=True):
             last_activity_ago = humanize.naturaltime(datetime.now(last_activity.tzinfo) - last_activity) if last_activity else "[red]never[/red]"
             orgs_str = ", ".join(user_orgs)
             print(f"{username:<20}: Last activity {last_activity_ago} in orgs: {orgs_str}")
