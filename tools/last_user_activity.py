@@ -60,12 +60,17 @@ class DateTimeCache(diskcache.Cache):
         value = super().__getitem__(key)
         if isinstance(value, dict) and "__datetime__" in value:
             return datetime.fromisoformat(value["__datetime__"])
+        assert not isinstance(value, dict), value
         return value
 
     def get(self, key, default=None, retry=False):
         """Override to handle datetime deserialization in get method with retry."""
         try:
-            return super().get(key, default=default, retry=retry)
+            value = super().get(key, default=default, retry=retry)
+            if isinstance(value, dict) and "__datetime__" in value:
+                return datetime.fromisoformat(value["__datetime__"])
+            return value
+
         except KeyError:
             return default
 
@@ -150,6 +155,7 @@ async def get_user_activity(
     if cached_data is not None:
         if debug:
             print(f"[cyan]Cache hit for {username} activity[/cyan]")
+        assert isinstance(cached_data, datetime), cached_data
         return cached_data
     if debug:
         print(
@@ -170,10 +176,13 @@ async def get_user_activity(
                         events[0]["created_at"].replace("Z", "+00:00")
                     )
                     # Cache the results
+                    assert isinstance(last_activity, datetime)
                     cache[cache_key] = (
                         last_activity  # Using __setitem__ instead of set()
                     )
-                    print(f"[green]Cached activity for {username}[/green]")
+                    if debug:
+                        print(f"[green]Cached activity for {username}[/green]")
+                    assert isinstance(last_activity, datetime)
                     return last_activity
                 else:
                     if debug:
@@ -260,12 +269,12 @@ async def main(debug: bool):
         # Print results sorted by last activity
         user_activities = []
         for (username, _), last_activity in zip(tasks, results):
+            if last_activity is not None:
+                assert isinstance(last_activity, datetime), last_activity
             user_activities.append(
                 (
                     username,
-                    datetime.fromisoformat(last_activity["__datetime__"])
-                    if last_activity is not None
-                    else None,
+                    last_activity if last_activity is not None else None,
                     all_members[username],
                 )
             )
