@@ -11,9 +11,7 @@ from rich import print
 from datetime import datetime, timezone
 import humanize
 from itertools import count
-import aiosqlite
 import diskcache
-import json
 import pathlib
 from typing import Optional, List, Dict
 import argparse
@@ -77,7 +75,9 @@ CACHE_DIR = "github_cache"
 cache = DateTimeCache(CACHE_DIR)
 
 
-async def get_org_members(session: aiohttp.ClientSession, org: str) -> List[Dict]:
+async def get_org_members(
+    session: aiohttp.ClientSession, org: str, debug: bool
+) -> List[Dict]:
     """Fetch all members of a GitHub organization with caching.
 
     Parameters
@@ -106,7 +106,8 @@ async def get_org_members(session: aiohttp.ClientSession, org: str) -> List[Dict
     # Try to get from cache with retry
     cached_data = cache.get(cache_key, retry=True)
     if cached_data is not None:
-        print(f"[cyan]Cache hit for {org} members[/cyan]")
+        if debug:
+            print(f"[cyan]Cache hit for {org} members[/cyan]")
         return cached_data
 
     print(f"[yellow]Cache miss for {org} members - fetching from API[/yellow]")
@@ -139,7 +140,7 @@ async def get_org_members(session: aiohttp.ClientSession, org: str) -> List[Dict
 
 
 async def get_user_activity(
-    session: aiohttp.ClientSession, username: str
+    session: aiohttp.ClientSession, username: str, debug: bool
 ) -> Optional[datetime]:
     """Fetch the last public activity date for a GitHub user."""
     cache_key = f"user_activity_{username}"
@@ -147,17 +148,22 @@ async def get_user_activity(
     # Try to get from cache
     cached_data = cache.get(cache_key)
     if cached_data is not None:
-        print(f"[cyan]Cache hit for {username} activity[/cyan]")
+        if debug:
+            print(f"[cyan]Cache hit for {username} activity[/cyan]")
         return cached_data
-
-    print(f"[yellow]Cache miss for {username} activity - fetching from API[/yellow]")
+    if debug:
+        print(
+            f"[yellow]Cache miss for {username} activity - fetching from API[/yellow]"
+        )
 
     try:
-        print(f"Getting activity for {username}")
+        if debug:
+            print(f"[blue]Getting activity for {username}[/blue]")
         url = f"https://api.github.com/users/{username}/events/public"
         async with session.get(url, headers=headers) as response:
             if response.status == 200:
-                print(f"Got activity for {username}")
+                if debug:
+                    print(f"Got activity for {username}")
                 events = await response.json()
                 if events:
                     last_activity = datetime.fromisoformat(
@@ -170,7 +176,8 @@ async def get_user_activity(
                     print(f"[green]Cached activity for {username}[/green]")
                     return last_activity
                 else:
-                    print(f"[yellow]No activity found for {username}[/yellow]")
+                    if debug:
+                        print(f"[yellow]No activity found for {username}[/yellow]")
                     cache[cache_key] = None  # Using __setitem__ instead of set()
             else:
                 print(
@@ -205,7 +212,7 @@ def clear_cache() -> None:
         print(f"[red]Error clearing cache: {str(e)}[/red]")
 
 
-async def main():
+async def main(debug: bool):
     """Main execution function."""
     # Show cache status
     print(f"[blue]Cache directory: {CACHE_DIR} (size: {get_cache_size()})[/blue]")
@@ -236,7 +243,7 @@ async def main():
         # Get all members from all orgs
         all_members = {}
         for org in orgs:
-            members = await get_org_members(session, org)
+            members = await get_org_members(session, org, debug)
             for member in members:
                 if member["login"] not in all_members:
                     all_members[member["login"]] = []
@@ -245,7 +252,7 @@ async def main():
         # Get activity for each user
         tasks = []
         for username in all_members:
-            task = get_user_activity(session, username)
+            task = get_user_activity(session, username, debug)
             tasks.append((username, task))
 
         results = await asyncio.gather(*(task for _, task in tasks))
@@ -258,14 +265,16 @@ async def main():
                     username,
                     datetime.fromisoformat(last_activity["__datetime__"])
                     if last_activity is not None
-                    else datetime.fromtimestamp(0).replace(tzinfo=timezone.utc),
+                    else None,
                     all_members[username],
                 )
             )
 
         for username, last_activity, user_orgs in sorted(
             user_activities,
-            key=lambda x: x[1] if x[1] is not None else datetime.fromtimestamp(0),
+            key=lambda x: (x[1], x[0])
+            if x[1] is not None
+            else (datetime.fromtimestamp(0).replace(tzinfo=timezone.utc), x[0]),
             reverse=True,
         ):
             last_activity_ago = (
@@ -290,4 +299,4 @@ if __name__ == "__main__":
     if args.clear_cache:
         clear_cache()
 
-    asyncio.run(main())
+    asyncio.run(main(args.debug))
