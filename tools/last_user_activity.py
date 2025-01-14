@@ -8,7 +8,7 @@ import os
 import asyncio
 import aiohttp
 from rich import print
-from datetime import datetime
+from datetime import datetime, timezone
 import humanize
 from itertools import count
 import aiosqlite
@@ -253,7 +253,15 @@ async def main():
         # Print results sorted by last activity
         user_activities = []
         for (username, _), last_activity in zip(tasks, results):
-            user_activities.append((username, last_activity, all_members[username]))
+            user_activities.append(
+                (
+                    username,
+                    datetime.fromisoformat(last_activity["__datetime__"])
+                    if last_activity is not None
+                    else datetime.fromtimestamp(0).replace(tzinfo=timezone.utc),
+                    all_members[username],
+                )
+            )
 
         for username, last_activity, user_orgs in sorted(
             user_activities,
