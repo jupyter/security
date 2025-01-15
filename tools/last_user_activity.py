@@ -5,6 +5,7 @@ It implements disk-based caching to minimize API requests and respect rate limit
 """
 
 import os
+import sys
 import asyncio
 import aiohttp
 from rich import print
@@ -225,11 +226,32 @@ def clear_cache() -> None:
         print(f"[red]Error clearing cache: {str(e)}[/red]")
 
 
+async def check_user_admin(session: aiohttp.ClientSession, org: str, username: str) -> bool:
+    url = f"https://api.github.com/orgs/{org}/memberships/{username}"
+    async with session.get(url, headers=headers) as response:
+        if response.status == 404:
+            return False
+        elif response.status != 200:
+            print(f"[red]Error fetching membership for {username} in {org}: {response.status}[/red]")
+            return False
+        return (await response.json())['role'] == 'admin'
+
+
 async def main(orgs, debug: bool, timelimit_days: int):
     """Main execution function."""
     # Show cache status
     print(f"[blue]Cache directory: {CACHE_DIR} (size: {get_cache_size()})[/blue]")
     print(f"[blue]Cache contains {len(cache)} items[/blue]")
+
+    # check who the current user is
+    async with aiohttp.ClientSession() as session:
+        async with session.get("https://api.github.com/user", headers=headers) as response:
+            if response.status == 200:
+                user_data = await response.json()
+                current_user = user_data["login"]
+                print(f"[blue]Current user: {current_user}[/blue]")
+            else:
+                sys.exit(f"[red]Error fetching user data: {response.status}[/red]")
 
     async with aiohttp.ClientSession() as session:
         # Check rate limit
@@ -284,6 +306,12 @@ async def main(orgs, debug: bool, timelimit_days: int):
             )
         for org in orgs:
             print(f"[bold]{org}[/bold]")
+            is_admin = await check_user_admin(session, org, current_user)
+            if is_admin:
+                if debug:
+                    print(f"    [green]{current_user} is an admin in {org}[/green]")
+            else:
+                print(f"    [yellow]{current_user} is not an admin in {org}, list of users will be incomplete (limited to public membership)[/yellow]")
             n_active = 0
             n_inactive = 0
             for username, last_activity, user_orgs in sorted(
