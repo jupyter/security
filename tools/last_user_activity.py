@@ -8,7 +8,7 @@ import os
 import asyncio
 import aiohttp
 from rich import print
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import humanize
 from itertools import count
 import diskcache
@@ -16,23 +16,27 @@ import pathlib
 from typing import Optional, List, Dict
 import argparse
 
-orgs = [
+default_orgs = [
     "binder-examples",
     "binderhub-ci-repos",
     "ipython",
     "jupyter",
+    "jupyter-attic",
     "jupyter-book",
     "jupyter-governance",
     "jupyter-incubator",
+    "jupyter-resources",
     "jupyter-server",
+    "jupyter-standard",
     "jupyter-standards",
     "jupyter-widgets",
-    "jupyterhub",
-    "jupyterlab",
     "jupyter-xeus",
     "jupytercon",
+    "jupyterhub",
+    "jupyterlab",
     "voila-dashboards",
     "voila-gallery",
+    "pickleshare",
 ]
 
 token = os.getenv("GH_TOKEN")
@@ -221,7 +225,7 @@ def clear_cache() -> None:
         print(f"[red]Error clearing cache: {str(e)}[/red]")
 
 
-async def main(debug: bool):
+async def main(orgs, debug: bool, timelimit_days: int):
     """Main execution function."""
     # Show cache status
     print(f"[blue]Cache directory: {CACHE_DIR} (size: {get_cache_size()})[/blue]")
@@ -278,23 +282,33 @@ async def main(debug: bool):
                     all_members[username],
                 )
             )
-
-        for username, last_activity, user_orgs in sorted(
-            user_activities,
-            key=lambda x: (x[1], x[0])
-            if x[1] is not None
-            else (datetime.fromtimestamp(0).replace(tzinfo=timezone.utc), x[0]),
-            reverse=True,
-        ):
-            last_activity_ago = (
-                humanize.naturaltime(datetime.now(last_activity.tzinfo) - last_activity)
-                if last_activity
-                else "[red]never[/red]"
-            )
-            orgs_str = ", ".join(user_orgs)
-            print(
-                f"{username:<20}: Last activity {last_activity_ago} in orgs: {orgs_str}"
-            )
+        for org in orgs:
+            print(f"[bold]{org}[/bold]")
+            n_active = 0
+            n_inactive = 0
+            for username, last_activity, user_orgs in sorted(
+                user_activities,
+                key=lambda x: (x[1], x[0])
+                if x[1] is not None
+                else (datetime.fromtimestamp(0).replace(tzinfo=timezone.utc), x[0]),
+                reverse=True,
+            ):
+                if org not in user_orgs:
+                    continue
+                if last_activity is not None and last_activity > (datetime.now().replace(tzinfo=timezone.utc) - timedelta(days=timelimit_days)):
+                    n_active += 1
+                    continue
+                n_inactive += 1
+                last_activity_ago = (
+                    humanize.naturaltime(datetime.now(last_activity.tzinfo) - last_activity)
+                    if last_activity
+                    else "[red]never[/red]"
+                )
+                orgs_str = ", ".join(user_orgs)
+                print(
+                    f"    {username:<20}: Last activity {last_activity_ago}"
+                )
+            print(f"    Found [red]{n_inactive} inactive[/red] and [green]{n_active} active[/green] users in {org} with last activity more recent than {timelimit_days} days.")
 
 
 if __name__ == "__main__":
@@ -303,9 +317,24 @@ if __name__ == "__main__":
         "--clear-cache", action="store_true", help="Clear the cache before running"
     )
     parser.add_argument("--debug", action="store_true", help="Show debug information")
+
+
+    parser.add_argument(
+        "--timelimit-days",
+        type=int,
+        default=0,
+        help="Time limit in days for the last activity (default: 30)",
+    )
+    parser.add_argument(
+        "--orgs",
+        nargs="+",
+        default=default_orgs,
+        help="GitHub organizations to track (default: all)",
+    )
     args = parser.parse_args()
+
 
     if args.clear_cache:
         clear_cache()
 
-    asyncio.run(main(args.debug))
+    asyncio.run(main(args.orgs, args.debug, args.timelimit_days))
