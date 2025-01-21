@@ -322,8 +322,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--timelimit-days",
         type=int,
-        default=0,
-        help="Time limit in days for the last activity (default: 30)",
+        default=365,
+        help="Maximum number of days since last activity before an account is marked as inactive. (default: 365)",
     )
     parser.add_argument(
         "--orgs",
