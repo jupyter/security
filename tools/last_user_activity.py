@@ -5,6 +5,7 @@ It implements disk-based caching to minimize API requests and respect rate limit
 """
 
 import os
+import sys
 import asyncio
 import aiohttp
 from rich import print
@@ -138,6 +139,12 @@ async def get_org_members(
 
                 members.extend(page_members)
 
+        tasks = [check_user_admin(session, org, member["login"]) for member in members]
+        admin_statuses = await asyncio.gather(*tasks)
+
+        for member, is_owner in zip(members, admin_statuses):
+            member["is_owner"] = is_owner
+
         # Cache the results
         cache[cache_key] = members  # Using __setitem__ instead of set()
         print(f"[green]Cached {len(members)} members for {org}[/green]")
@@ -225,11 +232,38 @@ def clear_cache() -> None:
         print(f"[red]Error clearing cache: {str(e)}[/red]")
 
 
+async def check_user_admin(
+    session: aiohttp.ClientSession, org: str, username: str
+) -> bool:
+    url = f"https://api.github.com/orgs/{org}/memberships/{username}"
+    async with session.get(url, headers=headers) as response:
+        if response.status == 404:
+            return False
+        elif response.status != 200:
+            print(
+                f"[red]Error fetching membership for {username} in {org}: {response.status}[/red]"
+            )
+            return False
+        return (await response.json())["role"] == "admin"
+
+
 async def main(orgs, debug: bool, timelimit_days: int):
     """Main execution function."""
     # Show cache status
     print(f"[blue]Cache directory: {CACHE_DIR} (size: {get_cache_size()})[/blue]")
     print(f"[blue]Cache contains {len(cache)} items[/blue]")
+
+    # check who the current user is
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            "https://api.github.com/user", headers=headers
+        ) as response:
+            if response.status == 200:
+                user_data = await response.json()
+                current_user = user_data["login"]
+                print(f"[blue]Current user: {current_user}[/blue]")
+            else:
+                sys.exit(f"[red]Error fetching user data: {response.status}[/red]")
 
     async with aiohttp.ClientSession() as session:
         # Check rate limit
@@ -255,12 +289,15 @@ async def main(orgs, debug: bool, timelimit_days: int):
 
         # Get all members from all orgs
         all_members = {}
+        org_owners = {}
         for org in orgs:
             members = await get_org_members(session, org, debug)
             for member in members:
                 if member["login"] not in all_members:
                     all_members[member["login"]] = []
                 all_members[member["login"]].append(org)
+                if member["is_owner"]:
+                    org_owners.setdefault(org, []).append(member["login"])
 
         # Get activity for each user
         tasks = []
@@ -284,31 +321,47 @@ async def main(orgs, debug: bool, timelimit_days: int):
             )
         for org in orgs:
             print(f"[bold]{org}[/bold]")
+            is_admin = await check_user_admin(session, org, current_user)
+            if is_admin:
+                if debug:
+                    print(f"    [green]{current_user} is an admin in {org}[/green]")
+            else:
+                print(
+                    f"    [yellow]{current_user} is not an admin in {org}, list of users will be incomplete (limited to public membership)[/yellow]"
+                )
             n_active = 0
             n_inactive = 0
             for username, last_activity, user_orgs in sorted(
                 user_activities,
-                key=lambda x: (x[1], x[0])
-                if x[1] is not None
-                else (datetime.fromtimestamp(0).replace(tzinfo=timezone.utc), x[0]),
+                key=lambda x: (
+                    (x[1], x[0])
+                    if x[1] is not None
+                    else (datetime.fromtimestamp(0).replace(tzinfo=timezone.utc), x[0])
+                ),
                 reverse=True,
             ):
                 if org not in user_orgs:
                     continue
-                if last_activity is not None and last_activity > (datetime.now().replace(tzinfo=timezone.utc) - timedelta(days=timelimit_days)):
+                if last_activity is not None and last_activity > (
+                    datetime.now().replace(tzinfo=timezone.utc)
+                    - timedelta(days=timelimit_days)
+                ):
                     n_active += 1
                     continue
                 n_inactive += 1
                 last_activity_ago = (
-                    humanize.naturaltime(datetime.now(last_activity.tzinfo) - last_activity)
+                    humanize.naturaltime(
+                        datetime.now(last_activity.tzinfo) - last_activity
+                    )
                     if last_activity
                     else "[red]never[/red]"
                 )
                 orgs_str = ", ".join(user_orgs)
-                print(
-                    f"    {username:<20}: Last activity {last_activity_ago}"
-                )
-            print(f"    Found [red]{n_inactive} inactive[/red] and [green]{n_active} active[/green] users in {org} with last activity more recent than {timelimit_days} days.")
+                u_owner = " (owner)" if username in org_owners.get(org, []) else ""
+                print(f"    {username+u_owner:<20}: Last activity {last_activity_ago}")
+            print(
+                f"    Found [red]{n_inactive} inactive[/red] and [green]{n_active} active[/green] users in {org} with last activity more recent than {timelimit_days} days."
+            )
 
 
 if __name__ == "__main__":
@@ -317,7 +370,6 @@ if __name__ == "__main__":
         "--clear-cache", action="store_true", help="Clear the cache before running"
     )
     parser.add_argument("--debug", action="store_true", help="Show debug information")
-
 
     parser.add_argument(
         "--timelimit-days",
@@ -332,7 +384,6 @@ if __name__ == "__main__":
         help="GitHub organizations to track (default: all)",
     )
     args = parser.parse_args()
-
 
     if args.clear_cache:
         clear_cache()
