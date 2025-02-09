@@ -9,7 +9,6 @@ If you need to privately disclose security issues please see https://jupyter.org
 Members
 - Matthias Bussonnier [@Carreau](https://github.com/Carreau)
 - Jason Grout [@jasongrout](https://github.com/jasongrout)
-- Rollin Thomas [@rcthomas](https://github.com/rcthomas)
 - Rick Wagner [@rpwagner](https://github.com/rpwagner)
 - David L. Qiu [@dlqqq](https://github.com/dlqqq)
 - Joe Lucas [@josephtlucas](https://github.com/josephtlucas)
