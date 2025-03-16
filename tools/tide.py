@@ -1,7 +1,17 @@
+# https://packaging.python.org/en/latest/specifications/inline-script-metadata/
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#   "requests",
+#   "rich",
+#   "beautifulsoup4",
+# ]
+# ///
 import requests
 from rich import print
 from bs4 import BeautifulSoup
 import sys
+from rich.table import Table
 
 
 def get_packages(url):
@@ -11,6 +21,10 @@ def get_packages(url):
 
     if response.status_code != 200:
         print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
+        exit(1)
+
+    if "A required part of this site couldn’t load" in response.text:
+        print("Fastly is blocking us. Status code: 403")
         exit(1)
 
     # Parse the HTML content
@@ -28,15 +42,13 @@ def get_packages(url):
     return h3_tags
 
 
-# Print the sorted list
-
-
 def get_tidelift_data(packages):
-
     packages_data = [{"platform": "pypi", "name": h3} for h3 in packages]
 
     data = {"packages": packages_data}
-    res = requests.post("https://tidelift.com/api/depci/estimate/bulk_estimates", json=data)
+    res = requests.post(
+        "https://tidelift.com/api/depci/estimate/bulk_estimates", json=data
+    )
 
     res.raise_for_status()
 
@@ -55,10 +67,7 @@ def get_tidelift_data(packages):
         if package not in package_names:
             package_data.append((package, None, None))
 
-
     # Print the collected data in aligned columns
-    from rich.columns import Columns
-    from rich.table import Table
 
     # Create a table for aligned output
     table = Table(show_header=True, header_style="bold magenta")
@@ -84,6 +93,7 @@ def get_tidelift_data(packages):
             table.add_row(name, str(estimated_money), f"[red]{lifted}[/red]")
 
     print(table)
+
 
 if __name__ == "__main__":
     # URL of the webpage
