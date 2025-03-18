@@ -24,7 +24,7 @@ def get_packages(url):
         exit(1)
 
     if "A required part of this site couldn’t load" in response.text:
-        print("Fastly is blocking us. Status code: 403")
+        print(f"Fastly is blocking us for {url}. Status code: 403")
         exit(1)
 
     # Parse the HTML content
@@ -97,16 +97,23 @@ def get_tidelift_data(packages):
 
 if __name__ == "__main__":
     # URL of the webpage
-    if sys.argv[1] == "--org":
-        url = f"https://pypi.org/org/{sys.argv[2]}/"
-        packages = get_packages(url)
-    elif sys.argv[1] == "--user":
-        url = f"https://pypi.org/user/{sys.argv[2]}/"
-        packages = get_packages(url)
-    elif sys.argv[1] == "--packages":
-        packages = sys.argv[2:]
-    else:
-        print("Invalid argument. Please use either --org ORG or --user USER")
-        exit(1)
-
+    args = sys.argv[1:]
+    packages = []
+    while args:
+        if args[0] == "--org":
+            url = f"https://pypi.org/org/{args[1]}/"
+            packages += get_packages(url)
+            args = args[2:]
+        elif args[0] == "--user":
+            url = f"https://pypi.org/user/{args[1]}/"
+            packages += get_packages(url)
+            args = args[2:]
+        elif args[0] == "--packages":
+            packages += args[1:]
+            args = []
+        else:
+            print(
+                "Invalid argument. Please use either --org ORG, --user USER or --packages PACKAGE1 PACKAGE2 ..."
+            )
+            exit(1)
     get_tidelift_data(packages)
