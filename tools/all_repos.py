@@ -106,6 +106,7 @@ async def list_repos_for_org(org):
             f"https://api.github.com/orgs/{org}/repos?per_page=100&page={p}",
             headers=headers,
         )
+        response.raise_for_status()
         repos = response.json()
         for repo in repos:
             reps.append((org, repo["name"]))
