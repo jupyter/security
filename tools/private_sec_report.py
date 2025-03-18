@@ -72,11 +72,18 @@ async def get_private_report(session, org, repo):
     ) as repo_response:
         repo_info = await repo_response.json()
         archived = repo_info.get("archived", False)
+        private = repo_info.get("private", False)
     async with session.get(private_report_url, headers=headers) as response:
         if response.status == 200:
-            return org, repo, (await response.json()).get("enabled", False), archived
+            return (
+                org,
+                repo,
+                (await response.json()).get("enabled", False),
+                archived,
+                private,
+            )
         else:
-            return org, repo, False, archived
+            return org, repo, False, archived, private
 
 
 async def main():
@@ -90,7 +97,7 @@ async def main():
 
         results = await asyncio.gather(*tasks)
         prev_org = None
-        for org, repo, enabled, archived in results:
+        for org, repo, enabled, archived, private in results:
             if org != prev_org:
                 print()
                 print(f"[bold]{org}[/bold]")
@@ -98,6 +105,8 @@ async def main():
             if enabled:
                 print(f"    [green]{repo}: {enabled}[/green]")
             else:
+                if private:
+                    print(f"    [yellow]{org}/{repo}: {enabled} (private)[/yellow]")
                 if archived:
                     print(f"    [yellow]{org}/{repo}: {enabled} (archived)[/yellow]")
                 elif f"{org}/{repo}" in ignore_repos:
