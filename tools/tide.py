@@ -25,6 +25,9 @@ def get_packages(url):
 
     if "A required part of this site couldn’t load" in response.text:
         print(f"Fastly is blocking us for {url}. Status code: 403")
+        print(
+            "You can try `Array.from(document.querySelectorAll('h3')).map(h3 => h3.innerText).join(' ');`, from js console when viewing a page from a browser and use the `--packages` option."
+        )
         exit(1)
 
     # Parse the HTML content

@@ -52,7 +52,7 @@ def get_packages(url):
 
 
 default_orgs = [
-    "binder-examples",
+    # "binder-examples",
     "binderhub-ci-repos",
     "ipython",
     "jupyter",
@@ -66,7 +66,7 @@ default_orgs = [
     "jupyter-standards",
     "jupyter-widgets",
     "jupyter-xeus",
-    "jupytercon",
+    # "jupytercon",
     "jupyterhub",
     "jupyterlab",
     "voila-dashboards",
