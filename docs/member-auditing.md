@@ -2,7 +2,7 @@
 
 This document proposes a new security policy concerning member activity within our GitHub organizations.
 The Jupyter Security Council aims to routinely review the activity levels of members across our GitHub organizations.
-Members who have not engaged in any activity for a specific period will have their privileges adjusted or may be removed from the organization. This process aims to to enhance security by ensuring that only active contributors retain access.
+Members who have not engaged in any activity for a specific period will have their privileges adjusted or may be removed from the organization. This process aims to to enhance security by ensuring that only active contributors retain access. This policy and GitHub privileges do not indicate membership or status within the Jupyter project. This policy aims to support the Jupyter project's overall security efforts.
 
 ## Scope
 
