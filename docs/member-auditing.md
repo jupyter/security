@@ -1,7 +1,7 @@
 # Jupyter Organization Member Auditing
 
-This document proposes a new security policy concerning member activity within our Github organizations.
-The Jupyter Security Council aims to routinely review the activity levels of members across our Github organizations.
+This document proposes a new security policy concerning member activity within our GitHub organizations.
+The Jupyter Security Council aims to routinely review the activity levels of members across our GitHub organizations.
 Members who have not engaged in any activity for a specific period will have their privileges adjusted or may be removed from the organization. This process aims to to enhance security by ensuring that only active contributors retain access.
 
 ## Scope
@@ -10,7 +10,7 @@ This process applies to *all projects* governed by Jupyter (including those unde
 
 ## Defining Inactivity
 
-A member is considered inactive if they have not performed any *public* [Github events](https://docs.github.com/en/rest/activity/events?apiVersion=2022-11-28#list-public-events-for-a-user) within the last [365] days. Some examples of those public activities include:
+A member is considered inactive if they have not performed any *public* [GitHub events](https://docs.github.com/en/rest/activity/events?apiVersion=2022-11-28#list-public-events-for-a-user) within the last [365] days. Some examples of those public activities include:
 
 - Commits to public repositories
 - Pull requests to public repositoryies
