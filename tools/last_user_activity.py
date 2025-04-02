@@ -4,20 +4,20 @@ This module tracks and reports the last activity of members across GitHub organi
 It implements disk-based caching to minimize API requests and respect rate limits.
 """
 
-import os
-import sys
-import asyncio
-import aiohttp
-import json
-from rich import print
-from datetime import datetime, timezone, timedelta
-import humanize
-from itertools import count
-import diskcache
-import pathlib
-from pathlib import Path
-from typing import Optional, List, Dict
 import argparse
+import asyncio
+import os
+import pathlib
+import sys
+from datetime import datetime, timedelta, timezone
+from itertools import count
+from pathlib import Path
+from typing import Dict, List, Optional
+
+import aiohttp
+import diskcache
+import humanize
+from rich import print
 
 default_orgs = [
     "binder-examples",
@@ -386,7 +386,6 @@ async def main(orgs, debug: bool, timelimit_days: int, config_file: str):
                     if last_activity
                     else "[red]never[/red]"
                 )
-                orgs_str = ", ".join(user_orgs)
                 u_owner = " (owner)" if username in org_owners.get(org, []) else ""
                 inviter = manual_users.get(username, {}).get("inviter", None)
                 if inviter:
