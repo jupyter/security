@@ -83,6 +83,7 @@ class DateTimeCache(diskcache.Cache):
 
 
 # Configure DiskCache in the current directory
+# todo: auto clear after ~24 hours
 CACHE_DIR = "github_cache"
 cache = DateTimeCache(CACHE_DIR)
 
@@ -348,10 +349,13 @@ async def main(orgs, debug: bool, timelimit_days: int, config_file: str):
                     all_members[username],
                 )
             )
-        for org in orgs:
-            # todo, check admin concurently
+
+        admin_check_tasks = [
+            check_user_admin(session, org, current_user) for org in orgs
+        ]
+        admin_check_results = await asyncio.gather(*admin_check_tasks)
+        for org, is_admin in zip(orgs, admin_check_results):
             print(f"[bold]{org}[/bold]")
-            is_admin = await check_user_admin(session, org, current_user)
             if is_admin:
                 if debug:
                     print(f"    [green]{current_user} is an admin in {org}[/green]")
@@ -377,6 +381,8 @@ async def main(orgs, debug: bool, timelimit_days: int, config_file: str):
                     - timedelta(days=timelimit_days)
                 ):
                     n_active += 1
+                    if debug:
+                        print(f"    [green]{username}[/green] is active in {org}")
                     continue
                 n_inactive += 1
                 last_activity_ago = (
