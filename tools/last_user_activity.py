@@ -8,12 +8,14 @@ import os
 import sys
 import asyncio
 import aiohttp
+import json
 from rich import print
 from datetime import datetime, timezone, timedelta
 import humanize
 from itertools import count
 import diskcache
 import pathlib
+from pathlib import Path
 from typing import Optional, List, Dict
 import argparse
 
@@ -247,12 +249,34 @@ async def check_user_admin(
         return (await response.json())["role"] == "admin"
 
 
-async def main(orgs, debug: bool, timelimit_days: int):
+async def main(orgs, debug: bool, timelimit_days: int, config_file: str):
     """Main execution function."""
     # Show cache status
     print(f"[blue]Cache directory: {CACHE_DIR} (size: {get_cache_size()})[/blue]")
     print(f"[blue]Cache contains {len(cache)} items[/blue]")
-
+    now = datetime.now(timezone.utc)
+    manual_users = {}
+    for line in Path(config_file).read_text().splitlines():
+        if line.startswith("#") or not line.strip():
+            continue
+        user, inviter, date_last_activity, reason = [x.strip() for x in line.split(":")]
+        manual_users[user] = {
+            "manual_last_activity": datetime.strptime(
+                date_last_activity, "%Y-%m"
+            ).replace(tzinfo=timezone.utc),
+            "last_activity_reason": reason,
+            "inviter": inviter,
+        }
+        if not manual_users[user]["last_activity_reason"]:
+            print(
+                f"[yellow]Warning: No last_activity_reason for {user['username']}, skipping[/yellow]"
+            )
+            continue
+        if now < manual_users[user]["manual_last_activity"]:
+            print(
+                f"[red]Warning: manual_last_activity for {user['username']} is in the future, skipping[/red]"
+            )
+            continue
     # check who the current user is
     async with aiohttp.ClientSession() as session:
         async with session.get(
@@ -296,7 +320,7 @@ async def main(orgs, debug: bool, timelimit_days: int):
                 if member["login"] not in all_members:
                     all_members[member["login"]] = []
                 all_members[member["login"]].append(org)
-                if member["is_owner"]:
+                if member.get("is_owner", None):
                     org_owners.setdefault(org, []).append(member["login"])
 
         # Get activity for each user
@@ -312,6 +336,11 @@ async def main(orgs, debug: bool, timelimit_days: int):
         for (username, _), last_activity in zip(tasks, results):
             if last_activity is not None:
                 assert isinstance(last_activity, datetime), last_activity
+
+            if last_activity is None:
+                last_activity = manual_users.get(username, {}).get(
+                    "manual_last_activity", None
+                )
             user_activities.append(
                 (
                     username,
@@ -320,6 +349,7 @@ async def main(orgs, debug: bool, timelimit_days: int):
                 )
             )
         for org in orgs:
+            # todo, check admin concurently
             print(f"[bold]{org}[/bold]")
             is_admin = await check_user_admin(session, org, current_user)
             if is_admin:
@@ -358,7 +388,21 @@ async def main(orgs, debug: bool, timelimit_days: int):
                 )
                 orgs_str = ", ".join(user_orgs)
                 u_owner = " (owner)" if username in org_owners.get(org, []) else ""
-                print(f"    {username+u_owner:<20}: Last activity {last_activity_ago}")
+                inviter = manual_users.get(username, {}).get("inviter", None)
+                if inviter:
+                    inviter = f"[green]@{inviter}[/green]"
+                else:
+                    inviter = "[red]unknown[/red]"
+                reason = manual_users.get(username, {}).get(
+                    "last_activity_reason", None
+                )
+                if reason:
+                    reason = f"[green]{reason}[/green]"
+                else:
+                    reason = "[red]unknown[/red]"
+                print(
+                    f"    {username + u_owner:<20}: Last activity {last_activity_ago}: reason: {reason}, inviter: {inviter}"
+                )
             print(
                 f"    Found [red]{n_inactive} inactive[/red] and [green]{n_active} active[/green] users in {org} with last activity more recent than {timelimit_days} days."
             )
@@ -370,6 +414,12 @@ if __name__ == "__main__":
         "--clear-cache", action="store_true", help="Clear the cache before running"
     )
     parser.add_argument("--debug", action="store_true", help="Show debug information")
+    parser.add_argument(
+        "--config-file",
+        type=str,
+        default="last_user_activity.json",
+        help="Path to the config file (default: last_user_activity.json)",
+    )
 
     parser.add_argument(
         "--timelimit-days",
@@ -388,4 +438,4 @@ if __name__ == "__main__":
     if args.clear_cache:
         clear_cache()
 
-    asyncio.run(main(args.orgs, args.debug, args.timelimit_days))
+    asyncio.run(main(args.orgs, args.debug, args.timelimit_days, args.config_file))
