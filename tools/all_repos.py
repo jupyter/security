@@ -125,7 +125,7 @@ async def get_package_maintainers(package: str) -> list[str]:
     if response.status_code == 200:
         html = response.text
         soup = BeautifulSoup(html, "html.parser")
-        maintainers = soup.find_all("a", class_="package-header__author-link")
+        maintainers = soup.find_all("span", class_="sidebar-section__maintainer")
         if not maintainers:
             return ["unknown (blocked by fastly?)"]
         return [a.text.strip() for a in maintainers]
@@ -156,20 +156,23 @@ async def main():
 
     async with trio.open_nursery() as nursery:
         targets = []
-        for org, repo in todo:
+        semaphore = trio.Semaphore(10)  # Throttle to 10 concurrent requests
+        for org, repo in todo[:10]:
 
             async def _loc(targets, org, repo):
-                maintainers = await get_package_maintainers(repo)
-                targets.append(
-                    (
-                        org,
-                        repo,
+                async with semaphore:  # Wait for semaphore to be available
+                    maintainers = await get_package_maintainers(repo)
+                    targets.append(
                         (
-                            await asks.get(f"https://pypi.org/pypi/{repo}/json")
-                        ).status_code,
-                        maintainers,
+                            org,
+                            repo,
+                            (
+                                await asks.get(f"https://pypi.org/pypi/{repo}/json")
+                            ).status_code,
+                            maintainers,
+                        )
                     )
-                )
+                    print(".", end="", flush=True)
 
             nursery.start_soon(_loc, targets, org, repo)
 
