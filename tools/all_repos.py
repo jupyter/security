@@ -115,8 +115,24 @@ async def list_repos_for_org(org):
     return reps
 
 
-async def main():
+async def get_package_maintainers(package: str) -> list[str]:
+    """Get the maintainers of a package from PyPI.
 
+    The json does not have the right information, so we need to scrape the page.
+    """
+    url = f"https://pypi.org/project/{package}/"
+    response = await asks.get(url)
+    if response.status_code == 200:
+        html = response.text
+        soup = BeautifulSoup(html, "html.parser")
+        maintainers = soup.find_all("a", class_="package-header__author-link")
+        if not maintainers:
+            return ["unknown (blocked by fastly?)"]
+        return [a.text.strip() for a in maintainers]
+    return ["unknown (status code: " + str(response.status_code) + ")"]
+
+
+async def main():
     packages = get_packages(f"https://pypi.org/org/jupyter/")
     print(f"Found {len(packages)} packages in the pypi jupyter org")
 
@@ -143,6 +159,7 @@ async def main():
         for org, repo in todo:
 
             async def _loc(targets, org, repo):
+                maintainers = await get_package_maintainers(repo)
                 targets.append(
                     (
                         org,
@@ -150,12 +167,14 @@ async def main():
                         (
                             await asks.get(f"https://pypi.org/pypi/{repo}/json")
                         ).status_code,
+                        maintainers,
                     )
                 )
 
             nursery.start_soon(_loc, targets, org, repo)
+
     corg = ""
-    for org, repo, status in sorted(targets):
+    for org, repo, status, maintainers in sorted(targets):
         if org != corg:
             print()
             corg = org
@@ -165,16 +184,18 @@ async def main():
                 f"{status} for https://pypi.org/project/{repo}",
             )
 
+            for maintainer in maintainers:
+                print(f"  |{maintainer}")
+
     print()
     print("repos with no Pypi package:")
     corg = ""
-    for org, repo, status in sorted(targets):
+    for org, repo, status, maintainers in sorted(targets):
         if org != corg:
             print()
             corg = org
         if status != 200:
             print(f"https://github.com/{org}/{repo}")
-
     print()
     print("Packages with no repos.")
     print(map)
