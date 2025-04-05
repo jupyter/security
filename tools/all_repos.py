@@ -22,6 +22,10 @@ import requests
 from rich import print
 from bs4 import BeautifulSoup
 
+maintainers_name_map = {
+    "mbussonn": "Carreau",
+}
+
 
 def get_packages(url):
     # Send a GET request to the webpage with a custom user agent
@@ -127,9 +131,9 @@ async def get_package_maintainers(package: str) -> list[str]:
         soup = BeautifulSoup(html, "html.parser")
         maintainers = soup.find_all("span", class_="sidebar-section__maintainer")
         if not maintainers:
-            return ["unknown (blocked by fastly?)"]
-        return [a.text.strip() for a in maintainers]
-    return ["unknown (status code: " + str(response.status_code) + ")"]
+            return set(["unknown (blocked by fastly?)"])
+        return set(a.text.strip() for a in maintainers)
+    return set(["unknown (status code: " + str(response.status_code) + ")"])
 
 
 async def main():
@@ -157,7 +161,7 @@ async def main():
     async with trio.open_nursery() as nursery:
         targets = []
         semaphore = trio.Semaphore(10)  # Throttle to 10 concurrent requests
-        for org, repo in todo[:10]:
+        for org, repo in todo:
 
             async def _loc(targets, org, repo):
                 async with semaphore:  # Wait for semaphore to be available
@@ -188,7 +192,10 @@ async def main():
             )
 
             for maintainer in maintainers:
-                print(f"  |{maintainer}")
+                if maintainer in maintainers_name_map:
+                    print(f"  @{maintainers_name_map[maintainer]} ({maintainer})")
+                else:
+                    print(f"  @{maintainer}")
 
     print()
     print("repos with no Pypi package:")
