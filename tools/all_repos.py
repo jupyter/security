@@ -26,6 +26,12 @@ maintainers_name_map = {
     "mbussonn": "Carreau",
 }
 
+import diskcache
+from datetime import datetime
+
+CACHE_DIR = f"github_cache-all_repos-{datetime.now().strftime('%Y%m%d')}"
+cache = diskcache.Cache(CACHE_DIR)
+
 
 def get_packages(url):
     # Send a GET request to the webpage with a custom user agent
@@ -125,6 +131,8 @@ async def get_package_maintainers(package: str) -> list[str]:
     The json does not have the right information, so we need to scrape the page.
     """
     url = f"https://pypi.org/project/{package}/"
+    if package in cache:
+        return cache[package]
     response = await asks.get(url)
     if response.status_code == 200:
         html = response.text
@@ -132,7 +140,9 @@ async def get_package_maintainers(package: str) -> list[str]:
         maintainers = soup.find_all("span", class_="sidebar-section__maintainer")
         if not maintainers:
             return set(["unknown (blocked by fastly?)"])
-        return set(a.text.strip() for a in maintainers)
+        res = set(a.text.strip() for a in maintainers)
+        cache[package] = res
+        return res
     return set(["unknown (status code: " + str(response.status_code) + ")"])
 
 
