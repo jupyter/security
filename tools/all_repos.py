@@ -132,6 +132,7 @@ async def get_package_maintainers(package: str) -> list[str]:
     """
     url = f"https://pypi.org/project/{package}/"
     if package in cache:
+        print("c", end="", flush=True)
         return cache[package]
     response = await asks.get(url)
     if response.status_code == 200:
@@ -139,31 +140,67 @@ async def get_package_maintainers(package: str) -> list[str]:
         soup = BeautifulSoup(html, "html.parser")
         maintainers = soup.find_all("span", class_="sidebar-section__maintainer")
         if not maintainers:
+            print("x", end="", flush=True)
             return set(["unknown (blocked by fastly?)"])
         res = set(a.text.strip() for a in maintainers)
         cache[package] = res
+        print(".", end="", flush=True)
         return res
+    print("f", end="", flush=True)
     return set(["unknown (status code: " + str(response.status_code) + ")"])
 
 
-async def main():
+async def main(config_file: str = "all_repos.txt"):
+    from pathlib import Path
+
+    items = Path(config_file).read_text().splitlines()
+    known_mapping = []
+    for item in items:
+        if item.startswith("#") or not item.strip():
+            continue
+        github_name, pypi_name = item.split(":", maxsplit=1)
+        # pypi name may be empty for repo with no packages.
+        # and one repo can create multiple pypi packages.
+        known_mapping.append((github_name.strip(), pypi_name.strip()))
+
+    # get all packages in the pypi jupyter org
     packages = get_packages(f"https://pypi.org/org/jupyter/")
+    packages_urls = [f"https://pypi.org/project/{p}" for p in packages]
     print(f"Found {len(packages)} packages in the pypi jupyter org")
+
+    missing_from_pypi_org = set([p for _, p in known_mapping]) - set(packages_urls)
+    if missing_from_pypi_org:
+        print(
+            "Repos missing from pypi org – they are listed on the config file, with a corresponding Pypi pacakge, but the package is not part of Pypi org:"
+        )
+        for repo in missing_from_pypi_org:
+            print(f"  {repo}")
+
+    missing_from_github_org = set(packages_urls) - set([p for _, p in known_mapping])
+    if missing_from_github_org:
+        print(
+            "Packages missing from github org, they are on PyPI, but I don't know the source github repo...:"
+        )
+        for repo in sorted(missing_from_github_org):
+            print(f"  {repo}")
 
     map = {p.lower().replace("-", "_"): p for p in packages}
 
     todo = []
     async for org, repo in list_repos(default_orgs):
-        lowname = repo.lower().replace("-", "_")
-        if lowname in map:
-            print(
-                f"{org}/{repo}".ljust(40),
-                f"https://pypi.org/project/{map[lowname]}",
-                " in jupyter org",
-            )
-            del map[lowname]
-        else:
+        org_repo = f"{org}/{repo}"
+        candidates = [v for k, v in known_mapping if k == org_repo]
+        if not candidates:
+            print(f"Missing: no candidate for {org_repo}")
             todo.append((org, repo))
+            continue
+        for candidate in candidates:
+            if candidate in packages_urls:
+                pass
+                # print(f"OK: {org_repo} -> {candidate}"")
+            else:
+                print(f"Missing: {org_repo} -> {candidate}")
+                todo.append((org, repo))
 
     print()
     print("check potentially matching Pypi names:")
@@ -186,7 +223,6 @@ async def main():
                             maintainers,
                         )
                     )
-                    print(".", end="", flush=True)
 
             nursery.start_soon(_loc, targets, org, repo)
 
