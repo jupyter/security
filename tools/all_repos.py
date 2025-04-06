@@ -24,6 +24,9 @@ from bs4 import BeautifulSoup
 
 maintainers_name_map = {
     "mbussonn": "Carreau",
+    "takowl": "takluyver",
+    "Kyle.Kelley": "rgbkrk",
+    "bgranger": "ellisonbg",
 }
 
 import diskcache
@@ -247,8 +250,8 @@ async def main(config_file: str = "all_repos.txt"):
             corg = org
         if status == 200:
             print(
-                f"https://github.com/{org}/{repo}".ljust(70),
-                f"{status} for https://pypi.org/project/{repo}",
+                f"{org}/{repo}".ljust(30),
+                f" :  https://pypi.org/project/{repo}",
             )
 
             for maintainer in maintainers:

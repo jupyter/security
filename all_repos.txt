@@ -1,4 +1,5 @@
-# github.repo : pypi url (or empty)
+# github.repo : pypi url (or empty) 
+# with same nane exacttly
 jupyter-incubator/sparkmagic             : https://pypi.org/project/sparkmagic
 jupyter-widgets/ipywidgets               : https://pypi.org/project/ipywidgets
 jupyter-server/jupyter-resource-usage    : https://pypi.org/project/jupyter-resource-usage
@@ -95,9 +96,22 @@ jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-v
 jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-zh-CN
 jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-zh-TW
 
+# To migrate
+jupyter/qtconsole               :  https://pypi.org/project/qtconsole
+
+# variation in names:
+jupyterlab/jupyter-collaboration :  https://pypi.org/project/jupyter-collaboration-ui
+jupyterlab/jupyter-collaboration :  https://pypi.org/project/jupyter-docprovider
+jupyter-server/kernel_gateway    :  https://pypi.org/project/jupyter-kernel-gateway
+jupyter-server/synchronizer      :  https://pypi.org/project/jupyter-server-synchronizer
+
 # repo with no packages:
-https://github.com/binderhub-ci-repos/lfs:
-https://github.com/jupyter/design:
+binderhub-ci-repos/lfs:
+jupyter/design:
+jupyter/security:
+jupyter/ideas:
+binderhub-ci-repos/lfs:
+jupyter/governance:
 
 # security forks:
 # is it safe to list those URL ? 
@@ -162,3 +176,6 @@ jupyterhub/jupyterhub-tutorial:
 jupyterlab/jupytercon-jupyterlab-tutorial:
 jupyterlab/scipy2018-jupyterlab-tutorial:
 jupyterlab/scipy2019-jupyterlab-tutorial:
+
+# exampels and cookie cutter
+voila-gallery/hello-world-example:
