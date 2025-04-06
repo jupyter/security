@@ -184,18 +184,32 @@ async def main(config_file: str = "all_repos.txt"):
         for repo in sorted(missing_from_github_org):
             print(f"  {repo}")
 
-    map = {p.lower().replace("-", "_"): p for p in packages}
-
     todo = []
+    # now we loop over all the org/repo and check if:
+    # - it is in the jupyter org:
+    # - it has a pypi package (or not) in the mapping, if not,
+    #   it's ok it's not supposed to have one.
+    # - if it has:
+    #   all repos in the mapping should be in the Pypi org
+    # - if not, add to todo list.
+
     async for org, repo in list_repos(default_orgs):
         org_repo = f"{org}/{repo}"
+        listed = [k for k, _ in known_mapping]
+        if not listed:
+            # not listed in config. We search by default.
+            todo.append((org, repo))
+            continue
         candidates = [v for k, v in known_mapping if k == org_repo]
         if not candidates:
-            print(f"Missing: no candidate for {org_repo}")
+            # not listed in config. We search by default.
             todo.append((org, repo))
             continue
         for candidate in candidates:
-            if candidate in packages_urls:
+            if candidate == "":
+                continue
+                # not supposed to have a Pypi package
+            elif candidate in packages_urls:
                 pass
                 # print(f"OK: {org_repo} -> {candidate}"")
             else:
@@ -207,7 +221,7 @@ async def main(config_file: str = "all_repos.txt"):
 
     async with trio.open_nursery() as nursery:
         targets = []
-        semaphore = trio.Semaphore(10)  # Throttle to 10 concurrent requests
+        semaphore = trio.Semaphore(15)  # Throttle to 10 concurrent requests
         for org, repo in todo:
 
             async def _loc(targets, org, repo):
@@ -252,9 +266,6 @@ async def main(config_file: str = "all_repos.txt"):
             corg = org
         if status != 200:
             print(f"https://github.com/{org}/{repo}")
-    print()
-    print("Packages with no repos.")
-    print(map)
 
 
 trio.run(main)

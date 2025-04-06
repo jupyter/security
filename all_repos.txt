@@ -1,3 +1,4 @@
+# github.repo : pypi url (or empty)
 jupyter-incubator/sparkmagic             : https://pypi.org/project/sparkmagic
 jupyter-widgets/ipywidgets               : https://pypi.org/project/ipywidgets
 jupyter-server/jupyter-resource-usage    : https://pypi.org/project/jupyter-resource-usage
@@ -97,3 +98,67 @@ jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-z
 # repo with no packages:
 https://github.com/binderhub-ci-repos/lfs:
 https://github.com/jupyter/design:
+
+# security forks:
+# is it safe to list those URL ? 
+# REDACTED
+
+# .github repos
+jupyter-standard/.github:
+jupyter-server/.github:
+jupyter-xeus/.github:
+jupyter-standards/.github:
+ipython/.github:
+ipython/.github-1:
+jupyterhub/.github:
+voila-dashboards/.github:
+jupyter/.github:
+jupyterlab/.github:
+
+# .github.io repos
+ipython/ipython.github.com:
+jupyter-xeus/jupyter-xeus.github.io:
+jupyterhub/jupyterhub.github.io:
+voila-gallery/voila-gallery.github.io:
+voila-dashboards/voila-dashboards.github.io:
+jupyter/jupyter.github.io:
+
+# team compass
+jupyter/docs-team-compass:
+jupyter/foundations-and-standards-team-compass:
+jupyter/ipython-components:
+jupyter/kernels-team-compass:
+jupyter/notebook-team-compass:
+jupyter/software-steering-council-team-compass:
+jupyter/team-compass-template:
+jupyter-book/team-compass:
+jupyter-governance/ec-team-compass:
+jupyter-server/team-compass:
+jupyter-widgets/team-compass:
+jupyterhub/team-compass:
+jupyterlab/frontends-team-compass:
+
+# misc websites:
+
+jupyter/cdn.jupyter.org:
+jupyter/colaboratory.jupyter.org:
+jupyter/nbviewer.org-deploy:
+jupyter/try.jupyter.org:
+jupyter-book/mystmd.org:
+jupyterhub/mybinder.org-deploy:
+jupyterhub/mybinder.org-user-guide:
+voila-gallery/voila-gallery.org-deploy:
+
+# various tutorials
+jupyter/ngcm-tutorial:
+jupyter/scipy-advanced-tutorial:
+jupyter/strata-sv-2015-tutorial:
+jupyter/tutorial-dashboards-declarativewidgets:
+jupyter/tutorial-devteam-jupyterhub-2017:
+jupyter/tutorial-devteam-projectmgt-2017:
+jupyter-widgets/tutorial:
+jupyter-widgets/tutorial-jupyterlite:
+jupyterhub/jupyterhub-tutorial:
+jupyterlab/jupytercon-jupyterlab-tutorial:
+jupyterlab/scipy2018-jupyterlab-tutorial:
+jupyterlab/scipy2019-jupyterlab-tutorial:
