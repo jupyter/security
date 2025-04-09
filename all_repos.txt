@@ -162,6 +162,7 @@ jupyter-book/mystmd.org:
 jupyterhub/mybinder.org-deploy:
 jupyterhub/mybinder.org-user-guide:
 voila-gallery/voila-gallery.org-deploy:
+ipython/ipython-website
 
 # various tutorials
 jupyter/ngcm-tutorial:
@@ -179,3 +180,21 @@ jupyterlab/scipy2019-jupyterlab-tutorial:
 
 # exampels and cookie cutter
 voila-gallery/hello-world-example:
+
+# 
+ipython/pickleshare             :  https://pypi.org/project/pickleshare
+jupyter/echo_kernel             :  https://pypi.org/project/echo_kernel
+jupyter/jupyter-alabaster-theme  :  https://pypi.org/project/jupyter-alabaster-theme
+jupyter/jupyter_markdown        :  https://pypi.org/project/jupyter_markdown
+jupyter/jupyterhub-carina       :  https://pypi.org/project/jupyterhub-carina
+jupyter/nb2kg                   :  https://pypi.org/project/nb2kg
+jupyter/qtconsole               :  https://pypi.org/project/qtconsole
+jupyter/sphinxcontrib_github_alt  :  https://pypi.org/project/sphinxcontrib_github_alt
+jupyter/testpath                :  https://pypi.org/project/testpath
+jupyter/tmpnb                   :  https://pypi.org/project/tmpnb
+jupyter-book/hatch-deps-selector  :  https://pypi.org/project/hatch-deps-selector
+jupyter-book/jupyter_releaser   :  https://pypi.org/project/jupyter_releaser
+jupyter-book/jupyterlab-myst    :  https://pypi.org/project/jupyterlab-myst
+jupyter-book/myst-spec          :  https://pypi.org/project/myst-spec
+jupyter-book/mystmd             :  https://pypi.org/project/mystmd
+jupyter-book/sphinx-ext-mystmd  :  https://pypi.org/project/sphinx-ext-mystmd

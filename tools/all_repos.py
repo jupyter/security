@@ -32,7 +32,7 @@ maintainers_name_map = {
 import diskcache
 from datetime import datetime
 
-CACHE_DIR = f"github_cache-all_repos-{datetime.now().strftime('%Y%m%d')}"
+CACHE_DIR = f"github_cache-all_repos-{datetime.now().strftime('%Y%m')}"
 cache = diskcache.Cache(CACHE_DIR)
 
 
@@ -98,7 +98,7 @@ headers = {
 }
 
 
-async def list_repos(orgs):
+async def list_github_repos(orgs):
     async with trio.open_nursery() as nursery:
         results = []
         for org in orgs:
@@ -164,63 +164,80 @@ async def main(config_file: str = "all_repos.txt"):
         github_name, pypi_name = item.split(":", maxsplit=1)
         # pypi name may be empty for repo with no packages.
         # and one repo can create multiple pypi packages.
-        known_mapping.append((github_name.strip(), pypi_name.strip()))
+        known_mapping.append((github_name.strip(" /"), pypi_name.strip(" ")))
 
     # get all packages in the pypi jupyter org
     packages = get_packages(f"https://pypi.org/org/jupyter/")
     packages_urls = [f"https://pypi.org/project/{p}" for p in packages]
     print(f"Found {len(packages)} packages in the pypi jupyter org")
 
-    missing_from_pypi_org = set([p for _, p in known_mapping]) - set(packages_urls)
-    if missing_from_pypi_org:
+    missing_from_pypi_org = (
+        set([p for _, p in known_mapping]) - set(packages_urls) - {""}
+    )
+
+    async with trio.open_nursery() as nursery:
+        targets = []
+        semaphore = trio.Semaphore(15)  # Throttle to 10 concurrent requests
+        for package_url in missing_from_pypi_org:
+
+            async def _loc(targets, package_url):
+                async with semaphore:  # Wait for semaphore to be available
+                    package = package_url.split("/")[-1]
+                    maintainers = await get_package_maintainers(package)
+                    targets.append(
+                        (
+                            package_url,
+                            maintainers,
+                        )
+                    )
+
+            nursery.start_soon(_loc, targets, package_url)
+
+    if targets:
+        print()
         print(
-            "Repos missing from pypi org – they are listed on the config file, with a corresponding Pypi pacakge, but the package is not part of Pypi org:"
+            "TO add to PiPy org – they are listed on the config file, with a "
+            "corresponding Pypi package, but the package is not part of Pypi org:"
         )
-        for repo in missing_from_pypi_org:
-            print(f"  {repo}")
+        for package_url, maintainers in targets:
+            print(f"  [red]{package_url}[/red] maintained by")
+            for maintainer in maintainers:
+                print(f"     pypi: `@{maintainer}`")
+        print()
 
     missing_from_github_org = set(packages_urls) - set([p for _, p in known_mapping])
     if missing_from_github_org:
         print(
-            "Packages missing from github org, they are on PyPI, but I don't know the source github repo...:"
+            "Packages missing from github org, they are on PyPI, but I don't know"
+            " the source github repo...:"
         )
         for repo in sorted(missing_from_github_org):
             print(f"  {repo}")
 
     todo = []
-    # now we loop over all the org/repo and check if:
-    # - it is in the jupyter org:
-    # - it has a pypi package (or not) in the mapping, if not,
-    #   it's ok it's not supposed to have one.
-    # - if it has:
-    #   all repos in the mapping should be in the Pypi org
-    # - if not, add to todo list.
 
-    async for org, repo in list_repos(default_orgs):
+    # we've verified the existing mapping,
+    # now up to all the org/repo that are not inther
+
+    print(
+        "listing all org and repo under jupyter purview, and filtering one without"
+        " mathching github repos."
+    )
+
+    known_org_rep = {k for k, v in known_mapping}
+    async for org, repo in list_github_repos(default_orgs):
         org_repo = f"{org}/{repo}"
-        listed = [k for k, _ in known_mapping]
-        if not listed:
-            # not listed in config. We search by default.
-            todo.append((org, repo))
+        if org_repo in known_org_rep:
             continue
-        candidates = [v for k, v in known_mapping if k == org_repo]
-        if not candidates:
-            # not listed in config. We search by default.
-            todo.append((org, repo))
-            continue
-        for candidate in candidates:
-            if candidate == "":
-                continue
-                # not supposed to have a Pypi package
-            elif candidate in packages_urls:
-                pass
-                # print(f"OK: {org_repo} -> {candidate}"")
-            else:
-                print(f"Missing: {org_repo} -> {candidate}")
-                todo.append((org, repo))
+
+        todo.append((org, repo))
 
     print()
-    print("check potentially matching Pypi names:")
+    print(
+        "check potentially matching Pypi names, all the following seem to correspond"
+        " to an existing pypi package, if they indeed are part of Jupyter, "
+        "you can copy past the lines as is in the config file. If not just append: `{org}/{repo}:`"
+    )
 
     async with trio.open_nursery() as nursery:
         targets = []
@@ -229,7 +246,8 @@ async def main(config_file: str = "all_repos.txt"):
 
             async def _loc(targets, org, repo):
                 async with semaphore:  # Wait for semaphore to be available
-                    maintainers = await get_package_maintainers(repo)
+                    # maintainers = await get_package_maintainers(repo)
+                    maintainers = []
                     targets.append(
                         (
                             org,
@@ -254,14 +272,17 @@ async def main(config_file: str = "all_repos.txt"):
                 f" :  https://pypi.org/project/{repo}",
             )
 
-            for maintainer in maintainers:
-                if maintainer in maintainers_name_map:
-                    print(f"  @{maintainers_name_map[maintainer]} ({maintainer})")
-                else:
-                    print(f"  @{maintainer}")
+            # for maintainer in maintainers:
+            #    if maintainer in maintainers_name_map:
+            #        print(f"  @{maintainers_name_map[maintainer]} ({maintainer})")
+            #    else:
+            #        print(f"  @{maintainer}")
 
     print()
-    print("repos with no Pypi package:")
+    print(
+        "repos with no Pypi package, either manually add `{org}/{repo}: "
+        "{pypi_url}` or `{org}/{repo}: <blank>` to config file."
+    )
     corg = ""
     for org, repo, status, maintainers in sorted(targets):
         if org != corg:
