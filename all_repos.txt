@@ -198,3 +198,49 @@ jupyter-book/jupyterlab-myst    :  https://pypi.org/project/jupyterlab-myst
 jupyter-book/myst-spec          :  https://pypi.org/project/myst-spec
 jupyter-book/mystmd             :  https://pypi.org/project/mystmd
 jupyter-book/sphinx-ext-mystmd  :  https://pypi.org/project/sphinx-ext-mystmd
+
+# jupyter widgets
+
+jupyter-widgets/ipydatagrid               :  https://pypi.org/project/ipydatagrid
+jupyter-widgets/ipyleaflet                :  https://pypi.org/project/ipyleaflet
+jupyter-widgets/pythreejs                 :  https://pypi.org/project/pythreejs
+jupyter-widgets/traittypes                :  https://pypi.org/project/traittypes
+
+
+# jupyterhub
+jupyterhub/design                         :
+
+jupyterhub/alabaster-jupyterhub           :  https://pypi.org/project/alabaster-jupyterhub
+jupyterhub/batchspawner                   :  https://pypi.org/project/batchspawner
+jupyterhub/binderhub                      :  https://pypi.org/project/binderhub
+jupyterhub/chartpress                     :  https://pypi.org/project/chartpress
+jupyterhub/configurable-http-proxy        :  https://pypi.org/project/configurable-http-proxy
+jupyterhub/docker-image-cleaner           :  https://pypi.org/project/docker-image-cleaner
+jupyterhub/dockerspawner                  :  https://pypi.org/project/dockerspawner
+jupyterhub/gh-scoped-creds                :  https://pypi.org/project/gh-scoped-creds
+jupyterhub/jupyter-remote-desktop-proxy   :  https://pypi.org/project/jupyter-remote-desktop-proxy
+jupyterhub/jupyter-rsession-proxy         :  https://pypi.org/project/jupyter-rsession-proxy
+jupyterhub/jupyter-server-proxy           :  https://pypi.org/project/jupyter-server-proxy
+jupyterhub/jupyterhub                     :  https://pypi.org/project/jupyterhub
+jupyterhub/jupyterhub-idle-culler         :  https://pypi.org/project/jupyterhub-idle-culler
+jupyterhub/jupyterhub-sphinx-theme        :  https://pypi.org/project/jupyterhub-sphinx-theme
+jupyterhub/nbgitpuller                    :  https://pypi.org/project/nbgitpuller
+jupyterhub/nbgitpuller-downloader-dropbox  :  https://pypi.org/project/nbgitpuller-downloader-dropbox
+jupyterhub/nbgitpuller-downloader-generic-web  :  https://pypi.org/project/nbgitpuller-downloader-generic-web
+jupyterhub/nbgitpuller-downloader-googledrive  :  https://pypi.org/project/nbgitpuller-downloader-googledrive
+jupyterhub/nullauthenticator              :  https://pypi.org/project/nullauthenticator
+jupyterhub/oauthenticator                 :  https://pypi.org/project/oauthenticator
+jupyterhub/pytest-jupyterhub              :  https://pypi.org/project/pytest-jupyterhub
+jupyterhub/simpervisor                    :  https://pypi.org/project/simpervisor
+jupyterhub/sudospawner                    :  https://pypi.org/project/sudospawner
+jupyterhub/wrapspawner                    :  https://pypi.org/project/wrapspawner
+
+
+# misc name don't match
+jupyter-widgets/jupyterlab-sidecar: https://pypi.org/project/sidecar
+jupyter-widgets/midicontrols : https://pypi.org/project/wrapspawner/ipymidicontrols
+jupyter-widgets/xeus : https://pypi.org/project/xeus-python
+
+jupyter/declarativewidgets : https://pypi.org/project/jupyter_declarativewidgets/
+
+jupyter/kernel_gateway_bundlers : https://pypi.org/project/jupyter_kernel_gateway_bundlers/

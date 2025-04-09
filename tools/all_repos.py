@@ -130,7 +130,7 @@ async def list_repos_for_org(org):
     return reps
 
 
-async def get_package_maintainers(package: str) -> list[str]:
+async def get_package_maintainers(package: str) -> tuple[list[str], bool]:
     """Get the maintainers of a package from PyPI.
 
     The json does not have the right information, so we need to scrape the page.
@@ -138,7 +138,7 @@ async def get_package_maintainers(package: str) -> list[str]:
     url = f"https://pypi.org/project/{package}/"
     if package in cache:
         print("c", end="", flush=True)
-        return cache[package]
+        return cache[package], True
     response = await asks.get(url)
     if response.status_code == 200:
         html = response.text
@@ -146,13 +146,13 @@ async def get_package_maintainers(package: str) -> list[str]:
         maintainers = soup.find_all("span", class_="sidebar-section__maintainer")
         if not maintainers:
             print("x", end="", flush=True)
-            return set(["unknown (blocked by fastly?)"])
+            return set(["unknown (blocked by fastly?)"]), False
         res = set(a.text.strip() for a in maintainers)
         cache[package] = res
         print(".", end="", flush=True)
-        return res
+        return res, True
     print("f", end="", flush=True)
-    return set(["unknown (status code: " + str(response.status_code) + ")"])
+    return set(["unknown (status code: " + str(response.status_code) + ")"]), False
 
 
 async def main(config_file: str = "all_repos.txt"):
@@ -188,11 +188,12 @@ async def main(config_file: str = "all_repos.txt"):
             async def _loc(targets, package_url):
                 async with semaphore:  # Wait for semaphore to be available
                     package = package_url.split("/")[-1]
-                    maintainers = await get_package_maintainers(package)
+                    maintainers, is_ok = await get_package_maintainers(package)
                     targets.append(
                         (
                             package_url,
                             maintainers,
+                            is_ok,
                         )
                     )
 
@@ -204,10 +205,12 @@ async def main(config_file: str = "all_repos.txt"):
             "TO add to PiPy org – they are listed on the config file, with a "
             "corresponding Pypi package, but the package is not part of Pypi org:"
         )
-        for package_url, maintainers in targets:
-            print(f"  [red]{package_url}[/red] maintained by")
+        for package_url, maintainers, is_ok in targets:
+            print(f"  [yellow]{package_url}[/yellow] maintained by")
             for maintainer in maintainers:
-                print(f"     pypi: `@{maintainer}`")
+                color = "[green]" if is_ok else "[red]"
+                end = "[/green]" if is_ok else "[/red]"
+                print(f"{color}     pypi: `@{maintainer}` {end}")
         print()
 
     missing_from_github_org = set(packages_urls) - set([p for _, p in known_mapping])
