@@ -108,8 +108,8 @@ async def list_github_repos(orgs):
 
             nursery.start_soon(_loc, results, org)
     for org_repos in results:
-        for org, repo in org_repos:
-            yield org, repo
+        for org, repo, archived, private in org_repos:
+            yield org, repo, archived, private
 
 
 async def list_repos_for_org(org):
@@ -122,7 +122,9 @@ async def list_repos_for_org(org):
         response.raise_for_status()
         repos = response.json()
         for repo in repos:
-            reps.append((org, repo["name"]))
+            archived = repo.get("archived", None)
+            private = repo.get("private", None)
+            reps.append((org, repo["name"], archived, private))
         if len(repos) < 100:
             break
     return reps
@@ -161,6 +163,9 @@ async def main(config_file: str = "all_repos.txt"):
     for item in items:
         if item.startswith("#") or not item.strip():
             continue
+        if item.count(":") == 0:
+            print(f"Invalid line: {item}")
+            exit(1)
         github_name, pypi_name = item.split(":", maxsplit=1)
         # pypi name may be empty for repo with no packages.
         # and one repo can create multiple pypi packages.
@@ -225,12 +230,12 @@ async def main(config_file: str = "all_repos.txt"):
     )
 
     known_org_rep = {k for k, v in known_mapping}
-    async for org, repo in list_github_repos(default_orgs):
+    async for org, repo, archived, private in list_github_repos(default_orgs):
         org_repo = f"{org}/{repo}"
         if org_repo in known_org_rep:
             continue
 
-        todo.append((org, repo))
+        todo.append((org, repo, archived, private))
 
     print()
     print(
@@ -242,9 +247,9 @@ async def main(config_file: str = "all_repos.txt"):
     async with trio.open_nursery() as nursery:
         targets = []
         semaphore = trio.Semaphore(15)  # Throttle to 10 concurrent requests
-        for org, repo in todo:
+        for org, repo, archived, private in todo:
 
-            async def _loc(targets, org, repo):
+            async def _loc(targets, org, repo, archived, private):
                 async with semaphore:  # Wait for semaphore to be available
                     # maintainers = await get_package_maintainers(repo)
                     maintainers = []
@@ -256,20 +261,25 @@ async def main(config_file: str = "all_repos.txt"):
                                 await asks.get(f"https://pypi.org/pypi/{repo}/json")
                             ).status_code,
                             maintainers,
+                            archived,
+                            private,
                         )
                     )
 
-            nursery.start_soon(_loc, targets, org, repo)
+            nursery.start_soon(_loc, targets, org, repo, archived, private)
 
     corg = ""
-    for org, repo, status, maintainers in sorted(targets):
+    for org, repo, status, maintainers, archived, private in sorted(targets):
         if org != corg:
             print()
             corg = org
         if status == 200:
             print(
-                f"{org}/{repo}".ljust(30),
+                f"{org}/{repo}".ljust(40),
                 f" :  https://pypi.org/project/{repo}",
+                f"[yellow]{'(archived)' if archived else ''}[/yellow] [red]{'(private)' if private else ''}[/red]".ljust(
+                    20
+                ),
             )
 
             # for maintainer in maintainers:
@@ -284,12 +294,15 @@ async def main(config_file: str = "all_repos.txt"):
         "{pypi_url}` or `{org}/{repo}: <blank>` to config file."
     )
     corg = ""
-    for org, repo, status, maintainers in sorted(targets):
+    for org, repo, status, maintainers, archived, private in sorted(targets):
         if org != corg:
             print()
             corg = org
         if status != 200:
-            print(f"https://github.com/{org}/{repo}")
+            print(
+                f"https://github.com/{org}/{repo}".ljust(30),
+                f"[yellow]{'(archived)' if archived else ''}[/yellow] [red]{'(private)' if private else ''}[/red]",
+            )
 
 
 trio.run(main)

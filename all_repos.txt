@@ -162,7 +162,7 @@ jupyter-book/mystmd.org:
 jupyterhub/mybinder.org-deploy:
 jupyterhub/mybinder.org-user-guide:
 voila-gallery/voila-gallery.org-deploy:
-ipython/ipython-website
+ipython/ipython-website:
 
 # various tutorials
 jupyter/ngcm-tutorial:
