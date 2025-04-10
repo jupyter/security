@@ -107,6 +107,7 @@ async def list_github_repos(orgs):
                 results.append(await list_repos_for_org(org))
 
             nursery.start_soon(_loc, results, org)
+
     for org_repos in results:
         for org, repo, archived, private in org_repos:
             yield org, repo, archived, private
@@ -198,7 +199,7 @@ async def main(config_file: str = "all_repos.txt"):
                     )
 
             nursery.start_soon(_loc, targets, package_url)
-
+    by_maintainers = {}
     if targets:
         print()
         print(
@@ -211,7 +212,25 @@ async def main(config_file: str = "all_repos.txt"):
                 color = "[green]" if is_ok else "[red]"
                 end = "[/green]" if is_ok else "[/red]"
                 print(f"{color}     pypi: `@{maintainer}` {end}")
+                if is_ok:
+                    by_maintainers[maintainer] = by_maintainers.setdefault(
+                        maintainer, []
+                    )
+                    by_maintainers[maintainer].append(package_url)
         print()
+
+    by_maintainers = {
+        k: v
+        for k, v in sorted(
+            by_maintainers.items(), key=lambda item: len(item[1]), reverse=True
+        )
+    }
+    for maintainer, packages in by_maintainers.items():
+        print(
+            f"[green]`@{maintainer}`[/green] {len(packages)} packages (https://pypi.org/user/{maintainer}/):"
+        )
+        for package in sorted(packages):
+            print(f"    {package}")
 
     missing_from_github_org = set(packages_urls) - set([p for _, p in known_mapping])
     if missing_from_github_org:

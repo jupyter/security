@@ -52,6 +52,7 @@ jupyter/papyri                           : https://pypi.org/project/papyri
 jupyter/notebook_shim                    : https://pypi.org/project/notebook-shim
 jupyter/jupyter_events                   : https://pypi.org/project/jupyter-events
 jupyterlab/jupyterlab                    : https://pypi.org/project/jupyterlab
+jupyterlab/jupyterlab                    : https://pypi.org/project/jupyterlab_launcher
 jupyterlab/pytest-check-links            : https://pypi.org/project/pytest-check-links
 jupyterlab/jupyterlab_server             : https://pypi.org/project/jupyterlab-server
 jupyterlab/jupyterlab-git                : https://pypi.org/project/jupyterlab-git
@@ -96,6 +97,13 @@ jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-v
 jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-zh-CN
 jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-zh-TW
 
+jupyterlab/jupyter-ai                     :  https://pypi.org/project/jupyter-ai
+jupyterlab/jupyter-builder                :  https://pypi.org/project/jupyter-builder
+jupyterlab/jupyterlab-data-explorer       :  https://pypi.org/project/jupyterlab-data-explorer
+
+# 
+jupyter/jupyter-sphinx-theme              :  https://pypi.org/project/jupyter-sphinx-theme
+
 # To migrate
 jupyter/qtconsole               :  https://pypi.org/project/qtconsole
 
@@ -112,6 +120,8 @@ jupyter/security:
 jupyter/ideas:
 binderhub-ci-repos/lfs:
 jupyter/governance:
+jupyter/accessibility:
+jupyter/cve:
 
 # security forks:
 # is it safe to list those URL ? 
@@ -178,8 +188,13 @@ jupyterlab/jupytercon-jupyterlab-tutorial:
 jupyterlab/scipy2018-jupyterlab-tutorial:
 jupyterlab/scipy2019-jupyterlab-tutorial:
 
-# exampels and cookie cutter
+# exemples and cookie cutter
 voila-gallery/hello-world-example:
+binderhub-ci-repos/cached-minimal-dockerfile:
+binderhub-ci-repos/minimal-dockerfile:
+binderhub-ci-repos/repo2docker-ci-clone-depth:
+binderhub-ci-repos/repo2docker-subdir-support:
+binderhub-ci-repos/requirements:
 
 # 
 ipython/pickleshare             :  https://pypi.org/project/pickleshare
@@ -244,3 +259,75 @@ jupyter-widgets/xeus : https://pypi.org/project/xeus-python
 jupyter/declarativewidgets : https://pypi.org/project/jupyter_declarativewidgets/
 
 jupyter/kernel_gateway_bundlers : https://pypi.org/project/jupyter_kernel_gateway_bundlers/
+
+jupyterhub/kubespawner: https://pypi.org/project/jupyterhub-kubespawner/
+
+
+
+# Jupyter XEUS
+
+jupyter-xeus/robotframework-interpreter   :  https://pypi.org/project/robotframework-interpreter
+jupyter-xeus/xcanvas                      :  https://pypi.org/project/xcanvas
+jupyter-xeus/xeus-python                  :  https://pypi.org/project/xeus-python
+jupyter-xeus/xeus-python-shell            :  https://pypi.org/project/xeus-python-shell
+jupyter-xeus/xeus-robot                   :  https://pypi.org/project/xeus-robot
+
+
+# Voilà
+
+voila-dashboards/hotpot_km                :  https://pypi.org/project/hotpot_km
+voila-dashboards/voici                    :  https://pypi.org/project/voici
+voila-dashboards/voila                    :  https://pypi.org/project/voila
+voila-dashboards/voila-debug              :  https://pypi.org/project/voila-debug
+voila-dashboards/voila-gridstack          :  https://pypi.org/project/voila-gridstack
+voila-dashboards/voila-material           :  https://pypi.org/project/voila-material
+voila-dashboards/voila-reveal             :  https://pypi.org/project/voila-reveal 
+voila-dashboards/voila-topbar             :  https://pypi.org/project/voila-topbar
+voila-dashboards/voila-vuetify            :  https://pypi.org/project/voila-vuetify
+
+
+jupyter-server/jupyverse                  :  https://pypi.org/project/jupyverse
+jupyterlab/lumino:
+jupyterlab/retrolab                       :  https://pypi.org/project/retrolab
+jupyterlab/rtc:
+
+# not packages
+ipython/dfflib  :
+ipython/front-to-back :
+ipython/ipython-ansible-jenkins :
+ipython/ipython-doc :
+ipython/ipython-in-depth:
+ipython/ipython-sec  :
+ipython/marketing :
+ipython/mozfest2014 :
+ipython/nbviewer-deploy  :
+ipython/paper-notebook2013 :
+ipython/salt-states-nbviewer :
+ipython/sloan-2013-reports :
+ipython/talks :
+ipython/usersurveys :
+ipython/xkcd-font:
+
+jupyter/dashboards : https://pypi.org/project/jupyter_dashboards/
+
+# nodes packages
+
+jupyter/jupyter-js-cells :
+jupyter/jupyter-js-docmanager :
+jupyter/jupyter-js-domutils :
+jupyter/jupyter-js-editor :
+jupyter/jupyter-js-filebrowser :
+jupyter/jupyter-js-input-area :
+jupyter/jupyter-js-notebook :
+jupyter/jupyter-js-output-area :
+jupyter/jupyter-js-phosphide :
+jupyter/jupyter-js-plugins :
+jupyter/jupyter-js-terminal :
+jupyter/jupyter-js-ui :
+jupyter/jupyter-js-utils :
+
+
+# Own by the matplotlib org:
+
+voila-gallery/ipympl                      :  https://pypi.org/project/ipympl
+jupyterlab/jupyter-chat                   :  https://pypi.org/project/jupyterlab-chat  
