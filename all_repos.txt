@@ -52,8 +52,9 @@ jupyter/papyri                           : https://pypi.org/project/papyri
 jupyter/notebook_shim                    : https://pypi.org/project/notebook-shim
 jupyter/jupyter_events                   : https://pypi.org/project/jupyter-events
 jupyterlab/jupyterlab                    : https://pypi.org/project/jupyterlab
-jupyterlab/jupyterlab                    : https://pypi.org/project/jupyterlab_launcher
 jupyterlab/pytest-check-links            : https://pypi.org/project/pytest-check-links
+# legacy server was launcher
+jupyterlab/jupyterlab_server             : https://pypi.org/project/jupyterlab_launcher
 jupyterlab/jupyterlab_server             : https://pypi.org/project/jupyterlab-server
 jupyterlab/jupyterlab-git                : https://pypi.org/project/jupyterlab-git
 jupyterlab/jupyterlab-github             : https://pypi.org/project/jupyterlab-github
@@ -208,7 +209,7 @@ jupyter/sphinxcontrib_github_alt  :  https://pypi.org/project/sphinxcontrib_gith
 jupyter/testpath                :  https://pypi.org/project/testpath
 jupyter/tmpnb                   :  https://pypi.org/project/tmpnb
 jupyter-book/hatch-deps-selector  :  https://pypi.org/project/hatch-deps-selector
-jupyter-book/jupyter_releaser   :  https://pypi.org/project/jupyter_releaser
+jupyter-book/jupyter_releaser   :  https://pypi.org/project/jupyter-releaser
 jupyter-book/jupyterlab-myst    :  https://pypi.org/project/jupyterlab-myst
 jupyter-book/myst-spec          :  https://pypi.org/project/myst-spec
 jupyter-book/mystmd             :  https://pypi.org/project/mystmd
@@ -223,7 +224,24 @@ jupyter-widgets/traittypes                :  https://pypi.org/project/traittypes
 
 
 # jupyterhub
-jupyterhub/design                         :
+jupyterhub/design                           :
+jupyterhub/action-get-quayio-tags           :
+jupyterhub/action-k3s-helm                  :
+jupyterhub/action-k8s-await-workloads       :
+jupyterhub/action-k8s-namespace-report      :
+jupyterhub/action-major-minor-tag-calculator: 
+
+jupyterhub/dummyauthenticator               : https://pypi.org/project/jupyterhub-dummyauthenticator
+jupyterhub/firstuseauthenticator            : https://pypi.org/project/jupyterhub-firstuseauthenticator
+jupyterhub/repo2docker                      : https://pypi.org/project/jupyter-repo2docker
+jupyterhub/simplespawner                    : https://pypi.org/project/jupyterhub-simplespawner
+jupyterhub/kerberosauthenticator                    : https://pypi.org/project/jupyterhub-kerberosauthenticator
+jupyterhub/yarnspawner : https://pypi.org/project/jupyterhub-yarnspawner
+jupyterhub/systemdspawner : https://pypi.org/project/jupyterhub-systemdspawner
+jupyterhub/ldapauthenticator                    : https://pypi.org/project/jupyterhub-ldapauthenticator
+jupyterhub/ltiauthenticator                    : https://pypi.org/project/jupyterhub-ltiauthenticator
+jupyterhub/nativeauthenticator                   : https://pypi.org/project/jupyterhub-nativeauthenticator
+jupyterhub/tmpauthenticator                   : https://pypi.org/project/jupyterhub-tmpauthenticator
 
 jupyterhub/alabaster-jupyterhub           :  https://pypi.org/project/alabaster-jupyterhub
 jupyterhub/batchspawner                   :  https://pypi.org/project/batchspawner
@@ -253,7 +271,7 @@ jupyterhub/wrapspawner                    :  https://pypi.org/project/wrapspawne
 
 # misc name don't match
 jupyter-widgets/jupyterlab-sidecar: https://pypi.org/project/sidecar
-jupyter-widgets/midicontrols : https://pypi.org/project/wrapspawner/ipymidicontrols
+jupyter-widgets/midicontrols : https://pypi.org/project/wrapspawner/ipymidicontrols/
 jupyter-widgets/xeus : https://pypi.org/project/xeus-python
 
 jupyter/declarativewidgets : https://pypi.org/project/jupyter_declarativewidgets/
@@ -267,7 +285,6 @@ jupyterhub/kubespawner: https://pypi.org/project/jupyterhub-kubespawner/
 # Jupyter XEUS
 
 jupyter-xeus/robotframework-interpreter   :  https://pypi.org/project/robotframework-interpreter
-jupyter-xeus/xcanvas                      :  https://pypi.org/project/xcanvas
 jupyter-xeus/xeus-python                  :  https://pypi.org/project/xeus-python
 jupyter-xeus/xeus-python-shell            :  https://pypi.org/project/xeus-python-shell
 jupyter-xeus/xeus-robot                   :  https://pypi.org/project/xeus-robot

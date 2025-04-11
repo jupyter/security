@@ -136,11 +136,14 @@ async def get_package_maintainers(package: str) -> tuple[list[str], bool]:
 
     The json does not have the right information, so we need to scrape the page.
     """
+    assert package, "package is required"
     url = f"https://pypi.org/project/{package}/"
     if package in cache:
         print("c", end="", flush=True)
         return cache[package], True
     response = await asks.get(url)
+    # fastly html is 200 even if package is not found, so the json instead
+    (await asks.get(f"https://pypi.org/pypi/{package}/json")).raise_for_status()
     if response.status_code == 200:
         html = response.text
         soup = BeautifulSoup(html, "html.parser")
@@ -188,7 +191,8 @@ async def main(config_file: str = "all_repos.txt"):
 
             async def _loc(targets, package_url):
                 async with semaphore:  # Wait for semaphore to be available
-                    package = package_url.split("/")[-1]
+                    package = package_url.strip("/").split("/")[-1]
+                    assert package, f"package is required {package_url}"
                     maintainers, is_ok = await get_package_maintainers(package)
                     targets.append(
                         (
