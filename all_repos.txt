@@ -1,0 +1,353 @@
+# github.repo : pypi url (or empty) 
+# with same nane exacttly
+jupyter-incubator/sparkmagic             : https://pypi.org/project/sparkmagic
+jupyter-widgets/ipywidgets               : https://pypi.org/project/ipywidgets
+jupyter-server/jupyter-resource-usage    : https://pypi.org/project/jupyter-resource-usage
+jupyter-server/jupyter_server            : https://pypi.org/project/jupyter-server
+jupyter-server/pytest-jupyter            : https://pypi.org/project/pytest-jupyter
+jupyter-server/jupyter_server_mathjax    : https://pypi.org/project/jupyter-server-mathjax
+jupyter-server/gateway_provisioners      : https://pypi.org/project/gateway-provisioners
+jupyter-server/jupyter_releaser          : https://pypi.org/project/jupyter-releaser
+jupyter-server/fps                       : https://pypi.org/project/fps
+jupyter-server/jupyter_server_terminals  : https://pypi.org/project/jupyter-server-terminals
+jupyter-server/jupyter_ydoc              : https://pypi.org/project/jupyter-ydoc
+jupyter-server/jupyter_server_fileid     : https://pypi.org/project/jupyter-server-fileid
+jupyter-server/jupyter-scheduler         : https://pypi.org/project/jupyter-scheduler
+jupyter-server/pycrdt                    : https://pypi.org/project/pycrdt
+jupyter-server/pycrdt-websocket          : https://pypi.org/project/pycrdt-websocket
+ipython/ipython                          : https://pypi.org/project/ipython
+ipython/traitlets                        : https://pypi.org/project/traitlets
+ipython/ipython_genutils                 : https://pypi.org/project/ipython_genutils
+ipython/ipyparallel                      : https://pypi.org/project/ipyparallel
+ipython/ipykernel                        : https://pypi.org/project/ipykernel
+ipython/ipynb                            : https://pypi.org/project/ipynb
+ipython/rlipython                        : https://pypi.org/project/rlipython
+ipython/disp                             : https://pypi.org/project/disp
+ipython/matplotlib-inline                : https://pypi.org/project/matplotlib-inline
+ipython/comm                             : https://pypi.org/project/comm
+ipython/ipython-pygments-lexers          : https://pypi.org/project/ipython-pygments-lexers
+jupyter-book/jupyter-book                : https://pypi.org/project/jupyter-book
+jupyter/nbviewer                         : https://pypi.org/project/nbviewer
+jupyter/nbgrader                         : https://pypi.org/project/nbgrader
+jupyter/terminado                        : https://pypi.org/project/terminado
+jupyter/jupyter_core                     : https://pypi.org/project/jupyter-core
+jupyter/nbformat                         : https://pypi.org/project/nbformat
+jupyter/jupyter_client                   : https://pypi.org/project/jupyter-client
+jupyter/notebook                         : https://pypi.org/project/notebook
+jupyter/nbconvert                        : https://pypi.org/project/nbconvert
+jupyter/jupyter_console                  : https://pypi.org/project/jupyter-console
+jupyter/jupyter_kernel_test              : https://pypi.org/project/jupyter-kernel-test
+jupyter/jupyter                          : https://pypi.org/project/jupyter
+jupyter/nbdime                           : https://pypi.org/project/nbdime
+jupyter/jupyterlab_geojson               : https://pypi.org/project/jupyterlab-geojson
+jupyter/jupyter-sphinx                   : https://pypi.org/project/jupyter-sphinx
+jupyter/jupyter-packaging                : https://pypi.org/project/jupyter-packaging
+jupyter/jupyterlab-fasta                 : https://pypi.org/project/jupyterlab-fasta
+jupyter/nbclassic                        : https://pypi.org/project/nbclassic
+jupyter/nbclient                         : https://pypi.org/project/nbclient
+jupyter/papyri                           : https://pypi.org/project/papyri
+jupyter/notebook_shim                    : https://pypi.org/project/notebook-shim
+jupyter/jupyter_events                   : https://pypi.org/project/jupyter-events
+jupyterlab/jupyterlab                    : https://pypi.org/project/jupyterlab
+jupyterlab/pytest-check-links            : https://pypi.org/project/pytest-check-links
+# legacy server was launcher
+jupyterlab/jupyterlab_server             : https://pypi.org/project/jupyterlab_launcher
+jupyterlab/jupyterlab_server             : https://pypi.org/project/jupyterlab-server
+jupyterlab/jupyterlab-git                : https://pypi.org/project/jupyterlab-git
+jupyterlab/jupyterlab-github             : https://pypi.org/project/jupyterlab-github
+jupyterlab/jupyterlab-latex              : https://pypi.org/project/jupyterlab-latex
+jupyterlab/jupyterlab-telemetry          : https://pypi.org/project/jupyterlab-telemetry
+jupyterlab/jupyterlab_pygments           : https://pypi.org/project/jupyterlab-pygments
+jupyterlab/jupyterlab_apod               : https://pypi.org/project/jupyterlab-apod
+jupyterlab/jupyterlab-plugin-playground  : https://pypi.org/project/jupyterlab-plugin-playground
+jupyterlab/jupyterlab-translate          : https://pypi.org/project/jupyterlab-translate
+jupyterlab/hatch-jupyter-builder         : https://pypi.org/project/hatch-jupyter-builder
+jupyterlab/jupyter-collaboration         : https://pypi.org/project/jupyter-collaboration
+
+# All these are from the same repo:
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-ar-SA
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-ca-ES
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-cs-CZ
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-da-DK
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-de-DE
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-el-GR
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-es-ES
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-et-EE
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-fi-FI
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-fr-FR
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-he-IL
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-hu-HU
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-hy-AM
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-id-ID
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-it-IT
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-ja-JP
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-ko-KR
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-lt-LT
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-nl-NL
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-no-NO
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-pl-PL
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-pt-BR
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-ro-RO
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-ru-RU
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-tr-TR
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-uk-UA
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-vi-VN
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-zh-CN
+jupyterlab/language-packs :  https://pypi.org/project/jupyterlab-language-pack-zh-TW
+
+jupyterlab/jupyter-ai                     :  https://pypi.org/project/jupyter-ai
+jupyterlab/jupyter-builder                :  https://pypi.org/project/jupyter-builder
+jupyterlab/jupyterlab-data-explorer       :  https://pypi.org/project/jupyterlab-data-explorer
+
+# 
+jupyter/jupyter-sphinx-theme              :  https://pypi.org/project/jupyter-sphinx-theme
+
+# To migrate
+jupyter/qtconsole               :  https://pypi.org/project/qtconsole
+
+# variation in names:
+jupyterlab/jupyter-collaboration :  https://pypi.org/project/jupyter-collaboration-ui
+jupyterlab/jupyter-collaboration :  https://pypi.org/project/jupyter-docprovider
+jupyter-server/kernel_gateway    :  https://pypi.org/project/jupyter-kernel-gateway
+jupyter-server/synchronizer      :  https://pypi.org/project/jupyter-server-synchronizer
+
+# repo with no packages:
+binderhub-ci-repos/lfs:
+jupyter/design:
+jupyter/security:
+jupyter/ideas:
+binderhub-ci-repos/lfs:
+jupyter/governance:
+jupyter/accessibility:
+jupyter/cve:
+
+# security forks:
+# is it safe to list those URL ? 
+# REDACTED
+
+# .github repos
+jupyter-standard/.github:
+jupyter-server/.github:
+jupyter-xeus/.github:
+jupyter-standards/.github:
+ipython/.github:
+ipython/.github-1:
+jupyterhub/.github:
+voila-dashboards/.github:
+jupyter/.github:
+jupyterlab/.github:
+
+# .github.io repos
+ipython/ipython.github.com:
+jupyter-xeus/jupyter-xeus.github.io:
+jupyterhub/jupyterhub.github.io:
+voila-gallery/voila-gallery.github.io:
+voila-dashboards/voila-dashboards.github.io:
+jupyter/jupyter.github.io:
+
+# team compass
+jupyter/docs-team-compass:
+jupyter/foundations-and-standards-team-compass:
+jupyter/ipython-components:
+jupyter/kernels-team-compass:
+jupyter/notebook-team-compass:
+jupyter/software-steering-council-team-compass:
+jupyter/team-compass-template:
+jupyter-book/team-compass:
+jupyter-governance/ec-team-compass:
+jupyter-server/team-compass:
+jupyter-widgets/team-compass:
+jupyterhub/team-compass:
+jupyterlab/frontends-team-compass:
+
+# misc websites:
+
+jupyter/cdn.jupyter.org:
+jupyter/colaboratory.jupyter.org:
+jupyter/nbviewer.org-deploy:
+jupyter/try.jupyter.org:
+jupyter-book/mystmd.org:
+jupyterhub/mybinder.org-deploy:
+jupyterhub/mybinder.org-user-guide:
+voila-gallery/voila-gallery.org-deploy:
+ipython/ipython-website:
+
+# various tutorials
+jupyter/ngcm-tutorial:
+jupyter/scipy-advanced-tutorial:
+jupyter/strata-sv-2015-tutorial:
+jupyter/tutorial-dashboards-declarativewidgets:
+jupyter/tutorial-devteam-jupyterhub-2017:
+jupyter/tutorial-devteam-projectmgt-2017:
+jupyter-widgets/tutorial:
+jupyter-widgets/tutorial-jupyterlite:
+jupyterhub/jupyterhub-tutorial:
+jupyterlab/jupytercon-jupyterlab-tutorial:
+jupyterlab/scipy2018-jupyterlab-tutorial:
+jupyterlab/scipy2019-jupyterlab-tutorial:
+
+# exemples and cookie cutter
+voila-gallery/hello-world-example:
+binderhub-ci-repos/cached-minimal-dockerfile:
+binderhub-ci-repos/minimal-dockerfile:
+binderhub-ci-repos/repo2docker-ci-clone-depth:
+binderhub-ci-repos/repo2docker-subdir-support:
+binderhub-ci-repos/requirements:
+
+# 
+ipython/pickleshare             :  https://pypi.org/project/pickleshare
+jupyter/echo_kernel             :  https://pypi.org/project/echo_kernel
+jupyter/jupyter-alabaster-theme  :  https://pypi.org/project/jupyter-alabaster-theme
+jupyter/jupyter_markdown        :  https://pypi.org/project/jupyter_markdown
+jupyter/jupyterhub-carina       :  https://pypi.org/project/jupyterhub-carina
+jupyter/nb2kg                   :  https://pypi.org/project/nb2kg
+jupyter/qtconsole               :  https://pypi.org/project/qtconsole
+jupyter/sphinxcontrib_github_alt  :  https://pypi.org/project/sphinxcontrib_github_alt
+jupyter/testpath                :  https://pypi.org/project/testpath
+jupyter/tmpnb                   :  https://pypi.org/project/tmpnb
+jupyter-book/hatch-deps-selector  :  https://pypi.org/project/hatch-deps-selector
+jupyter-book/jupyter_releaser   :  https://pypi.org/project/jupyter-releaser
+jupyter-book/jupyterlab-myst    :  https://pypi.org/project/jupyterlab-myst
+jupyter-book/myst-spec          :  https://pypi.org/project/myst-spec
+jupyter-book/mystmd             :  https://pypi.org/project/mystmd
+jupyter-book/sphinx-ext-mystmd  :  https://pypi.org/project/sphinx-ext-mystmd
+
+# jupyter widgets
+
+jupyter-widgets/ipydatagrid               :  https://pypi.org/project/ipydatagrid
+jupyter-widgets/ipyleaflet                :  https://pypi.org/project/ipyleaflet
+jupyter-widgets/pythreejs                 :  https://pypi.org/project/pythreejs
+jupyter-widgets/traittypes                :  https://pypi.org/project/traittypes
+
+
+# jupyterhub
+jupyterhub/design                           :
+jupyterhub/action-get-quayio-tags           :
+jupyterhub/action-k3s-helm                  :
+jupyterhub/action-k8s-await-workloads       :
+jupyterhub/action-k8s-namespace-report      :
+jupyterhub/action-major-minor-tag-calculator: 
+
+
+jupyterhub/alabaster-jupyterhub                 : https://pypi.org/project/alabaster-jupyterhub
+jupyterhub/batchspawner                         : https://pypi.org/project/batchspawner
+jupyterhub/binderhub                            : https://pypi.org/project/binderhub
+jupyterhub/chartpress                           : https://pypi.org/project/chartpress
+jupyterhub/configurable-http-proxy              : https://pypi.org/project/configurable-http-proxy
+jupyterhub/docker-image-cleaner                 : https://pypi.org/project/docker-image-cleaner
+jupyterhub/dockerspawner                        : https://pypi.org/project/dockerspawner
+jupyterhub/gh-scoped-creds                      : https://pypi.org/project/gh-scoped-creds
+jupyterhub/jupyter-remote-desktop-proxy         : https://pypi.org/project/jupyter-remote-desktop-proxy
+jupyterhub/jupyter-rsession-proxy               : https://pypi.org/project/jupyter-rsession-proxy
+jupyterhub/jupyter-server-proxy                 : https://pypi.org/project/jupyter-server-proxy
+jupyterhub/nbgitpuller                          : https://pypi.org/project/nbgitpuller
+jupyterhub/jupyterhub                           : https://pypi.org/project/jupyterhub
+jupyterhub/jupyterhub-idle-culler               : https://pypi.org/project/jupyterhub-idle-culler
+jupyterhub/jupyterhub-sphinx-theme              : https://pypi.org/project/jupyterhub-sphinx-theme
+jupyterhub/nbgitpuller-downloader-dropbox       : https://pypi.org/project/nbgitpuller-downloader-dropbox
+jupyterhub/nbgitpuller-downloader-generic-web   : https://pypi.org/project/nbgitpuller-downloader-generic-web
+jupyterhub/nbgitpuller-downloader-googledrive   : https://pypi.org/project/nbgitpuller-downloader-googledrive
+jupyterhub/nullauthenticator                    : https://pypi.org/project/nullauthenticator
+jupyterhub/oauthenticator                       : https://pypi.org/project/oauthenticator
+jupyterhub/pytest-jupyterhub                    : https://pypi.org/project/pytest-jupyterhub
+jupyterhub/repo2docker                          : https://pypi.org/project/jupyter-repo2docker
+jupyterhub/simpervisor                          : https://pypi.org/project/simpervisor
+jupyterhub/sudospawner                          : https://pypi.org/project/sudospawner
+jupyterhub/wrapspawner                          : https://pypi.org/project/wrapspawner
+jupyterhub/escapism                             : https://pypi.org/project/escapism
+jupyterhub/pamela                               : https://pypi.org/project/pamela
+jupyterhub/autodoc-traits                       : https://pypi.org/project/autodoc-traits
+
+# seem to append jupyterhub- in front of the repo name
+jupyterhub/kerberosauthenticator                : https://pypi.org/project/jupyterhub-kerberosauthenticator
+jupyterhub/ldapauthenticator                    : https://pypi.org/project/jupyterhub-ldapauthenticator
+jupyterhub/ltiauthenticator                     : https://pypi.org/project/jupyterhub-ltiauthenticator
+jupyterhub/nativeauthenticator                  : https://pypi.org/project/jupyterhub-nativeauthenticator
+jupyterhub/dummyauthenticator                   : https://pypi.org/project/jupyterhub-dummyauthenticator
+jupyterhub/firstuseauthenticator                : https://pypi.org/project/jupyterhub-firstuseauthenticator
+jupyterhub/simplespawner                        : https://pypi.org/project/jupyterhub-simplespawner
+jupyterhub/systemdspawner                       : https://pypi.org/project/jupyterhub-systemdspawner
+jupyterhub/tmpauthenticator                     : https://pypi.org/project/jupyterhub-tmpauthenticator
+jupyterhub/traefik-proxy                        : https://pypi.org/project/jupyterhub-traefik-proxy
+jupyterhub/yarnspawner                          : https://pypi.org/project/jupyterhub-yarnspawner
+jupyterhub/kubespawner                          : https://pypi.org/project/jupyterhub-kubespawner/
+
+
+# misc name don't match
+jupyter-widgets/jupyterlab-sidecar: https://pypi.org/project/sidecar
+jupyter-widgets/midicontrols : https://pypi.org/project/ipymidicontrols/
+jupyter-widgets/xeus : https://pypi.org/project/xeus-python
+
+jupyter/declarativewidgets : https://pypi.org/project/jupyter_declarativewidgets/
+
+jupyter/kernel_gateway_bundlers : https://pypi.org/project/jupyter_kernel_gateway_bundlers/
+
+
+
+
+# Jupyter XEUS
+
+jupyter-xeus/robotframework-interpreter   :  https://pypi.org/project/robotframework-interpreter
+jupyter-xeus/xeus-python                  :  https://pypi.org/project/xeus-python
+jupyter-xeus/xeus-python-shell            :  https://pypi.org/project/xeus-python-shell
+jupyter-xeus/xeus-robot                   :  https://pypi.org/project/xeus-robot
+
+
+# Voilà
+
+voila-dashboards/hotpot_km                :  https://pypi.org/project/hotpot_km
+voila-dashboards/voici                    :  https://pypi.org/project/voici
+voila-dashboards/voila                    :  https://pypi.org/project/voila
+voila-dashboards/voila-debug              :  https://pypi.org/project/voila-debug
+voila-dashboards/voila-gridstack          :  https://pypi.org/project/voila-gridstack
+voila-dashboards/voila-material           :  https://pypi.org/project/voila-material
+voila-dashboards/voila-reveal             :  https://pypi.org/project/voila-reveal 
+voila-dashboards/voila-topbar             :  https://pypi.org/project/voila-topbar
+voila-dashboards/voila-vuetify            :  https://pypi.org/project/voila-vuetify
+
+
+jupyter-server/jupyverse                  :  https://pypi.org/project/jupyverse
+jupyterlab/lumino:
+jupyterlab/retrolab                       :  https://pypi.org/project/retrolab
+jupyterlab/rtc:
+
+# not packages
+ipython/dfflib  :
+ipython/front-to-back :
+ipython/ipython-ansible-jenkins :
+ipython/ipython-doc :
+ipython/ipython-in-depth:
+ipython/ipython-sec  :
+ipython/marketing :
+ipython/mozfest2014 :
+ipython/nbviewer-deploy  :
+ipython/paper-notebook2013 :
+ipython/salt-states-nbviewer :
+ipython/sloan-2013-reports :
+ipython/talks :
+ipython/usersurveys :
+ipython/xkcd-font:
+
+jupyter/dashboards : https://pypi.org/project/jupyter_dashboards/
+
+# nodes packages
+
+jupyter/jupyter-js-cells :
+jupyter/jupyter-js-docmanager :
+jupyter/jupyter-js-domutils :
+jupyter/jupyter-js-editor :
+jupyter/jupyter-js-filebrowser :
+jupyter/jupyter-js-input-area :
+jupyter/jupyter-js-notebook :
+jupyter/jupyter-js-output-area :
+jupyter/jupyter-js-phosphide :
+jupyter/jupyter-js-plugins :
+jupyter/jupyter-js-terminal :
+jupyter/jupyter-js-ui :
+jupyter/jupyter-js-utils :
+
+
+# Own by the matplotlib org:
+
+voila-gallery/ipympl                      :  https://pypi.org/project/ipympl
+jupyterlab/jupyter-chat                   :  https://pypi.org/project/jupyterlab-chat  
