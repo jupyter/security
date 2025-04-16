@@ -275,7 +275,7 @@ jupyterhub/kubespawner                          : https://pypi.org/project/jupyt
 
 # misc name don't match
 jupyter-widgets/jupyterlab-sidecar: https://pypi.org/project/sidecar
-jupyter-widgets/midicontrols : https://pypi.org/project/wrapspawner/ipymidicontrols/
+jupyter-widgets/midicontrols : https://pypi.org/project/ipymidicontrols/
 jupyter-widgets/xeus : https://pypi.org/project/xeus-python
 
 jupyter/declarativewidgets : https://pypi.org/project/jupyter_declarativewidgets/
