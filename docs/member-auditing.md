@@ -13,7 +13,7 @@ This process applies to *all projects* governed by Jupyter (including those unde
 A member is considered inactive if they have not performed any *public* [GitHub events](https://docs.github.com/en/rest/activity/events?apiVersion=2022-11-28#list-public-events-for-a-user) within the last [365] days. Some examples of those public activities include:
 
 - Commits to public repositories
-- Pull requests to public repositoryies
+- Pull requests to public repositories
 - Participating in issues or pull requests
     - Applying or managing labels on issues or pull requests
 
