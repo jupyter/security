@@ -17,6 +17,7 @@ from typing import Dict, List, Optional
 import aiohttp
 import diskcache
 import humanize
+from bs4 import BeautifulSoup
 from rich import print
 
 default_orgs = [
@@ -210,6 +211,24 @@ async def get_user_activity(
         print(f"[red]Error fetching activity for {username}: {str(e)}[/red]")
 
     return None
+
+
+async def get_package_maintainers(
+    package: str, session: aiohttp.ClientSession
+) -> List[str]:
+    """Get the maintainers of a package from PyPI.
+
+    The json does not have the right information, so we need to scrape the page.
+    """
+    url = f"https://pypi.org/project/{package}/"
+    async with session.get(url) as response:
+        if response.status == 200:
+            html = await response.text()
+            soup = BeautifulSoup(html, "html.parser")
+            maintainers = soup.find_all("a", class_="package-header__author-link")
+            return [a.text.strip() for a in maintainers]
+        else:
+            return []
 
 
 def get_cache_size() -> str:

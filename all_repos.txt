@@ -1,0 +1,516 @@
+# github_org/repo : pypi url
+# the Pypi url can be empty if the repo has not matching package, or a dash
+# is the repo is eponymous
+
+
+jupyter-incubator/declarativewidgets_explorer : <none>
+jupyter-incubator/sparkmagic             : -
+jupyter-incubator/contentmanagement      : jupyter_cms
+jupyter-incubator/proposals              : <none>
+jupyter-widgets/ipywidgets               : -
+jupyter-server/jupyter-resource-usage    : -
+jupyter-server/jupyter_server            : jupyter-server
+jupyter-server/pytest-jupyter            : -
+jupyter-server/jupyter_server_mathjax    : -
+jupyter-server/gateway_provisioners      : gateway-provisioners
+jupyter-server/jupyter_releaser          : -
+jupyter-server/fps                       : -
+jupyter-server/jupyter_server_terminals  : -
+jupyter-server/jupyter_ydoc              : -
+jupyter-server/jupyter_server_fileid     : -
+jupyter-server/jupyter-scheduler         : -
+jupyter-server/pycrdt                    : -
+jupyter-server/pycrdt-websocket          : -
+jupyter-server/enterprise_gateway        : jupyter_enterprise_gateway
+jupyter-server/contributing-hour         : <none>
+ipython/ipython                          : -
+ipython/traitlets                        : -
+ipython/ipython_genutils                 : ipython_genutils
+ipython/ipyparallel                      : -
+ipython/ipykernel                        : -
+ipython/ipynb                            : -
+ipython/rlipython                        : -
+ipython/disp                             : -
+ipython/matplotlib-inline                : -
+ipython/comm                             : -
+ipython/ipython-pygments-lexers          : -
+jupyter-book/jupyter-book                : -
+jupyter/nbviewer                         : -
+jupyter/nbgrader                         : -
+jupyter/terminado                        : -
+jupyter/jupyter_core                     : -
+jupyter/nbformat                         : -
+jupyter/jupyter_client                   : -
+jupyter/notebook                         : -
+jupyter/nbconvert                        : -
+jupyter/jupyter_console                  : -
+jupyter/jupyter_kernel_test              : -
+jupyter/jupyter                          : -
+jupyter/nbdime                           : -
+jupyter/jupyterlab_geojson               : -
+jupyter/jupyter-sphinx                   : -
+jupyter/jupyter-packaging                : -
+jupyter/jupyterlab-fasta                 : -
+jupyter/nbclassic                        : -
+jupyter/nbclient                         : -
+jupyter/papyri                           : -
+jupyter/notebook_shim                    : -
+jupyter/jupyter_events                   : -
+jupyterlab/jupyterlab                    : -
+jupyterlab/jupyterlab-hdf5               : jupyterlab-hdf
+jupyterlab/pytest-check-links            : -
+# legacy server was launcher
+jupyterlab/jupyterlab_server             : jupyterlab-launcher
+jupyterlab/jupyterlab_server             : -
+jupyterlab/jupyterlab-git                : -
+jupyterlab/jupyterlab-github             : -
+jupyterlab/jupyterlab-latex              : -
+jupyterlab/jupyterlab-telemetry          : -
+jupyterlab/jupyterlab_pygments           : -
+jupyterlab/jupyterlab_apod               : -
+jupyterlab/jupyterlab-plugin-playground  : -
+jupyterlab/jupyterlab-translate          : -
+jupyterlab/hatch-jupyter-builder         : -
+jupyterlab/jupyter-collaboration         : -
+jupyterlab/jupyter-collaboration         : jupyter-server-ydoc
+jupyter/telemetry                        : jupyter-telemetry
+jupyter-standards/schemas                : <none>
+
+jupyterhealth/jupyter-smart-on-fhir      : -
+jupyterhealth/jupyterhealth-client       : -
+
+jupyterlab/jupyterlab-renderers          :jupyterlab-katex
+jupyterlab/jupyterlab-renderers          :jupyterlab-mathjax2
+jupyterlab/jupyterlab-renderers          :jupyterlab-mathjax3
+jupyterlab/jupyterlab-renderers          :jupyterlab-vega2
+jupyterlab/jupyterlab-renderers          :jupyterlab-vega3
+
+jupyterlab/pull-requests                 :jupyterlab-pullrequests
+
+# All these are from the same repo:
+jupyterlab/language-packs                :  jupyterlab-pseudo-language-pack
+jupyterlab/language-packs                :  jupyterlab-language-pack-ar-SA
+jupyterlab/language-packs                :  jupyterlab-language-pack-ca-ES
+jupyterlab/language-packs                :  jupyterlab-language-pack-cs-CZ
+jupyterlab/language-packs                :  jupyterlab-language-pack-da-DK
+jupyterlab/language-packs                :  jupyterlab-language-pack-de-DE
+jupyterlab/language-packs                :  jupyterlab-language-pack-el-GR
+jupyterlab/language-packs                :  jupyterlab-language-pack-es-ES
+jupyterlab/language-packs                :  jupyterlab-language-pack-et-EE
+jupyterlab/language-packs                :  jupyterlab-language-pack-fi-FI
+jupyterlab/language-packs                :  jupyterlab-language-pack-fr-FR
+jupyterlab/language-packs                :  jupyterlab-language-pack-he-IL
+jupyterlab/language-packs                :  jupyterlab-language-pack-hu-HU
+jupyterlab/language-packs                :  jupyterlab-language-pack-hy-AM
+jupyterlab/language-packs                :  jupyterlab-language-pack-id-ID
+jupyterlab/language-packs                :  jupyterlab-language-pack-it-IT
+jupyterlab/language-packs                :  jupyterlab-language-pack-ja-JP
+jupyterlab/language-packs                :  jupyterlab-language-pack-ko-KR
+jupyterlab/language-packs                :  jupyterlab-language-pack-lt-LT
+jupyterlab/language-packs                :  jupyterlab-language-pack-nl-NL
+jupyterlab/language-packs                :  jupyterlab-language-pack-no-NO
+jupyterlab/language-packs                :  jupyterlab-language-pack-pl-PL
+jupyterlab/language-packs                :  jupyterlab-language-pack-pt-BR
+jupyterlab/language-packs                :  jupyterlab-language-pack-ro-RO
+jupyterlab/language-packs                :  jupyterlab-language-pack-ru-RU
+jupyterlab/language-packs                :  jupyterlab-language-pack-tr-TR
+jupyterlab/language-packs                :  jupyterlab-language-pack-uk-UA
+jupyterlab/language-packs                :  jupyterlab-language-pack-vi-VN
+jupyterlab/language-packs                :  jupyterlab-language-pack-zh-CN
+jupyterlab/language-packs                :  jupyterlab-language-pack-zh-TW
+
+jupyterlab/jupyter-ai                    :  -
+jupyterlab/jupyter-builder               :  -
+jupyterlab/jupyterlab-data-explorer      :  -
+
+#
+jupyter/jupyter-sphinx-theme             :  -
+
+# variation in names:
+jupyterlab/jupyter-collaboration         :  jupyter-collaboration-ui
+jupyterlab/jupyter-collaboration         :  jupyter-docprovider
+jupyter-server/kernel_gateway            :  jupyter-kernel-gateway
+jupyter-server/synchronizer              :  jupyter-server-synchronizer
+
+# repo with no packages: <none>
+binderhub-ci-repos/lfs: <none>
+jupyter/design: <none>
+jupyter/security: <none>
+jupyter/ideas: <none>
+binderhub-ci-repos/lfs: <none>
+jupyter/governance: <none>
+jupyter/accessibility: <none>
+jupyter/cve: <none>
+
+# security forks:
+# is it safe to list those URL ?
+# REDACTED
+
+# .github repos
+jupyter-standard/.github    : <none>
+jupyter-server/.github      : <none>
+jupyter-xeus/.github        : <none>
+jupyter-standards/.github   : <none>
+ipython/.github             : <none>
+ipython/.github-1           : <none>
+jupyterhub/.github          : <none>
+voila-dashboards/.github    : <none>
+jupyter/.github             : <none>
+jupyterlab/.github          : <none>
+jupyter-governance/.github  : <none>
+
+
+jupyter-governance/jupyter-foundation-governing-board : <none>
+
+# .github.io repos
+ipython/ipython.github.com: <none>
+jupyter-xeus/jupyter-xeus.github.io: <none>
+jupyterhub/jupyterhub.github.io: <none>
+voila-gallery/voila-gallery.github.io: <none>
+voila-dashboards/voila-dashboards.github.io: <none>
+jupyter/jupyter.github.io: <none>
+
+# team compass
+jupyter/docs-team-compass: <none>
+jupyter/foundations-and-standards-team-compass: <none>
+jupyter/ipython-components: <none>
+jupyter/kernels-team-compass: <none>
+jupyter/notebook-team-compass: <none>
+jupyter/software-steering-council-team-compass: <none>
+jupyter/team-compass-template: <none>
+jupyter-book/team-compass: <none>
+jupyter-governance/ec-team-compass: <none>
+jupyter-server/team-compass: <none>
+jupyter-widgets/team-compass: <none>
+jupyterhub/team-compass: <none>
+jupyterlab/frontends-team-compass: <none>
+
+# misc websites:
+
+jupyter/cdn.jupyter.org: <none>
+jupyter/colaboratory.jupyter.org: <none>
+jupyter/nbviewer.org-deploy: <none>
+jupyter/try.jupyter.org: <none>
+jupyter-book/mystmd.org: <none>
+jupyterhub/mybinder.org-deploy: <none>
+jupyterhub/mybinder.org-user-guide: <none>
+voila-gallery/voila-gallery.org-deploy: <none>
+ipython/ipython-website: <none>
+
+# various tutorials
+jupyter/ngcm-tutorial: <none>
+jupyter/scipy-advanced-tutorial: <none>
+jupyter/strata-sv-2015-tutorial: <none>
+jupyter/tutorial-dashboards-declarativewidgets: <none>
+jupyter/tutorial-devteam-jupyterhub-2017: <none>
+jupyter/tutorial-devteam-projectmgt-2017: <none>
+jupyter-widgets/tutorial: <none>
+jupyter-widgets/tutorial-jupyterlite: <none>
+jupyterhub/jupyterhub-tutorial: <none>
+jupyterlab/jupytercon-jupyterlab-tutorial: <none>
+jupyterlab/scipy2018-jupyterlab-tutorial: <none>
+jupyterlab/scipy2019-jupyterlab-tutorial: <none>
+
+# exemples and cookie cutter
+voila-gallery/hello-world-example: <none>
+binderhub-ci-repos/cached-minimal-dockerfile: <none>
+binderhub-ci-repos/minimal-dockerfile: <none>
+binderhub-ci-repos/repo2docker-ci-clone-depth: <none>
+binderhub-ci-repos/repo2docker-subdir-support: <none>
+binderhub-ci-repos/requirements: <none>
+
+#
+ipython/pickleshare                 :  -
+jupyter/echo_kernel                 :  -
+jupyter/jupyter-alabaster-theme     :  -
+jupyter/jupyter_markdown            :  jupyter_markdown
+jupyter/jupyterhub-carina           :  -
+jupyter/nb2kg                       :  -
+jupyter/qtconsole                   :  -
+jupyter/sphinxcontrib_github_alt    :  sphinxcontrib_github_alt
+jupyter/testpath                    :  -
+jupyter/tmpnb                       :  -
+jupyter-book/hatch-deps-selector    :  -
+jupyter-book/jupyter_releaser       :  -
+jupyter-book/jupyterlab-myst        :  -
+jupyter-book/jupyterlab-myst-quickstart : <none>
+jupyter-book/myst-spec              :  -
+jupyter-book/mystmd                 :  -
+jupyter-book/sphinx-ext-mystmd      :  -
+
+jupyter-book/book-theme-tailwind-quickstart : <none>
+jupyter-book/jupyterlab-myst-quickstart     : <none>
+jupyter-book/legacy-demo-book               : <none>
+jupyter-book/myst-enhancement-proposals     : <none>
+jupyter-book/myst-theme                     : <none>
+jupyter-book/mystmd-quickstart              : <none>
+jupyter-book/vscode-mystmd                  : <none>
+
+# jupyter widgets
+
+jupyter-widgets/ipydatagrid               :  -
+jupyter-widgets/ipyleaflet                :  -
+jupyter-widgets/pythreejs                 :  -
+jupyter-widgets/traittypes                :  -
+
+
+# jupyterhub
+jupyterhub/design                           : <none>
+jupyterhub/action-get-quayio-tags           : <none>
+jupyterhub/action-k3s-helm                  : <none>
+jupyterhub/action-k8s-await-workloads       : <none>
+jupyterhub/action-k8s-namespace-report      : <none>
+jupyterhub/action-major-minor-tag-calculator: <none>
+
+
+jupyterhub/alabaster-jupyterhub                 : -
+jupyterhub/batchspawner                         : -
+jupyterhub/binderhub                            : -
+jupyterhub/chartpress                           : -
+jupyterhub/configurable-http-proxy              : -
+jupyterhub/docker-image-cleaner                 : -
+jupyterhub/dockerspawner                        : -
+jupyterhub/gh-scoped-creds                      : -
+jupyterhub/jupyter-remote-desktop-proxy         : -
+jupyterhub/jupyter-rsession-proxy               : -
+jupyterhub/jupyter-server-proxy                 : -
+jupyterhub/nbgitpuller                          : -
+jupyterhub/jupyterhub                           : -
+jupyterhub/jupyterhub-idle-culler               : -
+jupyterhub/jupyterhub-sphinx-theme              : -
+jupyterhub/nbgitpuller-downloader-dropbox       : -
+jupyterhub/nbgitpuller-downloader-generic-web   : -
+jupyterhub/nbgitpuller-downloader-googledrive   : -
+jupyterhub/nullauthenticator                    : -
+jupyterhub/oauthenticator                       : -
+jupyterhub/pytest-jupyterhub                    : -
+jupyterhub/simpervisor                          : -
+jupyterhub/sudospawner                          : -
+jupyterhub/wrapspawner                          : -
+jupyterhub/escapism                             : -
+jupyterhub/pamela                               : -
+jupyterhub/autodoc-traits                       : -
+
+# seem to append jupyter- in front of the repo name
+jupyterhub/repo2docker                          : jupyter-repo2docker
+
+# seem to append jupyterhub- in front of the repo name
+jupyterhub/kerberosauthenticator                : jupyterhub-kerberosauthenticator
+jupyterhub/ldapauthenticator                    : jupyterhub-ldapauthenticator
+jupyterhub/ltiauthenticator                     : jupyterhub-ltiauthenticator
+jupyterhub/nativeauthenticator                  : jupyterhub-nativeauthenticator
+jupyterhub/dummyauthenticator                   : jupyterhub-dummyauthenticator
+jupyterhub/firstuseauthenticator                : jupyterhub-firstuseauthenticator
+jupyterhub/simplespawner                        : jupyterhub-simplespawner
+jupyterhub/systemdspawner                       : jupyterhub-systemdspawner
+jupyterhub/tmpauthenticator                     : jupyterhub-tmpauthenticator
+jupyterhub/traefik-proxy                        : jupyterhub-traefik-proxy
+jupyterhub/yarnspawner                          : jupyterhub-yarnspawner
+jupyterhub/kubespawner                          : jupyterhub-kubespawner
+
+
+# misc name don't match
+jupyter-widgets/jupyterlab-sidecar              : sidecar
+jupyter-widgets/midicontrols                    : ipymidicontrols
+jupyter-widgets/xeus                            : xeus-python
+
+jupyter/declarativewidgets                      : jupyter_declarativewidgets/
+
+jupyter/kernel_gateway_bundlers                 : jupyter_kernel_gateway_bundlers/
+
+
+
+
+# Jupyter XEUS
+
+jupyter-xeus/robotframework-interpreter   :  robotframework-interpreter
+jupyter-xeus/xeus-python                  :  xeus-python
+jupyter-xeus/xeus-python-shell            :  xeus-python-shell
+jupyter-xeus/xeus-robot                   :  xeus-robot
+jupyter-xeus/xeus-robot-wheel             :  xeus-robot
+
+
+# Voilà
+
+voila-dashboards/hotpot_km                :  hotpot_km
+voila-dashboards/voici                    :  voici
+voila-dashboards/voila                    :  voila
+voila-dashboards/voila-debug              :  voila-debug
+voila-dashboards/voila-gridstack          :  voila-gridstack
+voila-dashboards/voila-material           :  voila-material
+voila-dashboards/voila-reveal             :  voila-reveal
+voila-dashboards/voila-topbar             :  voila-topbar
+voila-dashboards/voila-vuetify            :  voila-vuetify
+
+
+jupyter-server/jupyverse                  :  -
+jupyterlab/lumino                         : <none>
+jupyterlab/retrolab                       :  -
+jupyterlab/rtc                            : <none>
+
+# not packages
+ipython/dfflib  : <none>
+ipython/front-to-back : <none>
+ipython/ipython-ansible-jenkins : <none>
+ipython/ipython-doc : <none>
+ipython/ipython-in-depth: <none>
+ipython/ipython-sec  : <none>
+ipython/marketing : <none>
+ipython/mozfest2014 : <none>
+ipython/nbviewer-deploy  : <none>
+ipython/paper-notebook2013 : <none>
+ipython/salt-states-nbviewer : <none>
+ipython/sloan-2013-reports : <none>
+ipython/talks : <none>
+ipython/usersurveys : <none>
+ipython/xkcd-font: <none>
+
+jupyter/dashboards : jupyter_dashboards
+
+# nodes packages
+
+jupyter/jupyter-js-cells : <none>
+jupyter/jupyter-js-docmanager : <none>
+jupyter/jupyter-js-domutils : <none>
+jupyter/jupyter-js-editor : <none>
+jupyter/jupyter-js-filebrowser : <none>
+jupyter/jupyter-js-input-area : <none>
+jupyter/jupyter-js-notebook : <none>
+jupyter/jupyter-js-output-area : <none>
+jupyter/jupyter-js-phosphide : <none>
+jupyter/jupyter-js-plugins : <none>
+jupyter/jupyter-js-terminal : <none>
+jupyter/jupyter-js-ui : <none>
+jupyter/jupyter-js-utils : <none>
+
+
+# Own by the matplotlib org:
+voila-gallery/ipympl                      :  ipympl
+
+
+jupyterlab/jupyter-chat                   :  jupyterlab-chat
+
+# misc
+
+jupyter/nbmanager : <none>
+jupyter/conf-event-log: <none>
+jupyter/cookiecutter-docker-stacks: <none>
+
+
+jupyter/dashboards_bundlers : jupyter_dashboards_bundlers
+jupyter/dashboards_server : <none>
+jupyter/dashboards_setup : <none>
+jupyter/distinguished-contributors: <none>
+jupyter/docker-demo-images: <none>
+jupyter/docker-notebook: <none>
+jupyter/docker-stacks: <none>
+jupyter/enhancement-proposals: <none>
+jupyter/etph: <none>
+
+
+jupyter-widgets/widget-cookiecutter: <none>
+jupyter-widgets/widget-ts-cookiecutter: <none>
+
+voila-gallery/cpp-xleaflet                 : <none>
+voila-gallery/electricitymap_dashboard     : <none>
+voila-gallery/gaussian-density             : <none>
+voila-gallery/render-stl                   : <none>
+voila-gallery/voila-spotify                : <none>
+
+
+jupyterlab/ui-profiler: jupyterlab-ui-profiler
+jupyterlab/ux-research: <none>
+jupyterlab/vscode-config-template: <none>
+jupyterlab/richoutput-js: <none>
+jupyterlab/jupyterlab_xkcd: <none>
+jupyterlab/mimerender-cookiecutter: <none>
+jupyterlab/jupyterlab-commenting: jupyterlab-commenting-service
+jupyterlab/jupyterlab-celltags: <none>
+jupyterlab/jupyterlab-bot: <none>
+
+
+
+voila-dashboards/tljh-voila-gallery         : <none>
+voila-dashboards/voici-demo                 : <none>
+voila-dashboards/voici-gallery              : <none>
+voila-dashboards/voila-heroku               : <none>
+voila-dashboards/voila-huggingface          : <none>
+voila-dashboards/voila-railway              : <none>
+voila-dashboards/voila-template-cookiecutter: <none>
+
+jupyterlab/jupyterlab-mp4 : <none>
+jupyterlab/jupyterlab-demo: <none>
+jupyterlab/galata         : <none>
+jupyterhub/outreachy                    : <none>
+jupyterhub/pebble-helm-chart            : <none>
+jupyterhub/repo2docker-action           : <none>
+jupyterhub/research-facilities          : <none>
+jupyterhub/the-littlest-jupyterhub      : <none>
+jupyterhub/zero-to-jupyterhub-k8s       : <none>
+jupyterhub/mybinder-tools               : <none>
+jupyterhub/jupyterlab-hub               : <none>
+jupyterhub/jupyterhub-the-hard-way      : <none>
+jupyterhub/hubshare                     : <none>
+
+
+jupyter/scipy-2015-advanced-topics  : <none>
+jupyter/scipy-sprint                : <none>
+jupyter/surveys                     : <none>
+jupyter/nbshot                      : <none>
+jupyter/nbcache                     : <none>
+jupyter/nature-demo                 : <none>
+jupyter/jupyter_logger              : <none>
+jupyter/lbnl-jupyterday             : <none>
+jupyter/joss-papers                 : <none>
+jupyter/help                        : <none>
+jupyter/jupyter-blog-theme          : <none>
+jupyter/jupyter-communitycalls      : <none>
+
+
+jupyter-book/blog                   : <none>
+
+jupyterlab/benchmarks               : <none>
+jupyterlab/debugger                 : <none>
+jupyter-book/meta                   : <none>
+jupyter/tmpnb-redirector            : <none>
+jupyter/atom-notebook               : <none>
+jupyter/jupyterlab_json             : <none>
+jupyter/jupyterhub-2016-workshop    : <none>
+jupyter/ipython-py3k                : <none>
+jupyter/debugger                    : <none>
+jupyter/experiments                 : <none>
+jupyter/kernels                     : <none>
+jupyter/markdown                    : <none>
+jupyterhub/jhub-proposals           : <none>
+
+
+jupyter/colaboratory                : <none>
+jupyter-server/extension-cookiecutter : <none>
+jupyter/extension-builder           : <none>
+jupyter/jsplugins                   : <none>
+jupyter/jupyter-drive               : jupyterdrive
+jupyter/jupyter-sprints             : <none>
+jupyter/jupytercon2023              : <none>
+jupyterhub/jupyterhub-deploy-docker : <none>
+jupyterhub/jupyterhub-deploy-hpc    : <none>
+jupyterhub/jupyterhub-deploy-teaching : <none>
+
+jupyter/jvm-magics                  : <none>
+jupyter/jvm-repr                    : <none>
+jupyter/kernel-protocol             : <none>
+jupyter/nbindex                     : <none>
+jupyter/tmpnb-deploy                : <none>
+jupyter/nbconvert-examples          : <none>
+jupyterhub/binder-billing           : <none>
+jupyter-xeus/xeus-calc              : <none>
+jupyter/kernel_gateway_demos        : <none>
+jupyter/notebook-research           : <none>
+jupyter/mozfest15-training          : <none>
+jupyter/spreadsheet                 : <none>
+
+jupyter/newsletter                  : <none>
+jupyter/practice                    : <none>
+jupyter/roadmap                     : <none>
+jupyter/schema                      : <none>
+jupyter/services                    : <none>
+jupyter/showcase                    : <none>

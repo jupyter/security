@@ -74,6 +74,7 @@ def get_tidelift_data(packages):
 
     # Create a table for aligned output
     table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("#")
     table.add_column("Package Name")
     table.add_column("Estimated Money")
     table.add_column("Lifted")
@@ -89,11 +90,11 @@ def get_tidelift_data(packages):
     package_data.sort(
         key=lambda x: (x[1] is None, x[1], -maybefloat(x[2]), x[0])
     )  # sort lifted True first, then None, then False, then amount,  then by name
-    for name, lifted, estimated_money in package_data:
+    for i, (name, lifted, estimated_money) in enumerate(package_data, start=1):
         if lifted:
-            table.add_row(name, "-- need login ––", f"[green]{lifted}[/green]")
+            table.add_row(str(i), name, "-- need login ––", f"[green]{lifted}[/green]")
         else:
-            table.add_row(name, str(estimated_money), f"[red]{lifted}[/red]")
+            table.add_row(str(i), name, str(estimated_money), f"[red]{lifted}[/red]")
 
     print(table)
 
