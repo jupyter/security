@@ -481,3 +481,20 @@ jupyter/debugger                    : <none>
 jupyter/experiments                 : <none>
 jupyter/kernels                     : <none>
 jupyter/markdown                    : <none>
+jupyterhub/jhub-proposals           : <none>
+
+
+jupyter/colaboratory                : <none>
+jupyter-server/extension-cookiecutter : <none>
+jupyter/extension-builder           : <none>
+jupyter/jsplugins                   : <none>
+jupyter/jupyter-drive               : jupyterdrive
+jupyter/jupyter-sprints             : <none>
+jupyter/jupytercon2023              : <none>
+jupyterhub/jupyterhub-deploy-docker : <none>
+jupyterhub/jupyterhub-deploy-hpc    : <none>
+jupyterhub/jupyterhub-deploy-teaching : <none>
+
+jupyter/jvm-magics                  : <none>
+jupyter/jvm-repr                    : <none>
+jupyter/kernel-protocol             : <none>
