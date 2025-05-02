@@ -498,3 +498,19 @@ jupyterhub/jupyterhub-deploy-teaching : <none>
 jupyter/jvm-magics                  : <none>
 jupyter/jvm-repr                    : <none>
 jupyter/kernel-protocol             : <none>
+jupyter/nbindex                     : <none>
+jupyter/tmpnb-deploy                : <none>
+jupyter/nbconvert-examples          : <none>
+jupyterhub/binder-billing           : <none>
+jupyter-xeus/xeus-calc              : <none>
+jupyter/kernel_gateway_demos        : <none>
+jupyter/notebook-research           : <none>
+jupyter/mozfest15-training          : <none>
+jupyter/spreadsheet                 : <none>
+
+jupyter/newsletter                  : <none>
+jupyter/practice                    : <none>
+jupyter/roadmap                     : <none>
+jupyter/schema                      : <none>
+jupyter/services                    : <none>
+jupyter/showcase                    : <none>
