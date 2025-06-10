@@ -14,6 +14,7 @@ Members
 - Joe Lucas [@josephtlucas](https://github.com/josephtlucas)
 - Rosio Reyes [@RRosio](https://github.com/RRosio)
 - Erik Sundell [@consideRatio](https://github.com/consideRatio)
+- Mike Krassowski [@krassowski](https://github.com/krassowski)
 
 The Jupyter Security Subproject representative to the [Jupyter Software Steering Council](https://jupyter.org/governance/software_steering_council.html) for 2023 is Rick Wagner ([@rpwagner](https://github.com/rpwagner)).
 
