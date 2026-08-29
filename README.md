@@ -17,7 +17,7 @@ Members
 - Mike Krassowski [@krassowski](https://github.com/krassowski)
 - Yann Pellegrini [@Yann-P](https://github.com/Yann-P)
 
-The Jupyter Security Subproject representative to the [Jupyter Software Steering Council](https://jupyter.org/governance/software_steering_council.html) for 2023 is Rick Wagner ([@rpwagner](https://github.com/rpwagner)).
+The Jupyter Security Subproject representative to the [Jupyter Software Steering Council](https://jupyter.org/governance/software_steering_council.html) is Yann Pellegrini ([@Yann-P](https://github.com/Yann-P)).
 
 # Misc Security Information
 
