@@ -21,6 +21,6 @@ For credential that _must be shared_, or for safekeeping, Jupyter has a team [1P
 account which has been graciously provided by the
 [1Password-team-open-source](https://github.com/1Password/1password-teams-open-source/pull/441).
 
-If you you wish to have access contact the Jupyter Security Team at security-council [at] jupyter.org.
+If you would like to join us, please contact the Jupyter Security Council at security-council [at] jupyter.org.
 
 
