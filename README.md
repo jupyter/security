@@ -9,11 +9,7 @@ If you need to privately disclose security issues please see https://jupyter.org
 Members
 - Matthias Bussonnier [@Carreau](https://github.com/Carreau)
 - Jason Grout [@jasongrout](https://github.com/jasongrout)
-- Rick Wagner [@rpwagner](https://github.com/rpwagner)
 - David L. Qiu [@dlqqq](https://github.com/dlqqq)
-- Joe Lucas [@josephtlucas](https://github.com/josephtlucas)
-- Rosio Reyes [@RRosio](https://github.com/RRosio)
-- Erik Sundell [@consideRatio](https://github.com/consideRatio)
 - Mike Krassowski [@krassowski](https://github.com/krassowski)
 - Yann Pellegrini [@Yann-P](https://github.com/Yann-P)
 
@@ -25,6 +21,6 @@ For credential that _must be shared_, or for safekeeping, Jupyter has a team [1P
 account which has been graciously provided by the
 [1Password-team-open-source](https://github.com/1Password/1password-teams-open-source/pull/441).
 
-If you you wish to have access contact the Jupyter Security Team.
+If you you wish to have access contact the Jupyter Security Team at security-council [at] jupyter.org.
 
 
