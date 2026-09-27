@@ -4,6 +4,9 @@
 # dependencies = [
 #   "requests",
 #   "rich",
+#   "httpx",
+#   "trio",
+#   "diskcache",
 #   "beautifulsoup4",
 # ]
 # ///
@@ -14,7 +17,7 @@ It implements disk-based caching to minimize API requests and respect rate limit
 """
 
 import os
-import asks
+import httpx
 from rich import print
 import trio
 
@@ -28,6 +31,17 @@ maintainers_name_map = {
     "Kyle.Kelley": "rgbkrk",
     "bgranger": "ellisonbg",
 }
+
+_client = None
+
+
+async def _get(url, **kwargs):
+    """One-shot GET, backed by a lazily-created shared httpx client."""
+    global _client
+    if _client is None:
+        _client = httpx.AsyncClient(follow_redirects=True, timeout=30)
+    return await _client.get(url, **kwargs)
+
 
 import diskcache
 from datetime import datetime
@@ -116,7 +130,7 @@ async def list_github_repos(orgs):
 async def list_repos_for_org(org):
     reps = []
     for p in range(1, 10):
-        response = await asks.get(
+        response = await _get(
             f"https://api.github.com/orgs/{org}/repos?per_page=100&page={p}",
             headers=headers,
         )
@@ -141,13 +155,13 @@ async def get_package_maintainers(package: str) -> tuple[list[str], bool]:
     if package in cache:
         print("c", end="", flush=True)
         return cache[package], True
-    response = await asks.get(url)
+    response = await _get(url)
     # fastly html is 200 even if package is not found, so the json instead
     assert len(package.strip()) > 2, package
     url = f"https://pypi.org/pypi/{package}/json"
 
     try:
-        (await asks.get(url)).raise_for_status()
+        (await _get(url)).raise_for_status()
     except Exception as e:
         raise ValueError("For package", package) from e
     if response.status_code == 200:
@@ -303,7 +317,7 @@ async def main(config_file: str = "all_repos.txt"):
                             org,
                             repo,
                             (
-                                await asks.get(f"https://pypi.org/pypi/{repo}/json")
+                                await _get(f"https://pypi.org/pypi/{repo}/json")
                             ).status_code,
                             maintainers,
                             archived,
