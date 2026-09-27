@@ -120,6 +120,9 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# On-disk GitHub API caches produced by the tools/ scripts
+github_cache-*/
+
 # mypy
 .mypy_cache/
 .dmypy.json
