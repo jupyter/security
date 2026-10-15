@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-ARG SECURITY_OVERVIEW_REF=7131770f0789a0a6a6f69cd0dc0e5bc86a412765
+ARG SECURITY_OVERVIEW_REF=0a31e9e8b6f7027780401c5ee10af3021db46418
 
 RUN pip install --no-cache-dir \
       jupyterlab==4.6.3 \
